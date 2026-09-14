@@ -622,6 +622,24 @@
       color: #3730a3;
     }
 
+    .badge-fase-1 {
+      background: #ecfdf5;
+      color: #065f46;
+      border: 1px solid #a7f3d0;
+    }
+
+    .badge-fase-2 {
+      background: #eff6ff;
+      color: #1e40af;
+      border: 1px solid #bfdbfe;
+    }
+
+    .badge-fase-3 {
+      background: #f1f5f9;
+      color: #64748b;
+      border: 1px solid #cbd5e1;
+    }
+
     .badge-logistica {
       background: #f1f5f9;
       color: #475569;
@@ -978,6 +996,13 @@
           <input type="text" id="searchInput" class="search-input" placeholder="Cerca struttura, medico, indirizzo, note... (premi '/' per cercare)" oninput="handleSearch(this.value)">
         </div>
 
+        <select id="faseFilter" class="filter-select" onchange="handleFilterFase(this.value)" style="font-weight: 600;">
+          <option value="">🎯 Tutte le Fasi (Focus)</option>
+          <option value="Fase 1">🎯 Fase 1: Tirocinio Immediato (43)</option>
+          <option value="Fase 2">🤝 Fase 2: Post-Abilitazione (31)</option>
+          <option value="Fase 3">📦 Fase 3: Standby / Non Clinico (22)</option>
+        </select>
+
         <select id="statusFilter" class="filter-select" onchange="handleFilterStatus(this.value)">
           <option value="">Tutti gli stati</option>
           <option value="Da contattare">Da contattare</option>
@@ -1049,15 +1074,26 @@
           </div>
 
           <div class="form-group">
+            <label class="form-label">Fase Strategica / Focus</label>
+            <select id="formFase" class="form-select-full">
+              <option value="Fase 1 - Tirocinio Immediato (Clinica & Studi)">🎯 Fase 1: Tirocinio Immediato (Clinica & Studi)</option>
+              <option value="Fase 2 - Post-Abilitazione (Partnership & Clienti)">🤝 Fase 2: Post-Abilitazione (Partnership & Clienti)</option>
+              <option value="Fase 3 - Standby / Non Clinico (Food Tech & Lab)">📦 Fase 3: Standby / Non Clinico (Food Tech & Lab)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
             <label class="form-label">Cluster Strategico</label>
             <select id="formCluster" class="form-select-full">
-              <option value="DCA & Psiconutrizione">DCA & Psiconutrizione</option>
               <option value="Studi Privati Nutrizione">Studi Privati Nutrizione</option>
+              <option value="DCA & Psiconutrizione">DCA & Psiconutrizione</option>
               <option value="Ospedaliero / Convenzione UniCT">Ospedaliero / Convenzione UniCT</option>
               <option value="Poliambulatori Specialistici">Poliambulatori Specialistici</option>
+              <option value="PMA, Fertilità & Ginecologia">PMA, Fertilità & Ginecologia</option>
               <option value="Case di Cura & Cliniche Private">Case di Cura & Cliniche Private</option>
-              <option value="Medicina dello Sport & Fitness">Medicina dello Sport & Fitness</option>
-              <option value="Laboratori Analisi & HACCP">Laboratori Analisi & HACCP</option>
+              <option value="Sport, Fitness & Palestre">Sport, Fitness & Palestre</option>
+              <option value="Farmacie & Parafarmacie dei Servizi">Farmacie & Parafarmacie dei Servizi</option>
+              <option value="Laboratori, HACCP & Food Tech">Laboratori, HACCP & Food Tech</option>
             </select>
           </div>
 
@@ -1180,182 +1216,449 @@
     const INITIAL_EMBEDDED_LEADS = [
   {
     "id": 1,
+    "Fase_Focus": "Fase 1 - Tirocinio Immediato (Clinica & Studi)",
     "Cluster": "DCA & Psiconutrizione",
-    "Nome_Struttura_Professionista": "Food for Mind Catania",
-    "Tipologia": "Centro DCA Multidisciplinare (Dott. V. Bonaccorsi)",
+    "Nome_Struttura_Professionista": "Food for Mind Catania (Poliambulatorio NutriMenti)",
+    "Tipologia": "Centro Specialistico DCA Multidisciplinare (Dott. V. Bonaccorsi)",
     "Indirizzo": "Via Paolo Bentivoglio, 62",
     "Zona_Quartiere": "Milo / Monserrato",
-    "Logistica_Distanza": "Metro Milo (3 min) / 20 min a piedi",
+    "Logistica_Distanza": "Metro Milo (3-4 min a piedi) / 15-20 min a piedi",
     "Telefono": "+39 349 1298277",
     "Email_PEC": "catania@foodmind.it",
     "Sito_Web_Riferimento": "https://www.foodmind.it",
-    "Note_Opportunita_Melania": "Gold standard per la tesi triennale su DCA e salute mentale. Équipe integrata nutrizionista + psicoterapeuta.",
+    "Note_Opportunita_Melania": "Gold standard per la tesi triennale su DCA e salute mentale. Équipe integrata con psicoterapeuti, approccio non prescrittivo ed empatico.",
     "Stato_Candidatura": "Da contattare",
     "Note_Followup": "",
     "Data_Ultimo_Contatto": ""
   },
   {
     "id": 2,
+    "Fase_Focus": "Fase 1 - Tirocinio Immediato (Clinica & Studi)",
     "Cluster": "DCA & Psiconutrizione",
     "Nome_Struttura_Professionista": "PerFormat Salute Catania",
-    "Tipologia": "Centro Clinico & Master DCA (Dott.ssa C. Ajon, Dott. F. Inzerra)",
-    "Indirizzo": "Piazza Cavour, 14",
+    "Tipologia": "Centro Clinico & Sede Master DCA (Dott.ssa C. Ajon, Dott. F. Inzerra)",
+    "Indirizzo": "Piazza Cavour, 14 (Palazzo Porto Sollima)",
     "Zona_Quartiere": "Borgo",
-    "Logistica_Distanza": "Metro Borgo (1 min) / 14 min a piedi",
+    "Logistica_Distanza": "Metro Borgo (1 min a piedi) / 14 min a piedi",
     "Telefono": "095 8365969",
     "Email_PEC": "catania@performat.it",
     "Sito_Web_Riferimento": "https://www.performatsalute.it",
-    "Note_Opportunita_Melania": "Master DCA, psicoterapia integrata con biologi nutrizionisti, approccio non prescrittivo ed empatico.",
+    "Note_Opportunita_Melania": "Master DCA, psicoterapia integrata con biologi nutrizionisti, educazione alimentare senza restrizioni.",
     "Stato_Candidatura": "Da contattare",
     "Note_Followup": "",
     "Data_Ultimo_Contatto": ""
   },
   {
     "id": 3,
-    "Cluster": "Ospedaliero / Convenzione UniCT",
-    "Nome_Struttura_Professionista": "ARNAS Garibaldi Centro – UOSD Dietologia e Nutrizione Clinica",
-    "Tipologia": "Presidio Ospedaliero ad Alta Specializzazione",
-    "Indirizzo": "Piazza Santa Maria di Gesù, 5",
-    "Zona_Quartiere": "Santa Maria di Gesù",
-    "Logistica_Distanza": "5-6 min a piedi",
-    "Telefono": "095 7591111",
-    "Email_PEC": "urp@arnasgaribaldi.it",
-    "Sito_Web_Riferimento": "https://www.ao-garibaldi.ct.it",
-    "Note_Opportunita_Melania": "A 5 minuti da casa. Ambulatorio obesità, bariatrica e malnutrizione. Canale tirocinio curriculare convenzionato UniCT.",
+    "Fase_Focus": "Fase 1 - Tirocinio Immediato (Clinica & Studi)",
+    "Cluster": "DCA & Psiconutrizione",
+    "Nome_Struttura_Professionista": "Jonas Catania – Centro Psicoanalitico per i Nuovi Sintomi",
+    "Tipologia": "Centro Clinico DCA, Anoressia, Bulimia & Disagio Emotivo",
+    "Indirizzo": "Via Fortuna, 5",
+    "Zona_Quartiere": "Centro Storico / Villa Bellini",
+    "Logistica_Distanza": "Metro Stesicoro (6 min a piedi) / 20 min a piedi",
+    "Telefono": "371 1222704",
+    "Email_PEC": "catania@jonasitalia.it",
+    "Sito_Web_Riferimento": "https://www.jonasitalia.it/jonas-catania",
+    "Note_Opportunita_Melania": "Rete fondata da M. Recalcati. Collaborazione con nutrizionisti per percorsi non prescrittivi e accoglienza del disagio alimentare.",
     "Stato_Candidatura": "Da contattare",
     "Note_Followup": "",
     "Data_Ultimo_Contatto": ""
   },
   {
     "id": 4,
-    "Cluster": "Ospedaliero / Convenzione UniCT",
-    "Nome_Struttura_Professionista": "ARNAS Garibaldi Nesima – UOC Endocrinologia e Malattie del Ricambio",
-    "Tipologia": "Presidio Ospedaliero Universitario",
-    "Indirizzo": "Via Palermo, 636",
-    "Zona_Quartiere": "Nesima",
-    "Logistica_Distanza": "Metro Fontana (0 min - tunnel sotterraneo)",
-    "Telefono": "095 7595000",
-    "Email_PEC": "urp@arnasgaribaldi.it",
-    "Sito_Web_Riferimento": "https://www.ao-garibaldi.ct.it",
-    "Note_Opportunita_Melania": "Centro regionale obesità e chirurgia bariatrica. Cattedra Prof.ssa Lucia Frittitta (docente ordinaria Magistrale UniCT).",
+    "Fase_Focus": "Fase 1 - Tirocinio Immediato (Clinica & Studi)",
+    "Cluster": "DCA & Psiconutrizione",
+    "Nome_Struttura_Professionista": "CE.SI.D.EA. – Centro Siciliano Depressione, Ansia & Psicosomatica",
+    "Tipologia": "Centro Clinico per Benessere Psicofisico & Emotional Eating",
+    "Indirizzo": "Via Padova, 83 / Viale Vittorio Veneto, 30",
+    "Zona_Quartiere": "Vittorio Veneto / Italia",
+    "Logistica_Distanza": "Metro Giuffrida o Italia (5 min a piedi)",
+    "Telefono": "095 505935 / 347 4601693",
+    "Email_PEC": "info@cesidea.it",
+    "Sito_Web_Riferimento": "http://www.cesidea.it",
+    "Note_Opportunita_Melania": "Asse mente-cibo-intestino, fame emotiva e regolazione serotoninergica attraverso alimentazione naturale e vegetale.",
     "Stato_Candidatura": "Da contattare",
     "Note_Followup": "",
     "Data_Ultimo_Contatto": ""
   },
   {
     "id": 5,
-    "Cluster": "Case di Cura & Cliniche Private",
-    "Nome_Struttura_Professionista": "Casa di Cura Mater Dei",
-    "Tipologia": "Casa di Cura Accreditata SSN con Degenze",
-    "Indirizzo": "Viale Mario Rapisardi, 1",
-    "Zona_Quartiere": "Rapisardi / S. Maria di Gesù",
-    "Logistica_Distanza": "5 min a piedi",
-    "Telefono": "095 7311111",
-    "Email_PEC": "info@casadicuramaterdei.com",
-    "Sito_Web_Riferimento": "https://www.casadicuramaterdei.com",
-    "Note_Opportunita_Melania": "A 5 min a piedi. Reparti chirurgici, degenze, poliambulatorio e laboratorio. Gestione tabelle dietetiche ed HACCP.",
+    "Fase_Focus": "Fase 1 - Tirocinio Immediato (Clinica & Studi)",
+    "Cluster": "DCA & Psiconutrizione",
+    "Nome_Struttura_Professionista": "U.O.S.D. Disturbi della Nutrizione e dell'Alimentazione (ASP Catania)",
+    "Tipologia": "Polo Territoriale Pubblico di III Livello DCA",
+    "Indirizzo": "Via Galermo, 173 (1° piano)",
+    "Zona_Quartiere": "Cibali / Galermo",
+    "Logistica_Distanza": "10 min bus da Cifali / navetta da Metro Milo",
+    "Telefono": "095 2540600",
+    "Email_PEC": "dca.ludopatie@aspct.it",
+    "Sito_Web_Riferimento": "https://www.aspct.it",
+    "Note_Opportunita_Melania": "Rete istituzionale pubblica multidisciplinare (psichiatri, nutrizionisti, dietisti). Networking per tirocini e progettualità regionale.",
     "Stato_Candidatura": "Da contattare",
     "Note_Followup": "",
     "Data_Ultimo_Contatto": ""
   },
   {
     "id": 6,
-    "Cluster": "Case di Cura & Cliniche Private",
-    "Nome_Struttura_Professionista": "Clinica Falcidia",
-    "Tipologia": "Casa di Cura Ostetrico-Ginecologica & PMA",
-    "Indirizzo": "Via San Tomaso d'Aquino, 32/34",
-    "Zona_Quartiere": "Picanello / Vittorio Veneto",
-    "Logistica_Distanza": "Metro Giuffrida (8 min a piedi)",
-    "Telefono": "095 7122111",
-    "Email_PEC": "info@clinicafalcidia.it",
-    "Sito_Web_Riferimento": "https://www.clinicafalcidia.it",
-    "Note_Opportunita_Melania": "Punto di riferimento regionale ginecologia, ostetricia e PMA. Nutrizione per fertilità, PCOS e gravidanza.",
+    "Fase_Focus": "Fase 1 - Tirocinio Immediato (Clinica & Studi)",
+    "Cluster": "PMA, Fertilità & Ginecologia",
+    "Nome_Struttura_Professionista": "CRA – Centro di Riproduzione Assistita (CRA Group)",
+    "Tipologia": "Centro PMA II Livello Convenzionato SSN / Infertilità di Coppia",
+    "Indirizzo": "Viale Odorico da Pordenone, 5",
+    "Zona_Quartiere": "Circonvallazione / Borgo",
+    "Logistica_Distanza": "18 min a piedi / Metro Milo + bus",
+    "Telefono": "095 436595",
+    "Email_PEC": "info@cragroup.it",
+    "Sito_Web_Riferimento": "https://cragroup.it",
+    "Note_Opportunita_Melania": "Preparazione metabolica e antiossidante al ciclo PMA per migliorare ovogenesi, qualità seminale e recettività endometriale.",
     "Stato_Candidatura": "Da contattare",
     "Note_Followup": "",
     "Data_Ultimo_Contatto": ""
   },
   {
     "id": 7,
-    "Cluster": "Case di Cura & Cliniche Private",
-    "Nome_Struttura_Professionista": "Casa di Cura Gibiino",
-    "Tipologia": "Casa di Cura Privata Accreditata SSN",
-    "Indirizzo": "Viale Odorico da Pordenone, 25",
+    "Fase_Focus": "Fase 1 - Tirocinio Immediato (Clinica & Studi)",
+    "Cluster": "PMA, Fertilità & Ginecologia",
+    "Nome_Struttura_Professionista": "Casa di Cura Falcidia – Dipartimento PMA e Ostetricia",
+    "Tipologia": "Centro PMA III Livello, Clinica Ostetrico-Ginecologica Accreditata",
+    "Indirizzo": "Viale Odorico da Pordenone, 32",
     "Zona_Quartiere": "Circonvallazione / Borgo",
-    "Logistica_Distanza": "Metro Milo / Borgo (10 min a piedi)",
-    "Telefono": "095 7335111",
-    "Email_PEC": "info@casadicuragibiino.it",
-    "Sito_Web_Riferimento": "https://www.casadicuragibiino.it",
-    "Note_Opportunita_Melania": "Chirurgia generale, degenze, diagnostica e poliambulatorio specialistico.",
+    "Logistica_Distanza": "20-22 min a piedi / Metro Milo o Borgo + bus",
+    "Telefono": "095 580448 / 095 580578",
+    "Email_PEC": "info@falcidia.it",
+    "Sito_Web_Riferimento": "https://www.falcidia.it",
+    "Note_Opportunita_Melania": "Punto di riferimento regionale per PMA e gravidanze a rischio. Nutrizione ormonale per PCOS, fertilità, diabete gestazionale.",
     "Stato_Candidatura": "Da contattare",
     "Note_Followup": "",
     "Data_Ultimo_Contatto": ""
   },
   {
     "id": 8,
-    "Cluster": "Case di Cura & Cliniche Private",
-    "Nome_Struttura_Professionista": "Humanitas Medical Care Catania",
-    "Tipologia": "Poliambulatorio Specialistico di Alta Specializzazione",
-    "Indirizzo": "Via Ipogeo, 12",
-    "Zona_Quartiere": "Piazza Lanza",
-    "Logistica_Distanza": "8-9 min a piedi",
-    "Telefono": "095 7339000",
-    "Email_PEC": "informazioni@humanitascatania.it",
-    "Sito_Web_Riferimento": "https://www.humanitas-care.it",
-    "Note_Opportunita_Melania": "Dietetica clinica e coaching nutrizionale. Brand ospedaliero di massimo prestigio su CV a 8 min da casa.",
+    "Fase_Focus": "Fase 1 - Tirocinio Immediato (Clinica & Studi)",
+    "Cluster": "PMA, Fertilità & Ginecologia",
+    "Nome_Struttura_Professionista": "GmR – Ginecologia e Medicina della Riproduzione",
+    "Tipologia": "Centro PMA II Livello Accreditato ISS / Fecondazione Assistita",
+    "Indirizzo": "Viale Marco Polo, 11",
+    "Zona_Quartiere": "Circonvallazione",
+    "Logistica_Distanza": "25 min a piedi / Metro Milo-Borgo",
+    "Telefono": "095 336649",
+    "Email_PEC": "info@centrogmr.it",
+    "Sito_Web_Riferimento": "https://centrogmr.it",
+    "Note_Opportunita_Melania": "Protocolli nutrizionali integrati per insulino-resistenza e supporto metabolico prima dei pick-up ovocitari.",
     "Stato_Candidatura": "Da contattare",
     "Note_Followup": "",
     "Data_Ultimo_Contatto": ""
   },
   {
     "id": 9,
-    "Cluster": "Poliambulatori Specialistici",
-    "Nome_Struttura_Professionista": "Centro Medico Catanese",
-    "Tipologia": "Poliambulatorio Polispecialistico (Dott.ssa N. Malerba)",
-    "Indirizzo": "Viale XX Settembre, 70",
-    "Zona_Quartiere": "Villa Bellini / Centro",
-    "Logistica_Distanza": "12-13 min a piedi / Metro Italia (8 min)",
-    "Telefono": "095 16933016",
-    "Email_PEC": "info@centromedicocatanese.it",
-    "Sito_Web_Riferimento": "https://www.centromedicocatanese.it",
-    "Note_Opportunita_Melania": "Ambulatorio di Biologia della Nutrizione, patologia clinica, nutrizione sportiva e prevenzione cardiovascolare.",
+    "Fase_Focus": "Fase 1 - Tirocinio Immediato (Clinica & Studi)",
+    "Cluster": "PMA, Fertilità & Ginecologia",
+    "Nome_Struttura_Professionista": "C.M.R.I. – Centro Medicina Riproduzione e Infertilità",
+    "Tipologia": "Centro PMA II Livello (Dott. Carlo Torrisi)",
+    "Indirizzo": "Via Fondo Cosentino, 6",
+    "Zona_Quartiere": "Cibali / San Nullo",
+    "Logistica_Distanza": "Metro San Nullo o Cibali / breve tratto a piedi",
+    "Telefono": "095 7142620",
+    "Email_PEC": "segreteria@drcarlotorrisi.it",
+    "Sito_Web_Riferimento": "http://www.drcarlotorrisi.it",
+    "Note_Opportunita_Melania": "Consulenze esterne e convenzionate di nutrizione per le coppie infertili nel quadrante vicino casa (95123).",
     "Stato_Candidatura": "Da contattare",
     "Note_Followup": "",
     "Data_Ultimo_Contatto": ""
   },
   {
     "id": 10,
-    "Cluster": "Poliambulatori Specialistici",
-    "Nome_Struttura_Professionista": "CME – Centro Multispecialistico Etneo",
-    "Tipologia": "Grande Centro Polispecialistico Moderno",
-    "Indirizzo": "Via Guardia della Carvana, 4/A",
-    "Zona_Quartiere": "Vittorio Veneto",
-    "Logistica_Distanza": "Metro Giuffrida (2 min a piedi)",
-    "Telefono": "095 8176800",
-    "Email_PEC": "info@cmecatania.it",
-    "Sito_Web_Riferimento": "https://www.cmecatania.it",
-    "Note_Opportunita_Melania": "Servizio strutturato di Dietologia e Nutrizione Umana. Ideale per apprendere la routine del poliambulatorio.",
+    "Fase_Focus": "Fase 1 - Tirocinio Immediato (Clinica & Studi)",
+    "Cluster": "PMA, Fertilità & Ginecologia",
+    "Nome_Struttura_Professionista": "ARNAS Garibaldi Nesima – Centro Riferimento Regionale Endometriosi & PMA",
+    "Tipologia": "Polo Ospedaliero Universitario di Alta Specializzazione",
+    "Indirizzo": "Via Palermo, 636",
+    "Zona_Quartiere": "Nesima",
+    "Logistica_Distanza": "Metro Nesima o Fontana (tunnel diretto / 4 min da Metro Cibali)",
+    "Telefono": "095 7595672 / 335 1996196",
+    "Email_PEC": "endometriosi@arnasgaribaldi.it",
+    "Sito_Web_Riferimento": "https://www.maternoinfantilegaribaldi.it",
+    "Note_Opportunita_Melania": "Équipe multidisciplinare strutturata con nutrizionisti per protocolli antinfiammatori e low-FODMAP per endometriosi e PMA.",
     "Stato_Candidatura": "Da contattare",
     "Note_Followup": "",
     "Data_Ultimo_Contatto": ""
   },
   {
     "id": 11,
-    "Cluster": "Poliambulatori Specialistici",
-    "Nome_Struttura_Professionista": "Poliambulatorio Gi.Sa.",
-    "Tipologia": "Poliambulatorio Multispecialistico (Dott.ssa I. Scainelli)",
-    "Indirizzo": "Via Dottor Consoli, 14/A",
-    "Zona_Quartiere": "Santa Maria di Gesù",
-    "Logistica_Distanza": "9-10 min a piedi",
-    "Telefono": "095 2180135",
-    "Email_PEC": "info@poliambulatoriogisa.it",
-    "Sito_Web_Riferimento": "https://www.poliambulatoriogisa.it",
-    "Note_Opportunita_Melania": "Nutrizionista anche erborista/fitoterapeuta; ponte con merceologia vegetale e tecnologie alimentari. Endocrinologia.",
+    "Fase_Focus": "Fase 1 - Tirocinio Immediato (Clinica & Studi)",
+    "Cluster": "PMA, Fertilità & Ginecologia",
+    "Nome_Struttura_Professionista": "Poliambulatorio Medisan",
+    "Tipologia": "Polo Chirurgico & Diagnostico con Centro Endometriosi II Livello",
+    "Indirizzo": "Via Selvosa, 14/16/18",
+    "Zona_Quartiere": "Cibali / Rapisardi",
+    "Logistica_Distanza": "20-25 min a piedi (stesso CAP 95123 di casa)",
+    "Telefono": "095 7311617 / 328 6929161",
+    "Email_PEC": "info@medisancatania.it",
+    "Sito_Web_Riferimento": "https://www.medisancatania.it",
+    "Note_Opportunita_Melania": "Ginecologia specialistica per dolore pelvico cronico ed endometriosi profonda: la nutrizione antinfiammatoria è pilastro conservativo.",
     "Stato_Candidatura": "Da contattare",
     "Note_Followup": "",
     "Data_Ultimo_Contatto": ""
   },
   {
     "id": 12,
+    "Fase_Focus": "Fase 1 - Tirocinio Immediato (Clinica & Studi)",
+    "Cluster": "Case di Cura & Cliniche Private",
+    "Nome_Struttura_Professionista": "Casa di Cura Mater Dei",
+    "Tipologia": "Casa di Cura Polispecialistica Accreditata SSN con Degenze",
+    "Indirizzo": "Viale Mario Rapisardi, 1",
+    "Zona_Quartiere": "Rapisardi / S. Maria di Gesù",
+    "Logistica_Distanza": "5-6 min a piedi da Via Ferrante Aporti",
+    "Telefono": "095 7369111 / 095 7369401",
+    "Email_PEC": "infourp@materdeicatania.it",
+    "Sito_Web_Riferimento": "https://www.casadicuramaterdei.com",
+    "Note_Opportunita_Melania": "A 5 minuti da casa. Degenze chirurgiche, poliambulatorio e laboratorio. Gestione diete post-operatorie e HACCP mensa degenti.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 13,
+    "Fase_Focus": "Fase 1 - Tirocinio Immediato (Clinica & Studi)",
+    "Cluster": "Case di Cura & Cliniche Private",
+    "Nome_Struttura_Professionista": "Casa di Cura Madonna del Rosario",
+    "Tipologia": "Clinica Riabilitazione Neuromotoria e Recupero Funzionale SSN",
+    "Indirizzo": "Via Bronte, 44",
+    "Zona_Quartiere": "Milo / Cibali",
+    "Logistica_Distanza": "10-12 min a piedi (900 m) / Metro Milo (5 min)",
+    "Telefono": "095 434127",
+    "Email_PEC": "urp@casadicuramadonnadelrosarioct.it",
+    "Sito_Web_Riferimento": "https://www.casadicuramadonnadelrosarioct.it",
+    "Note_Opportunita_Melania": "40 posti letto per riabilitazione post-ictus e traumi: screening malnutrizione, prevenzione sarcopenia, gestione disfagia e diete speciali.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 14,
+    "Fase_Focus": "Fase 1 - Tirocinio Immediato (Clinica & Studi)",
+    "Cluster": "Case di Cura & Cliniche Private",
+    "Nome_Struttura_Professionista": "Humanitas Medical Care – Centro Diagnostico Catania",
+    "Tipologia": "Grande Polo Polispecialistico e Diagnostico Network Humanitas",
+    "Indirizzo": "Piazza Vincenzo Lanza, 17/C (Via Ipogeo 12)",
+    "Zona_Quartiere": "Piazza Lanza",
+    "Logistica_Distanza": "4-5 min a piedi da Via Ferrante Aporti",
+    "Telefono": "095 82592000 / 095 7339000",
+    "Email_PEC": "catania@mc.humanitas.it",
+    "Sito_Web_Riferimento": "https://www.humanitascatania.it",
+    "Note_Opportunita_Melania": "A 400 metri da casa. Counseling nutrizionale per pazienti gastroenterologici, oncologici e sindrome metabolica. Brand top tier.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 15,
+    "Fase_Focus": "Fase 1 - Tirocinio Immediato (Clinica & Studi)",
+    "Cluster": "Case di Cura & Cliniche Private",
+    "Nome_Struttura_Professionista": "C.S.R. – Consorzio Siciliano di Riabilitazione (AIAS Catania)",
+    "Tipologia": "Polo Riabilitativo per Disabilità Neuromotorie Complesse",
+    "Indirizzo": "Via Don Giovanni Minzoni, 13",
+    "Zona_Quartiere": "Cibali",
+    "Logistica_Distanza": "8-10 min a piedi (700 m) / Metro Cibali",
+    "Telefono": "095 8311300 / 095 8311000",
+    "Email_PEC": "info@csraias.it",
+    "Sito_Web_Riferimento": "https://www.csraias.it",
+    "Note_Opportunita_Melania": "Nutrizione clinica per disfagia e disabilità. Competenze reologiche e chimiche per pasti a consistenza controllata.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 16,
+    "Fase_Focus": "Fase 1 - Tirocinio Immediato (Clinica & Studi)",
+    "Cluster": "Case di Cura & Cliniche Private",
+    "Nome_Struttura_Professionista": "Casa di Cura Valsalva",
+    "Tipologia": "Casa di Cura Chirurgica e Polispecialistica Accreditata SSN",
+    "Indirizzo": "Viale Antoniotto Usodimare, 109 (ang. Via Galermo)",
+    "Zona_Quartiere": "Cibali / San Nullo",
+    "Logistica_Distanza": "15-18 min a piedi / Metro San Nullo",
+    "Telefono": "095 7141924",
+    "Email_PEC": "amministrazione@casadicuravalsalva.it",
+    "Sito_Web_Riferimento": "https://www.casadicuravalsalva.it",
+    "Note_Opportunita_Melania": "45 posti letto chirurgia e degenze ordinarie: protocolli nutrizionali ERAS peri-operatori e controllo menu degenti.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 17,
+    "Fase_Focus": "Fase 2 - Post-Abilitazione (Partnership & Clienti)",
+    "Cluster": "Case di Cura & Cliniche Private",
+    "Nome_Struttura_Professionista": "Azzurra – Ambulatorio Medico Nefrologico e Tecniche Dialitiche",
+    "Tipologia": "Centro Emodialisi e Nefrologia Accreditato SSN",
+    "Indirizzo": "Viale Mario Rapisardi, 474",
+    "Zona_Quartiere": "Rapisardi",
+    "Logistica_Distanza": "18-20 min a piedi / Metro San Nullo / Bus Rapisardi",
+    "Telefono": "095 351986",
+    "Email_PEC": "azzurraambulatorio@hotmail.com",
+    "Sito_Web_Riferimento": "https://www.azzurradialisi.it",
+    "Note_Opportunita_Melania": "Dietetica nefrologica: regimi aproteici nel pre-dialisi ed equilibrati nel dializzato. Settore clinico altamente formativo.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 18,
+    "Fase_Focus": "Fase 1 - Tirocinio Immediato (Clinica & Studi)",
+    "Cluster": "Case di Cura & Cliniche Private",
+    "Nome_Struttura_Professionista": "Casa di Cura Gibiino",
+    "Tipologia": "Clinica Polispecialistica Accreditata SSN (Gastroenterologia & Chirurgia)",
+    "Indirizzo": "Viale Odorico da Pordenone, 25",
+    "Zona_Quartiere": "Circonvallazione / Borgo",
+    "Logistica_Distanza": "20-22 min a piedi / Metro Milo-Borgo + 7 min",
+    "Telefono": "095 501224",
+    "Email_PEC": "segreteria@casadicuragibiino.it",
+    "Sito_Web_Riferimento": "https://www.casadicuragibiino.it",
+    "Note_Opportunita_Melania": "Reparto gastroenterologia ed endoscopia digestiva: gestione nutrizionale per IBD, celiachia, FODMAPs e degenza.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 19,
+    "Fase_Focus": "Fase 2 - Post-Abilitazione (Partnership & Clienti)",
+    "Cluster": "Case di Cura & Cliniche Private",
+    "Nome_Struttura_Professionista": "Casa di Cura Chirurgica Villa San Francesco",
+    "Tipologia": "Casa di Cura Privata a Indirizzo Chirurgico",
+    "Indirizzo": "Viale Odorico da Pordenone, 46/48",
+    "Zona_Quartiere": "Circonvallazione / Borgo",
+    "Logistica_Distanza": "22-25 min a piedi / Metro Borgo",
+    "Telefono": "095 333040",
+    "Email_PEC": "info@clinicavillasanfrancesco.it",
+    "Sito_Web_Riferimento": "https://www.clinicavillasanfrancesco.it",
+    "Note_Opportunita_Melania": "Degenze post-operatorie e chirurgia generale: consulenza per ripresa alimentazione e menu degenti.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 20,
+    "Fase_Focus": "Fase 1 - Tirocinio Immediato (Clinica & Studi)",
+    "Cluster": "Case di Cura & Cliniche Private",
+    "Nome_Struttura_Professionista": "Policlinico Morgagni – Casa di Cura G.B. Morgagni",
+    "Tipologia": "Grande Polo Ospedaliero Privato Accreditato SSN",
+    "Indirizzo": "Via del Bosco, 105",
+    "Zona_Quartiere": "Barriera / Borgo",
+    "Logistica_Distanza": "Metro Milo o Borgo + bus rapido (12-15 min totali)",
+    "Telefono": "095 238111",
+    "Email_PEC": "direzione.sanitaria@morgagni.it",
+    "Sito_Web_Riferimento": "https://www.policlinicomorgagni.it",
+    "Note_Opportunita_Melania": "Medicina interna, oncologia, riabilitazione, mensa ospedaliera interna e servizio nutrizione. Profilo bivalente clinica + HACCP.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 21,
+    "Fase_Focus": "Fase 2 - Post-Abilitazione (Partnership & Clienti)",
+    "Cluster": "Case di Cura & Cliniche Private",
+    "Nome_Struttura_Professionista": "Diaverum – Centro Rene di Catania",
+    "Tipologia": "Centro di Nefrologia ed Emodialisi (Network Internazionale Diaverum)",
+    "Indirizzo": "Via Giuseppe Morgia, 4",
+    "Zona_Quartiere": "Centro",
+    "Logistica_Distanza": "Metro Stesicoro (5-7 min a piedi)",
+    "Telefono": "095 7221455",
+    "Email_PEC": "Catania.Dial@diaverum.com",
+    "Sito_Web_Riferimento": "https://www.diaverum.it",
+    "Note_Opportunita_Melania": "Applica il Diaverum Nutrition Program (dNP) per la terapia nutrizionale renale avanzata.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 22,
+    "Fase_Focus": "Fase 2 - Post-Abilitazione (Partnership & Clienti)",
+    "Cluster": "Case di Cura & Cliniche Private",
+    "Nome_Struttura_Professionista": "Centro Catanese di Medicina e Chirurgia (CCMC)",
+    "Tipologia": "Casa di Cura Accreditata SSN (Lungodegenza e Riabilitazione)",
+    "Indirizzo": "Via Battello, 48",
+    "Zona_Quartiere": "Ognina / Picanello",
+    "Logistica_Distanza": "Metro Giuffrida o Italia + bus",
+    "Telefono": "095 7323111",
+    "Email_PEC": "info@ccmc.it",
+    "Sito_Web_Riferimento": "https://www.ccmc.it",
+    "Note_Opportunita_Melania": "Lungodegenza e riabilitazione: gestione malnutrizione senile, piaghe da decubito, menu dietetici HACCP.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 23,
+    "Fase_Focus": "Fase 1 - Tirocinio Immediato (Clinica & Studi)",
+    "Cluster": "Poliambulatori Specialistici",
+    "Nome_Struttura_Professionista": "Sanicam Catania",
+    "Tipologia": "Grande Centro Polispecialistico e Diagnostico",
+    "Indirizzo": "Via Milano, 85",
+    "Zona_Quartiere": "Corso Italia",
+    "Logistica_Distanza": "Metro Italia (3 min a piedi)",
+    "Telefono": "095 372149 / 328 6254015",
+    "Email_PEC": "info@sanicamcatania.it",
+    "Sito_Web_Riferimento": "http://www.sanicamcatania.it",
+    "Note_Opportunita_Melania": "Ambulatori gastroenterologia, cardiologia, medicina del lavoro. Proposta per educazione alimentare aziendale e clinica.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 24,
+    "Fase_Focus": "Fase 1 - Tirocinio Immediato (Clinica & Studi)",
+    "Cluster": "Poliambulatori Specialistici",
+    "Nome_Struttura_Professionista": "Centro Medico Catanese",
+    "Tipologia": "Poliambulatorio Polispecialistico (Dott.ssa N. Malerba)",
+    "Indirizzo": "Viale XX Settembre, 70",
+    "Zona_Quartiere": "Villa Bellini / Centro",
+    "Logistica_Distanza": "12-13 min a piedi / Metro Italia (8 min)",
+    "Telefono": "095 16933016 / 375 7995135",
+    "Email_PEC": "info@centromedicocatanese.it",
+    "Sito_Web_Riferimento": "https://www.centromedicocatanese.it",
+    "Note_Opportunita_Melania": "Ambulatorio di Biologia della Nutrizione attivo, patologia clinica, nutrizione sportiva e BIA vettoriale.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 25,
+    "Fase_Focus": "Fase 1 - Tirocinio Immediato (Clinica & Studi)",
+    "Cluster": "Poliambulatori Specialistici",
+    "Nome_Struttura_Professionista": "CME – Centro Multispecialistico Etneo",
+    "Tipologia": "Grande Polo Polispecialistico Moderno",
+    "Indirizzo": "Via Guardia della Carvana, 4/A",
+    "Zona_Quartiere": "Vittorio Veneto",
+    "Logistica_Distanza": "Metro Giuffrida (2 min a piedi)",
+    "Telefono": "095 8176800 / 333 8850035",
+    "Email_PEC": "info@cmecatania.it",
+    "Sito_Web_Riferimento": "https://www.cmecatania.it",
+    "Note_Opportunita_Melania": "Oltre 20 branche specialistiche con servizio strutturato di Dietologia e Nutrizione. Elevato flusso e organizzazione aziendale.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 26,
+    "Fase_Focus": "Fase 1 - Tirocinio Immediato (Clinica & Studi)",
+    "Cluster": "Poliambulatori Specialistici",
+    "Nome_Struttura_Professionista": "Poliambulatorio Gi.Sa.",
+    "Tipologia": "Poliambulatorio Multispecialistico (Dott.ssa I. Scainelli)",
+    "Indirizzo": "Via Dottor Consoli, 14/A",
+    "Zona_Quartiere": "Santa Maria di Gesù",
+    "Logistica_Distanza": "9-10 min a piedi",
+    "Telefono": "095 2180135 / 331 3369398",
+    "Email_PEC": "info@poliambulatoriogisa.it",
+    "Sito_Web_Riferimento": "https://www.poliambulatoriogisa.it",
+    "Note_Opportunita_Melania": "Sinergia nutrizione ed erboristeria/fitoterapia; endocrinologia e alimenti vegetali funzionali.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 27,
+    "Fase_Focus": "Fase 2 - Post-Abilitazione (Partnership & Clienti)",
     "Cluster": "Poliambulatori Specialistici",
     "Nome_Struttura_Professionista": "Poliambulatorio MedOS",
     "Tipologia": "Poliambulatorio Specialistico Privato",
@@ -1365,13 +1668,14 @@
     "Telefono": "095 372075",
     "Email_PEC": "segreteria@medos.it",
     "Sito_Web_Riferimento": "https://www.medos.it",
-    "Note_Opportunita_Melania": "Poliambulatorio privato nel polo medico di Corso Italia.",
+    "Note_Opportunita_Melania": "Poliambulatorio privato nel cuore medico di Corso Italia.",
     "Stato_Candidatura": "Da contattare",
     "Note_Followup": "",
     "Data_Ultimo_Contatto": ""
   },
   {
-    "id": 13,
+    "id": 28,
+    "Fase_Focus": "Fase 2 - Post-Abilitazione (Partnership & Clienti)",
     "Cluster": "Poliambulatori Specialistici",
     "Nome_Struttura_Professionista": "Poliambulatorio Esclapio",
     "Tipologia": "Poliambulatorio Medico e Diagnostico",
@@ -1387,7 +1691,8 @@
     "Data_Ultimo_Contatto": ""
   },
   {
-    "id": 14,
+    "id": 29,
+    "Fase_Focus": "Fase 1 - Tirocinio Immediato (Clinica & Studi)",
     "Cluster": "Poliambulatori Specialistici",
     "Nome_Struttura_Professionista": "Poliambulatorio ICT",
     "Tipologia": "Poliambulatorio Medico-Chirurgico (Dr. S. Pedullà)",
@@ -1403,7 +1708,8 @@
     "Data_Ultimo_Contatto": ""
   },
   {
-    "id": 15,
+    "id": 30,
+    "Fase_Focus": "Fase 1 - Tirocinio Immediato (Clinica & Studi)",
     "Cluster": "Poliambulatori Specialistici",
     "Nome_Struttura_Professionista": "Medical CT – Studio Polispecialistico",
     "Tipologia": "Centro Medico Specialistico & Telemedicina",
@@ -1419,23 +1725,25 @@
     "Data_Ultimo_Contatto": ""
   },
   {
-    "id": 16,
+    "id": 31,
+    "Fase_Focus": "Fase 1 - Tirocinio Immediato (Clinica & Studi)",
     "Cluster": "Poliambulatori Specialistici",
     "Nome_Struttura_Professionista": "C3P – Studio Medico Polispecialistico",
     "Tipologia": "Poliambulatorio Specialistico Privato (Dott.ssa S. Matera)",
     "Indirizzo": "Viale Africa, 148/150",
     "Zona_Quartiere": "Galatea",
     "Logistica_Distanza": "Metro Galatea (3-4 min a piedi)",
-    "Telefono": "095 6242661",
+    "Telefono": "095 6242661 / 389 4725304",
     "Email_PEC": "info@c3pstudiomedico.it",
     "Sito_Web_Riferimento": "https://www.c3pstudiomedico.it",
-    "Note_Opportunita_Melania": "Servizio nutrizione interno, de-escalation e customer care; a 3 min dalla metro.",
+    "Note_Opportunita_Melania": "Servizio nutrizione interno, customer care e diagnostica a pochi passi dalla metro.",
     "Stato_Candidatura": "Da contattare",
     "Note_Followup": "",
     "Data_Ultimo_Contatto": ""
   },
   {
-    "id": 17,
+    "id": 32,
+    "Fase_Focus": "Fase 1 - Tirocinio Immediato (Clinica & Studi)",
     "Cluster": "Poliambulatori Specialistici",
     "Nome_Struttura_Professionista": "Centro Arco Catania",
     "Tipologia": "Poliambulatorio & Riabilitazione (Dott.ssa A. Calì)",
@@ -1451,7 +1759,8 @@
     "Data_Ultimo_Contatto": ""
   },
   {
-    "id": 18,
+    "id": 33,
+    "Fase_Focus": "Fase 1 - Tirocinio Immediato (Clinica & Studi)",
     "Cluster": "Poliambulatori Specialistici",
     "Nome_Struttura_Professionista": "Medicare Onlus – Ambulatorio NutriCare",
     "Tipologia": "Struttura Assistenziale e Nutrizione Clinica",
@@ -1467,14 +1776,15 @@
     "Data_Ultimo_Contatto": ""
   },
   {
-    "id": 19,
+    "id": 34,
+    "Fase_Focus": "Fase 1 - Tirocinio Immediato (Clinica & Studi)",
     "Cluster": "Poliambulatori Specialistici",
     "Nome_Struttura_Professionista": "GF Medica – Medicina Innovativa",
     "Tipologia": "Centro Polispecialistico (Dott.ssa N. Fazzio)",
     "Indirizzo": "Viale Regina Margherita, 4/D",
     "Zona_Quartiere": "Piazza Roma",
     "Logistica_Distanza": "9-10 min a piedi",
-    "Telefono": "095 0971050",
+    "Telefono": "095 0971050 / 392 2367118",
     "Email_PEC": "info@gfmedica.it",
     "Sito_Web_Riferimento": "https://www.gfmedica.it",
     "Note_Opportunita_Melania": "Medicina preventiva, anti-aging, composizione corporea e dietetica metabolica.",
@@ -1483,7 +1793,8 @@
     "Data_Ultimo_Contatto": ""
   },
   {
-    "id": 20,
+    "id": 35,
+    "Fase_Focus": "Fase 1 - Tirocinio Immediato (Clinica & Studi)",
     "Cluster": "Poliambulatori Specialistici",
     "Nome_Struttura_Professionista": "FPM Poliambulatori",
     "Tipologia": "Poliambulatorio Medico e Riabilitativo (Dott. S. Malaguarnera)",
@@ -1499,13 +1810,48 @@
     "Data_Ultimo_Contatto": ""
   },
   {
-    "id": 21,
+    "id": 36,
+    "Fase_Focus": "Fase 1 - Tirocinio Immediato (Clinica & Studi)",
+    "Cluster": "Ospedaliero / Convenzione UniCT",
+    "Nome_Struttura_Professionista": "ARNAS Garibaldi Centro – UOSD Dietologia e Nutrizione Clinica",
+    "Tipologia": "Presidio Ospedaliero ad Alta Specializzazione",
+    "Indirizzo": "Piazza Santa Maria di Gesù, 5",
+    "Zona_Quartiere": "Santa Maria di Gesù",
+    "Logistica_Distanza": "5-6 min a piedi",
+    "Telefono": "095 7591111",
+    "Email_PEC": "urp@arnasgaribaldi.it",
+    "Sito_Web_Riferimento": "https://www.ao-garibaldi.ct.it",
+    "Note_Opportunita_Melania": "A 5 minuti da casa. Ambulatorio obesità, bariatrica e malnutrizione. Canale tirocinio curriculare convenzionato UniCT.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 37,
+    "Fase_Focus": "Fase 1 - Tirocinio Immediato (Clinica & Studi)",
+    "Cluster": "Ospedaliero / Convenzione UniCT",
+    "Nome_Struttura_Professionista": "ARNAS Garibaldi Nesima – UOC Endocrinologia e Malattie del Ricambio",
+    "Tipologia": "Presidio Ospedaliero Universitario",
+    "Indirizzo": "Via Palermo, 636",
+    "Zona_Quartiere": "Nesima",
+    "Logistica_Distanza": "Metro Fontana (0 min - tunnel sotterraneo)",
+    "Telefono": "095 7595000",
+    "Email_PEC": "urp@arnasgaribaldi.it",
+    "Sito_Web_Riferimento": "https://www.ao-garibaldi.ct.it",
+    "Note_Opportunita_Melania": "Centro regionale obesità e chirurgia bariatrica. Cattedra Prof.ssa Lucia Frittitta (docente ordinaria Magistrale UniCT).",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 38,
+    "Fase_Focus": "Fase 1 - Tirocinio Immediato (Clinica & Studi)",
     "Cluster": "Studi Privati Nutrizione",
     "Nome_Struttura_Professionista": "Studio Dott.ssa Ottavia Marascia",
     "Tipologia": "Studio Privato Biologa Nutrizionista",
     "Indirizzo": "Viale Mario Rapisardi, 258",
     "Zona_Quartiere": "Rapisardi",
-    "Logistica_Distanza": "4-5 min a piedi",
+    "Logistica_Distanza": "4-5 min a piedi (380 metri)",
     "Telefono": "342 3582136",
     "Email_PEC": "ottaviamarascia.nutrizionista@gmail.com",
     "Sito_Web_Riferimento": "NutriDoc / MioDottore",
@@ -1515,14 +1861,15 @@
     "Data_Ultimo_Contatto": ""
   },
   {
-    "id": 22,
+    "id": 39,
+    "Fase_Focus": "Fase 1 - Tirocinio Immediato (Clinica & Studi)",
     "Cluster": "Studi Privati Nutrizione",
     "Nome_Struttura_Professionista": "Studio Bionutrimed – Dott.ssa Teresa Licciardi",
     "Tipologia": "Studio Specialistico Nutrizione e Rieducazione",
     "Indirizzo": "Via Rosso di San Secondo, 18",
     "Zona_Quartiere": "Borgo / P.zza Cavour",
     "Logistica_Distanza": "Metro Milo/Borgo / 14 min a piedi",
-    "Telefono": "095 8996213",
+    "Telefono": "095 8996213 / 375 5045953",
     "Email_PEC": "info@bionutrimed.it",
     "Sito_Web_Riferimento": "https://www.bionutrimed.it",
     "Note_Opportunita_Melania": "Bioimpedenziometria vettoriale, software nutrizionali, rieducazione alimentare senza diete tossiche.",
@@ -1531,7 +1878,8 @@
     "Data_Ultimo_Contatto": ""
   },
   {
-    "id": 23,
+    "id": 40,
+    "Fase_Focus": "Fase 1 - Tirocinio Immediato (Clinica & Studi)",
     "Cluster": "Studi Privati Nutrizione",
     "Nome_Struttura_Professionista": "Studio Dott. Marco Gallo",
     "Tipologia": "Studio Privato Biologo Nutrizionista",
@@ -1547,7 +1895,8 @@
     "Data_Ultimo_Contatto": ""
   },
   {
-    "id": 24,
+    "id": 41,
+    "Fase_Focus": "Fase 1 - Tirocinio Immediato (Clinica & Studi)",
     "Cluster": "Studi Privati Nutrizione",
     "Nome_Struttura_Professionista": "Studio Dott. Francesco Garritano",
     "Tipologia": "Studio Nutrizione Clinica Funzionale",
@@ -1563,7 +1912,8 @@
     "Data_Ultimo_Contatto": ""
   },
   {
-    "id": 25,
+    "id": 42,
+    "Fase_Focus": "Fase 1 - Tirocinio Immediato (Clinica & Studi)",
     "Cluster": "Studi Privati Nutrizione",
     "Nome_Struttura_Professionista": "Studio Dott.ssa Graziana Reale",
     "Tipologia": "Studio Privato Biologa Nutrizionista",
@@ -1579,14 +1929,15 @@
     "Data_Ultimo_Contatto": ""
   },
   {
-    "id": 26,
+    "id": 43,
+    "Fase_Focus": "Fase 1 - Tirocinio Immediato (Clinica & Studi)",
     "Cluster": "Studi Privati Nutrizione",
     "Nome_Struttura_Professionista": "Studio Dott. Alberto Bertolone",
     "Tipologia": "Studio Nutrizionale Specialistico",
     "Indirizzo": "Corso Italia, 207",
     "Zona_Quartiere": "Corso Italia",
     "Logistica_Distanza": "Metro Italia (3-4 min a piedi)",
-    "Telefono": "095 9519703",
+    "Telefono": "095 9519703 / 333 7294125",
     "Email_PEC": "info@nutrizionistabertolone.com",
     "Sito_Web_Riferimento": "https://www.nutrizionistabertolone.com",
     "Note_Opportunita_Melania": "Dietetica applicata, intolleranze e piani su misura. Professionista storico.",
@@ -1595,7 +1946,8 @@
     "Data_Ultimo_Contatto": ""
   },
   {
-    "id": 27,
+    "id": 44,
+    "Fase_Focus": "Fase 1 - Tirocinio Immediato (Clinica & Studi)",
     "Cluster": "Studi Privati Nutrizione",
     "Nome_Struttura_Professionista": "Studio Dott.ssa Silvia Calì",
     "Tipologia": "Studio Privato Biologa Nutrizionista",
@@ -1611,7 +1963,8 @@
     "Data_Ultimo_Contatto": ""
   },
   {
-    "id": 28,
+    "id": 45,
+    "Fase_Focus": "Fase 1 - Tirocinio Immediato (Clinica & Studi)",
     "Cluster": "Studi Privati Nutrizione",
     "Nome_Struttura_Professionista": "Studio Dott.ssa Valeria Indovino",
     "Tipologia": "Studio Privato Biologa Nutrizionista",
@@ -1627,7 +1980,8 @@
     "Data_Ultimo_Contatto": ""
   },
   {
-    "id": 29,
+    "id": 46,
+    "Fase_Focus": "Fase 1 - Tirocinio Immediato (Clinica & Studi)",
     "Cluster": "Studi Privati Nutrizione",
     "Nome_Struttura_Professionista": "Studio Dott.ssa Giulia Severi (Centro Ippocrate)",
     "Tipologia": "Studio Privato presso Polo Medico",
@@ -1637,65 +1991,358 @@
     "Telefono": "377 3958558",
     "Email_PEC": "giuliaseveri.nutrizione@gmail.com",
     "Sito_Web_Riferimento": "https://www.giuliaseverinutrizionista.it",
-    "Note_Opportunita_Melania": "BIA, percorsi nutrizionali personalizzati, monitoraggio continuo.",
+    "Note_Opportunita_Melania": "BIA, percorsi nutrizionali personalizzati, monitoraggio continuo del paziente.",
     "Stato_Candidatura": "Da contattare",
     "Note_Followup": "",
     "Data_Ultimo_Contatto": ""
   },
   {
-    "id": 30,
-    "Cluster": "Laboratori Analisi & HACCP",
+    "id": 47,
+    "Fase_Focus": "Fase 2 - Post-Abilitazione (Partnership & Clienti)",
+    "Cluster": "Farmacie & Parafarmacie dei Servizi",
+    "Nome_Struttura_Professionista": "Farmacia San Giorgio – Farmacia dei Servizi",
+    "Tipologia": "Farmacia dei Servizi con Cabina Nutrizionale & BIA Avanzata",
+    "Indirizzo": "Piazza Cavour, 34 / 39",
+    "Zona_Quartiere": "Borgo",
+    "Logistica_Distanza": "Metro Borgo (1 min a piedi) / 12-14 min a piedi",
+    "Telefono": "095 3789340 / 392 4157450",
+    "Email_PEC": "farmaciasangiorgio01@gmail.com",
+    "Sito_Web_Riferimento": "https://www.farmaciasangiorgio.net",
+    "Note_Opportunita_Melania": "TOP TARGET BIA: hanno già tariffario BIA e piani nutrizionali (€20-€80). Melania può proporsi per eseguire BIA e consulenze.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 48,
+    "Fase_Focus": "Fase 2 - Post-Abilitazione (Partnership & Clienti)",
+    "Cluster": "Farmacie & Parafarmacie dei Servizi",
+    "Nome_Struttura_Professionista": "Farmacia Sorbello",
+    "Tipologia": "Farmacia con Test Intolleranze Foodplan & Microbiota Biomaplan",
+    "Indirizzo": "Via Lago di Nicito, 85",
+    "Zona_Quartiere": "Santa Maria di Gesù",
+    "Logistica_Distanza": "9-10 min a piedi (750 metri)",
+    "Telefono": "095 312784 / 351 9755355",
+    "Email_PEC": "farmaciasorbello@gmail.com",
+    "Sito_Web_Riferimento": "https://www.farmaciasorbello.it",
+    "Note_Opportunita_Melania": "Analisi DNA batterico intestinale e intolleranze 92 alimenti. Ideale per interpretazione referti e diete di rotazione.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 49,
+    "Fase_Focus": "Fase 2 - Post-Abilitazione (Partnership & Clienti)",
+    "Cluster": "Farmacie & Parafarmacie dei Servizi",
+    "Nome_Struttura_Professionista": "Farmacia Mia",
+    "Tipologia": "Farmacia con Test Intolleranze Alimentari, Allergie e Celiachia",
+    "Indirizzo": "Via Salvatore Citelli, 39",
+    "Zona_Quartiere": "Santa Maria di Gesù",
+    "Logistica_Distanza": "5-6 min a piedi (450 metri, adiacente Garibaldi Centro)",
+    "Telefono": "095 361968 / 324 8616376",
+    "Email_PEC": "farmaciamiasas@gmail.com",
+    "Sito_Web_Riferimento": "https://www.farmaciamiacatania.it",
+    "Note_Opportunita_Melania": "La farmacia più vicina a casa. Hanno i test intolleranze a catalogo ma nessun nutrizionista: avvio giornate screening.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 50,
+    "Fase_Focus": "Fase 2 - Post-Abilitazione (Partnership & Clienti)",
+    "Cluster": "Farmacie & Parafarmacie dei Servizi",
+    "Nome_Struttura_Professionista": "BENU Farmacia Minerva (Gruppo Phoenix)",
+    "Tipologia": "Farmacia dei Servizi Network Europeo BENU",
+    "Indirizzo": "Via Etnea, 385/387",
+    "Zona_Quartiere": "Borgo",
+    "Logistica_Distanza": "Metro Borgo (3 min a piedi) / 13 min a piedi",
+    "Telefono": "095 436447 / 347 3992060",
+    "Email_PEC": "farmacia.minerva@benufarma.it",
+    "Sito_Web_Riferimento": "https://www.benufarma.it",
+    "Note_Opportunita_Melania": "Campagne nazionali di prevenzione cardio-metabolica e sovrappeso. Profilo comunicativo/customer care ideale per giornate salute.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 51,
+    "Fase_Focus": "Fase 2 - Post-Abilitazione (Partnership & Clienti)",
+    "Cluster": "Farmacie & Parafarmacie dei Servizi",
+    "Nome_Struttura_Professionista": "Farmacia La Cittadella",
+    "Tipologia": "Farmacia con Consulenza Nutrizionale & Autoanalisi",
+    "Indirizzo": "Via Passo Gravina, 127",
+    "Zona_Quartiere": "Milo / Cittadella",
+    "Logistica_Distanza": "Metro Milo (3-4 min a piedi)",
+    "Telefono": "095 506283",
+    "Email_PEC": "farmacialacittadella@gmail.com",
+    "Sito_Web_Riferimento": "https://www.farmacialacittadella.it",
+    "Note_Opportunita_Melania": "Accanto alla Cittadella e Policlinico UniCT. Nutrizione per studenti fuori sede e sportivi.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 52,
+    "Fase_Focus": "Fase 2 - Post-Abilitazione (Partnership & Clienti)",
+    "Cluster": "Farmacie & Parafarmacie dei Servizi",
+    "Nome_Struttura_Professionista": "Farmacia Guarnaccia (Viale Vittorio Veneto)",
+    "Tipologia": "Farmacia Storica con Misurazione Massa Muscolare & Nutrizione",
+    "Indirizzo": "Viale Vittorio Veneto, 135",
+    "Zona_Quartiere": "Vittorio Veneto",
+    "Logistica_Distanza": "Metro Giuffrida (3 min a piedi)",
+    "Telefono": "095 503937 / 335 1312425",
+    "Email_PEC": "info@farmaciaguarnaccia.com",
+    "Sito_Web_Riferimento": "https://www.farmaciaguarnaccia.com",
+    "Note_Opportunita_Melania": "Hanno bilancia multifunzione e misurazione massa muscolare: Melania può proporre un percorso di BIA professionale e piano nutrizionale.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 53,
+    "Fase_Focus": "Fase 2 - Post-Abilitazione (Partnership & Clienti)",
+    "Cluster": "Farmacie & Parafarmacie dei Servizi",
+    "Nome_Struttura_Professionista": "Farmacia dei Viali (Dr.ssa Stefania Salvia)",
+    "Tipologia": "Farmacia di Fascia Alta / Specializzazione Celiachia e Diabete",
+    "Indirizzo": "Corso Italia, 12 (ang. Piazza Verga)",
+    "Zona_Quartiere": "Corso Italia / Verga",
+    "Logistica_Distanza": "Metro Italia (3 min a piedi)",
+    "Telefono": "095 538312",
+    "Email_PEC": "farmaciadeiviali@gmail.com",
+    "Sito_Web_Riferimento": "Corso Italia Network",
+    "Note_Opportunita_Melania": "Reparto gluten-free e senza zucchero per diabetici. Desk informativo su gestione indice glicemico e intolleranze.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 54,
+    "Fase_Focus": "Fase 2 - Post-Abilitazione (Partnership & Clienti)",
+    "Cluster": "Farmacie & Parafarmacie dei Servizi",
+    "Nome_Struttura_Professionista": "Farmacia Europa",
+    "Tipologia": "Farmacia con Consulenza Nutrizionale Tariffata",
+    "Indirizzo": "Corso Italia, 111",
+    "Zona_Quartiere": "Corso Italia",
+    "Logistica_Distanza": "Metro Galatea o Italia (4 min a piedi)",
+    "Telefono": "095 383536",
+    "Email_PEC": "farmaciaeuropact@gmail.com",
+    "Sito_Web_Riferimento": "Pagine Gialle / Web",
+    "Note_Opportunita_Melania": "Servizio esplicito di consulenza nutrizionale su appuntamento: aperta a collaborazioni esterne.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 55,
+    "Fase_Focus": "Fase 2 - Post-Abilitazione (Partnership & Clienti)",
+    "Cluster": "Farmacie & Parafarmacie dei Servizi",
+    "Nome_Struttura_Professionista": "Parafarmacia Farma+ (Dott.ssa S. Di Bartolo)",
+    "Tipologia": "Parafarmacia con Focus Integrazione Sportiva & Nutraceutica",
+    "Indirizzo": "Viale Vittorio Veneto, 64",
+    "Zona_Quartiere": "Vittorio Veneto",
+    "Logistica_Distanza": "Metro Giuffrida o Italia (4 min a piedi)",
+    "Telefono": "095 7223549",
+    "Email_PEC": "info@parafarmaciadibartolo.com",
+    "Sito_Web_Riferimento": "https://www.parafarmaciadibartolo.com",
+    "Note_Opportunita_Melania": "Focus vendita su consiglio attivo: integratori sportivi, fitoterapia e stili di vita. Perfetta sinergia con customer care e biochimica.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 56,
+    "Fase_Focus": "Fase 2 - Post-Abilitazione (Partnership & Clienti)",
+    "Cluster": "Farmacie & Parafarmacie dei Servizi",
+    "Nome_Struttura_Professionista": "Farmacia De Gaetani (Rete Apoteca Natura)",
+    "Tipologia": "Farmacia Certificata Apoteca Natura / Corner NutriCoach",
+    "Indirizzo": "Via Vittorio Emanuele II, 114",
+    "Zona_Quartiere": "Centro Storico",
+    "Logistica_Distanza": "Metro Stesicoro (6 min a piedi)",
+    "Telefono": "095 326962 / 333 9959390",
+    "Email_PEC": "staffdegaetani@gmail.com",
+    "Sito_Web_Riferimento": "https://www.farmaciadegaetani.it",
+    "Note_Opportunita_Melania": "Protocollo NutriCoach Apoteca Natura e prevenzione Sindrome Metabolica. Fit culturale perfetto con nutrizione naturale/vegetale.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 57,
+    "Fase_Focus": "Fase 2 - Post-Abilitazione (Partnership & Clienti)",
+    "Cluster": "Farmacie & Parafarmacie dei Servizi",
+    "Nome_Struttura_Professionista": "Farmacia dello Stadio (Totaro & Palermo)",
+    "Tipologia": "Farmacia con Ampio Reparto Celiachia e Alimenti Speciali",
+    "Indirizzo": "Viale Mario Rapisardi, 61",
+    "Zona_Quartiere": "Rapisardi / S. Maria di Gesù",
+    "Logistica_Distanza": "7-8 min a piedi (550 m)",
+    "Telefono": "095 7318085 / 095 354001",
+    "Email_PEC": "farmaciadellostadio@virgilio.it",
+    "Sito_Web_Riferimento": "Pagine Bianche",
+    "Note_Opportunita_Melania": "Counselling per pazienti celiaci di nuova diagnosi e screening del peso a pochi passi da casa.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 58,
+    "Fase_Focus": "Fase 2 - Post-Abilitazione (Partnership & Clienti)",
+    "Cluster": "Farmacie & Parafarmacie dei Servizi",
+    "Nome_Struttura_Professionista": "Farmacia Bellomo Garufi",
+    "Tipologia": "Farmacia con Test Intolleranze & Nutraceutica",
+    "Indirizzo": "Viale Mario Rapisardi, 320",
+    "Zona_Quartiere": "Rapisardi",
+    "Logistica_Distanza": "15 min a piedi",
+    "Telefono": "095 356724",
+    "Email_PEC": "farmaciabellomogarufi@gmail.com",
+    "Sito_Web_Riferimento": "Pagine Gialle",
+    "Note_Opportunita_Melania": "Consulenza post-test intolleranze alimentari e diete di esclusione/rotazione guidata.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 59,
+    "Fase_Focus": "Fase 2 - Post-Abilitazione (Partnership & Clienti)",
+    "Cluster": "Farmacie & Parafarmacie dei Servizi",
+    "Nome_Struttura_Professionista": "Farmacia San Luigi",
+    "Tipologia": "Farmacia con Focus Alimentazione Infanzia & Autoanalisi",
+    "Indirizzo": "Viale Mario Rapisardi, 349",
+    "Zona_Quartiere": "Rapisardi",
+    "Logistica_Distanza": "16-18 min a piedi",
+    "Telefono": "095 359644",
+    "Email_PEC": "farmaciasanluigi2020@gmail.com",
+    "Sito_Web_Riferimento": "https://www.farmaciasanluigicatania.it",
+    "Note_Opportunita_Melania": "Percorsi di nutrizione pediatrica/familiare e giornate di autoanalisi metabolica.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 60,
+    "Fase_Focus": "Fase 2 - Post-Abilitazione (Partnership & Clienti)",
+    "Cluster": "Farmacie & Parafarmacie dei Servizi",
+    "Nome_Struttura_Professionista": "Farmacia Sacro Cuore (Dr. Gulisano)",
+    "Tipologia": "Farmacia Specializzata in Alimenti Celiaci e Diabetici",
+    "Indirizzo": "Via Eleonora D'Angiò, 43",
+    "Zona_Quartiere": "Borgo / Milo",
+    "Logistica_Distanza": "Metro Borgo o Milo (7 min a piedi)",
+    "Telefono": "095 431401",
+    "Email_PEC": "farmaciasacrocuore@alice.it",
+    "Sito_Web_Riferimento": "https://www.farmaciasacrocuore.com",
+    "Note_Opportunita_Melania": "Etichettatura, additivi alimentari e cross-contamination: educazione all'acquisto consapevole per celiaci.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 61,
+    "Fase_Focus": "Fase 2 - Post-Abilitazione (Partnership & Clienti)",
+    "Cluster": "Farmacie & Parafarmacie dei Servizi",
+    "Nome_Struttura_Professionista": "Farmacia Guarnaccia Concetta (Via Umberto)",
+    "Tipologia": "Farmacia con Test Intolleranze Alimentari & Screening",
+    "Indirizzo": "Via Umberto I, 252-254",
+    "Zona_Quartiere": "Centro / Galatea",
+    "Logistica_Distanza": "Metro Galatea (4 min a piedi)",
+    "Telefono": "095 8036685",
+    "Email_PEC": "farmaciaguarnacciaco@tiscali.it",
+    "Sito_Web_Riferimento": "https://www.farmaciaguarnacciaconcetta.com",
+    "Note_Opportunita_Melania": "Servizio di supporto nutrizionale per pazienti che eseguono test intolleranze in farmacia.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 62,
+    "Fase_Focus": "Fase 2 - Post-Abilitazione (Partnership & Clienti)",
+    "Cluster": "Farmacie & Parafarmacie dei Servizi",
+    "Nome_Struttura_Professionista": "Farmacia Ai Minoriti (Rete Alphega)",
+    "Tipologia": "Farmacia Centrale con Cabina Salute & Consulenza Nutrizionale",
+    "Indirizzo": "Via Etnea, 79",
+    "Zona_Quartiere": "Centro Storico",
+    "Logistica_Distanza": "Metro Stesicoro (3 min a piedi)",
+    "Telefono": "095 316784",
+    "Email_PEC": "farmaaiminoriti@tiscali.it",
+    "Sito_Web_Riferimento": "Alphega Network",
+    "Note_Opportunita_Melania": "Flusso pedonale altissimo su Via Etnea: giornate evento per alimentazione antinfiammatoria e intolleranze.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 63,
+    "Fase_Focus": "Fase 3 - Standby / Non Clinico (Food Tech & Lab)",
+    "Cluster": "Laboratori, HACCP & Food Tech",
+    "Nome_Struttura_Professionista": "Confotec S.r.l.",
+    "Tipologia": "Società di Consulenza HACCP, Igiene Alimenti e Sicurezza",
+    "Indirizzo": "Via Cesare Vivante, 48",
+    "Zona_Quartiere": "Cibali / Beccaria",
+    "Logistica_Distanza": "2-3 min a piedi da Via Ferrante Aporti (stesso isolato!)",
+    "Telefono": "095 430306 / 339 6677624",
+    "Email_PEC": "info@confotec.it",
+    "Sito_Web_Riferimento": "http://www.confotec.it",
+    "Note_Opportunita_Melania": "A 200 metri da casa. Inserimento immediato come consulente HACCP junior / auditor, manuali di autocontrollo e formazione alimentaristi.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 64,
+    "Fase_Focus": "Fase 3 - Standby / Non Clinico (Food Tech & Lab)",
+    "Cluster": "Laboratori, HACCP & Food Tech",
     "Nome_Struttura_Professionista": "Chem Service Italia",
-    "Tipologia": "Laboratorio Analisi Chimiche & Microbiologiche",
+    "Tipologia": "Laboratorio Analisi Chimiche & Microbiologiche Alimenti",
     "Indirizzo": "Viale Mario Rapisardi, 355",
     "Zona_Quartiere": "Rapisardi",
-    "Logistica_Distanza": "5-6 min a piedi",
+    "Logistica_Distanza": "5-6 min a piedi da Via Ferrante Aporti",
     "Telefono": "095 351888",
     "Email_PEC": "info@chem-service.it",
     "Sito_Web_Riferimento": "https://www.chem-service.it",
-    "Note_Opportunita_Melania": "Match 100% con laurea in Tecnologie Alimentari: autocontrollo HACCP, sicurezza e analisi microbiologiche.",
+    "Note_Opportunita_Melania": "Match 100% con laurea in Tecnologie Alimentari: autocontrollo HACCP, microbiologia degli alimenti e analisi acque.",
     "Stato_Candidatura": "Da contattare",
     "Note_Followup": "",
     "Data_Ultimo_Contatto": ""
   },
   {
-    "id": 31,
-    "Cluster": "Laboratori Analisi & HACCP",
+    "id": 65,
+    "Fase_Focus": "Fase 3 - Standby / Non Clinico (Food Tech & Lab)",
+    "Cluster": "Laboratori, HACCP & Food Tech",
     "Nome_Struttura_Professionista": "Laboratorio Analisi Cliniche Cataldi",
     "Tipologia": "Laboratorio Diagnostico e Chimica Clinica",
-    "Indirizzo": "Viale Mario Rapisardi, 255",
+    "Indirizzo": "Viale Mario Rapisardi, 255 / Via Caracciolo, 6",
     "Zona_Quartiere": "Rapisardi",
-    "Logistica_Distanza": "3-4 min a piedi",
+    "Logistica_Distanza": "3-4 min a piedi (300 m)",
     "Telefono": "095 351187",
     "Email_PEC": "info@cataldipaoloanalisicliniche.it",
     "Sito_Web_Riferimento": "https://www.cataldipaoloanalisicliniche.it",
-    "Note_Opportunita_Melania": "A soli 300 metri da casa. Chimica clinica ed esami ematochimici.",
+    "Note_Opportunita_Melania": "A 3 minuti da casa. Biochimica clinica ed esami ematochimici.",
     "Stato_Candidatura": "Da contattare",
     "Note_Followup": "",
     "Data_Ultimo_Contatto": ""
   },
   {
-    "id": 32,
-    "Cluster": "Laboratori Analisi & HACCP",
-    "Nome_Struttura_Professionista": "C.A.T.A. Laboratorio Analisi Cliniche",
-    "Tipologia": "Laboratorio Analisi Cliniche",
+    "id": 66,
+    "Fase_Focus": "Fase 3 - Standby / Non Clinico (Food Tech & Lab)",
+    "Cluster": "Laboratori, HACCP & Food Tech",
+    "Nome_Struttura_Professionista": "C.A.T.A. S.r.l. – Laboratorio Analisi Cliniche",
+    "Tipologia": "Laboratorio Analisi Cliniche & Microbiologia",
     "Indirizzo": "Viale Mario Rapisardi, 420",
     "Zona_Quartiere": "Rapisardi",
-    "Logistica_Distanza": "7 min a piedi",
+    "Logistica_Distanza": "10-12 min a piedi",
     "Telefono": "095 355888",
     "Email_PEC": "info@analisicata.com",
     "Sito_Web_Riferimento": "https://www.analisicata.com",
-    "Note_Opportunita_Melania": "Esami markers metabolici, intolleranze alimentari e chimica clinica.",
+    "Note_Opportunita_Melania": "Chimica clinica, markers metabolici, intolleranze alimentari e pre-analitica.",
     "Stato_Candidatura": "Da contattare",
     "Note_Followup": "",
     "Data_Ultimo_Contatto": ""
   },
   {
-    "id": 33,
-    "Cluster": "Laboratori Analisi & HACCP",
+    "id": 67,
+    "Fase_Focus": "Fase 3 - Standby / Non Clinico (Food Tech & Lab)",
+    "Cluster": "Laboratori, HACCP & Food Tech",
     "Nome_Struttura_Professionista": "Laboratorio Analisi Cliniche Pasteur",
-    "Tipologia": "Laboratorio Diagnostico SSN",
-    "Indirizzo": "Viale Mario Rapisardi, 727",
+    "Tipologia": "Laboratorio Diagnostico Accreditato SSN",
+    "Indirizzo": "Viale Mario Rapisardi, 727 (Scala B)",
     "Zona_Quartiere": "Rapisardi",
     "Logistica_Distanza": "12-14 min a piedi",
     "Telefono": "095 350033",
@@ -1707,8 +2354,9 @@
     "Data_Ultimo_Contatto": ""
   },
   {
-    "id": 34,
-    "Cluster": "Laboratori Analisi & HACCP",
+    "id": 68,
+    "Fase_Focus": "Fase 3 - Standby / Non Clinico (Food Tech & Lab)",
+    "Cluster": "Laboratori, HACCP & Food Tech",
     "Nome_Struttura_Professionista": "Laboratorio Analisi A.B.C.",
     "Tipologia": "Laboratorio di Analisi Cliniche",
     "Indirizzo": "Via San Vito, 30",
@@ -1723,87 +2371,484 @@
     "Data_Ultimo_Contatto": ""
   },
   {
-    "id": 35,
-    "Cluster": "Medicina dello Sport & Fitness",
-    "Nome_Struttura_Professionista": "Studio Medico Staff",
-    "Tipologia": "Centro Medicina dello Sport & Nutrizione Atleti",
+    "id": 69,
+    "Fase_Focus": "Fase 3 - Standby / Non Clinico (Food Tech & Lab)",
+    "Cluster": "Laboratori, HACCP & Food Tech",
+    "Nome_Struttura_Professionista": "Laboratorio Catara S.r.l. (Accredia 00700)",
+    "Tipologia": "Laboratorio Accreditato Analisi Alimenti, Acque & HACCP",
+    "Indirizzo": "Via Firenze, 160",
+    "Zona_Quartiere": "Borgo / Italia",
+    "Logistica_Distanza": "Metro Italia (4 min a piedi) / 18 min a piedi",
+    "Telefono": "095 446842 / 348 8874982",
+    "Email_PEC": "info@laboratoriocatara.com",
+    "Sito_Web_Riferimento": "https://www.laboratoriocatara.com",
+    "Note_Opportunita_Melania": "Analista di laboratorio microbiologico/chimico alimentare accreditato ISO 17025. Terreni di coltura e campionamento.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 70,
+    "Fase_Focus": "Fase 3 - Standby / Non Clinico (Food Tech & Lab)",
+    "Cluster": "Laboratori, HACCP & Food Tech",
+    "Nome_Struttura_Professionista": "Progetto Ambiente & C. S.a.s. (Accredia 01263)",
+    "Tipologia": "Laboratorio di Prova Alimenti/Acque & Consulenza Sicurezza",
+    "Indirizzo": "Via Mario Sangiorgi, 36/38",
+    "Zona_Quartiere": "Galatea / Stazione",
+    "Logistica_Distanza": "Metro Galatea o Giovanni XXIII (4-5 min a piedi)",
+    "Telefono": "095 535522",
+    "Email_PEC": "laboratorio@progettoambiente.org",
+    "Sito_Web_Riferimento": "https://www.progettoambiente.org",
+    "Note_Opportunita_Melania": "Tamponi superficiali, analisi microbiologiche alimentari, redazione manuali autocontrollo HACCP.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 71,
+    "Fase_Focus": "Fase 3 - Standby / Non Clinico (Food Tech & Lab)",
+    "Cluster": "Laboratori, HACCP & Food Tech",
+    "Nome_Struttura_Professionista": "LIAA – Lab. Igiene Ambientale e Alimenti (Dip. Ingrassia UniCT)",
+    "Tipologia": "Laboratorio Universitario Accreditato ACCREDIA / Ricerca",
+    "Indirizzo": "Via Santa Sofia, 87 (Presidio G. Rodolico)",
+    "Zona_Quartiere": "Policlinico / Cittadella",
+    "Logistica_Distanza": "Metro Milo + Shuttle Policlinico (12 min)",
+    "Telefono": "095 3782160 / 095 3782188",
+    "Email_PEC": "igiene.ambientale@unict.it",
+    "Sito_Web_Riferimento": "https://www.unict.it",
+    "Note_Opportunita_Melania": "Tirocini extracurriculari o borse tecniche: conosce l'ambiente UniCT e le metodiche di validazione analitica.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 72,
+    "Fase_Focus": "Fase 3 - Standby / Non Clinico (Food Tech & Lab)",
+    "Cluster": "Laboratori, HACCP & Food Tech",
+    "Nome_Struttura_Professionista": "Sogesal S.r.l. (Servizi Agri-Logistici)",
+    "Tipologia": "Consulenza Agroalimentare, Etichettatura & Piani HACCP",
+    "Indirizzo": "Via Porta di Ferro, 40",
+    "Zona_Quartiere": "Stesicoro / Porto",
+    "Logistica_Distanza": "Metro Stesicoro o Giovanni XXIII (8 min a piedi)",
+    "Telefono": "095 315351",
+    "Email_PEC": "sogesal@sogesal.com",
+    "Sito_Web_Riferimento": "http://www.sogesal.com",
+    "Note_Opportunita_Melania": "Etichettatura nutrizionale Reg. UE 1169/2011, claim salutistici, rintracciabilità filiera e pratiche sanitarie SCIA.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 73,
+    "Fase_Focus": "Fase 3 - Standby / Non Clinico (Food Tech & Lab)",
+    "Cluster": "Laboratori, HACCP & Food Tech",
+    "Nome_Struttura_Professionista": "Link Consulenza",
+    "Tipologia": "Sistemi di Gestione Qualità Agroalimentare (ISO 22000, BRC, IFS)",
+    "Indirizzo": "Via Giacomo Leopardi, 53",
+    "Zona_Quartiere": "Italia / Galatea",
+    "Logistica_Distanza": "Metro Italia o Galatea (7-8 min a piedi)",
+    "Telefono": "095 374298",
+    "Email_PEC": "info@linkconsulenza.it",
+    "Sito_Web_Riferimento": "http://www.linkconsulenza.it",
+    "Note_Opportunita_Melania": "Consulente QA/QC filiera agroalimentare per accesso alla Grande Distribuzione (GDO) tramite standard BRC e IFS.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 74,
+    "Fase_Focus": "Fase 3 - Standby / Non Clinico (Food Tech & Lab)",
+    "Cluster": "Laboratori, HACCP & Food Tech",
+    "Nome_Struttura_Professionista": "Medlab – Laboratorio Analisi Cliniche (Dott. D. Vasta)",
+    "Tipologia": "Chimica Clinica, Breath Test Lattosio & Intolleranze",
+    "Indirizzo": "Via Androne, 55",
+    "Zona_Quartiere": "Santa Maria di Gesù",
+    "Logistica_Distanza": "10-12 min a piedi da Via Ferrante Aporti",
+    "Telefono": "095 315154 / 335 6539296",
+    "Email_PEC": "amministrazionemedlab@gmail.com",
+    "Sito_Web_Riferimento": "https://www.analisimedlab.com",
+    "Note_Opportunita_Melania": "Gestione tecnica Breath Test (lattosio/lattulosio per SIBO), intolleranze e processamento analitico campioni.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 75,
+    "Fase_Focus": "Fase 3 - Standby / Non Clinico (Food Tech & Lab)",
+    "Cluster": "Laboratori, HACCP & Food Tech",
+    "Nome_Struttura_Professionista": "Polilab – Analisi Cliniche ed Ecosistema Intestinale",
+    "Tipologia": "Laboratorio Diagnostico Avanzato (Permeabilità & Zonulina)",
+    "Indirizzo": "Via Etnea, 509",
+    "Zona_Quartiere": "Borgo",
+    "Logistica_Distanza": "12-14 min a piedi / Metro Borgo (3 min)",
+    "Telefono": "095 16937371 / 392 9485513",
+    "Email_PEC": "info@polilabonline.it",
+    "Sito_Web_Riferimento": "https://www.polilabonline.it",
+    "Note_Opportunita_Melania": "Pannello allergologico ALEX3, zonulina per permeabilità intestinale e marker nutrizionali/gastrointestinali.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 76,
+    "Fase_Focus": "Fase 3 - Standby / Non Clinico (Food Tech & Lab)",
+    "Cluster": "Laboratori, HACCP & Food Tech",
+    "Nome_Struttura_Professionista": "Gruppo CSM (Centro Servizi Medici – Hub Corelab)",
+    "Tipologia": "Hub Diagnostico Automatizzato di Rete Regionale",
+    "Indirizzo": "Corso delle Province, 218",
+    "Zona_Quartiere": "Vittorio Veneto",
+    "Logistica_Distanza": "Metro Giuffrida (1 min a piedi)",
+    "Telefono": "095 441766",
+    "Email_PEC": "info@gruppocsm.com",
+    "Sito_Web_Riferimento": "https://www.gruppocsm.com",
+    "Note_Opportunita_Melania": "Controllo qualità di processo e procedure operative standard (SOP) in grande hub automatizzato.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 77,
+    "Fase_Focus": "Fase 3 - Standby / Non Clinico (Food Tech & Lab)",
+    "Cluster": "Laboratori, HACCP & Food Tech",
+    "Nome_Struttura_Professionista": "Laboratorio Analisi Cliniche Laganà",
+    "Tipologia": "Biochimica Clinica e Indagini Batteriologiche SSN",
+    "Indirizzo": "Via Passo Gravina, 70 (ang. Via Ingegnere)",
+    "Zona_Quartiere": "Milo / Borgo",
+    "Logistica_Distanza": "10-12 min a piedi / Metro Milo (5 min)",
+    "Telefono": "095 918782 / 347 4281479",
+    "Email_PEC": "analisilagana@virgilio.it",
+    "Sito_Web_Riferimento": "https://www.analisilagana.it",
+    "Note_Opportunita_Melania": "Sezione microbiologia (colture batteriche, antibiogrammi) e biochimica. Vicinanza strategica per turni mattutini.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 78,
+    "Fase_Focus": "Fase 3 - Standby / Non Clinico (Food Tech & Lab)",
+    "Cluster": "Laboratori, HACCP & Food Tech",
+    "Nome_Struttura_Professionista": "Vivenda S.p.A. (Gruppo La Cascina)",
+    "Tipologia": "Ristorazione Ospedaliera, Sanitaria & Diete Speciali",
+    "Indirizzo": "Viale Alcide De Gasperi, 173/C",
+    "Zona_Quartiere": "Ognina / Picanello",
+    "Logistica_Distanza": "Metro Italia / Galatea + bus",
+    "Telefono": "095 2163132 / 095 2163375",
+    "Email_PEC": "catania@vivenda.it",
+    "Sito_Web_Riferimento": "https://www.vivenda.it",
+    "Note_Opportunita_Melania": "Quality Manager Centro Pasti / Tecnologa Alimentare: capitolati dietetici per patologie ospedaliere, CCP Cook&Chill, allergie.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 79,
+    "Fase_Focus": "Fase 2 - Post-Abilitazione (Partnership & Clienti)",
+    "Cluster": "Sport, Fitness & Palestre",
+    "Nome_Struttura_Professionista": "Altair Club Cifali",
+    "Tipologia": "Grande Club Polifunzionale (Sala Pesi, Piscina, Corsi, Benessere)",
+    "Indirizzo": "Via Cifali, 31",
+    "Zona_Quartiere": "Cibali / Cifali",
+    "Logistica_Distanza": "3-5 min a piedi da Via Ferrante Aporti (dietro l'angolo!)",
+    "Telefono": "095 7169543 / 366 8656178",
+    "Email_PEC": "altaircifali@altairclub.it",
+    "Sito_Web_Riferimento": "https://www.altairclub.it",
+    "Note_Opportunita_Melania": "A 3 minuti da casa! Ruolo combinato front-desk accoglienza soci + desk nutrizione sportiva e valutazione BIA/plicometria.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 80,
+    "Fase_Focus": "Fase 2 - Post-Abilitazione (Partnership & Clienti)",
+    "Cluster": "Sport, Fitness & Palestre",
+    "Nome_Struttura_Professionista": "Body Flex ASD",
+    "Tipologia": "Palestra Bodybuilding & Resistance Training / Sovraccarichi Pesanti",
+    "Indirizzo": "Viale Mario Rapisardi, 234",
+    "Zona_Quartiere": "Rapisardi",
+    "Logistica_Distanza": "6-8 min a piedi da Via Ferrante Aporti",
+    "Telefono": "+39 344 2285818 / 342 7685093",
+    "Email_PEC": "bodyflexcatania@gmail.com",
+    "Sito_Web_Riferimento": "Social / FB",
+    "Note_Opportunita_Melania": "Palestra ipertrofia e pesi pesanti: atleti in cerca di surplus calorico, cut, intake proteico. Melania parla il loro stesso linguaggio.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 81,
+    "Fase_Focus": "Fase 2 - Post-Abilitazione (Partnership & Clienti)",
+    "Cluster": "Sport, Fitness & Palestre",
+    "Nome_Struttura_Professionista": "CrossFit Liotru",
+    "Tipologia": "Box Ufficiale CrossFit (WOD, Weightlifting, Gymnastics)",
+    "Indirizzo": "Via Ughetti, 6/A",
+    "Zona_Quartiere": "Santa Maria di Gesù / Villa Bellini",
+    "Logistica_Distanza": "10-12 min a piedi",
+    "Telefono": "347 0177113",
+    "Email_PEC": "crossfitliotru@gmail.com",
+    "Sito_Web_Riferimento": "Instagram @crossfitliotru",
+    "Note_Opportunita_Melania": "Gestione energetica crossfitter, prevenzione RED-S, idratazione (ICW/ECW) e massa cellulare (BCM) tramite BIA.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 82,
+    "Fase_Focus": "Fase 2 - Post-Abilitazione (Partnership & Clienti)",
+    "Cluster": "Sport, Fitness & Palestre",
+    "Nome_Struttura_Professionista": "She Is – Exclusive Women's Fitness",
+    "Tipologia": "Boutique Fitness Studio Esclusivo Femminile (Glutei & Ricomposizione)",
+    "Indirizzo": "Via Milano, 54/A",
+    "Zona_Quartiere": "Corso Italia",
+    "Logistica_Distanza": "Metro Italia (3-4 min a piedi)",
+    "Telefono": "370 3732862 / 095 4192688",
+    "Email_PEC": "info@sheis-palestra.com",
+    "Sito_Web_Riferimento": "https://sheis-palestra.com",
+    "Note_Opportunita_Melania": "MATCH PERFETTO: abbatte il mito delle donne che non devono toccare i pesi. Nutrizione per ritenzione idrica, PCOS, ricomposizione corporea.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 83,
+    "Fase_Focus": "Fase 1 - Tirocinio Immediato (Clinica & Studi)",
+    "Cluster": "Sport, Fitness & Palestre",
+    "Nome_Struttura_Professionista": "Studio Medico Staff – Medicina dello Sport",
+    "Tipologia": "Centro Medicina dello Sport & Valutazione Nutrizionale Atleti",
     "Indirizzo": "Piazza Galatea, 7",
     "Zona_Quartiere": "Galatea",
-    "Logistica_Distanza": "Metro Galatea (1 min a piedi)",
+    "Logistica_Distanza": "Metro Galatea (1 min a piedi - 50 metri)",
     "Telefono": "095 538874",
     "Email_PEC": "info@studiomedicostaff.it",
     "Sito_Web_Riferimento": "https://www.studiomedicostaff.it",
-    "Note_Opportunita_Melania": "Valutazione atleti agonisti, composizione corporea, alimentazione sportiva avanzata.",
+    "Note_Opportunita_Melania": "Valutazione atleti agonisti, idoneità sportiva, composizione corporea e nutrizione per la performance.",
     "Stato_Candidatura": "Da contattare",
     "Note_Followup": "",
     "Data_Ultimo_Contatto": ""
   },
   {
-    "id": 36,
-    "Cluster": "Medicina dello Sport & Fitness",
-    "Nome_Struttura_Professionista": "Studio Kineo (Dott.ssa Scarpignato)",
-    "Tipologia": "Centro Posturale, Riabilitativo e Nutrizione",
+    "id": 84,
+    "Fase_Focus": "Fase 2 - Post-Abilitazione (Partnership & Clienti)",
+    "Cluster": "Sport, Fitness & Palestre",
+    "Nome_Struttura_Professionista": "Palestre Workout",
+    "Tipologia": "Centro Fitness Polifunzionale, SPA, Corsi & Personal Training",
+    "Indirizzo": "Via Locatelli, 13 (ang. Via Diaz)",
+    "Zona_Quartiere": "Rapisardi",
+    "Logistica_Distanza": "10-12 min a piedi",
+    "Telefono": "095 350750 / 342 0077385",
+    "Email_PEC": "info@palestreworkout.it",
+    "Sito_Web_Riferimento": "https://www.palestreworkout.it",
+    "Note_Opportunita_Melania": "Fitness e benessere estetico/SPA: pacchetti combinati allenamento + BIA + piani antinfiammatori.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 85,
+    "Fase_Focus": "Fase 3 - Standby / Non Clinico (Food Tech & Lab)",
+    "Cluster": "Sport, Fitness & Palestre",
+    "Nome_Struttura_Professionista": "FitActive Catania Piazza Roma",
+    "Tipologia": "Palestra Commerciale H24 / Attrezzature Matrix & Grande Affluenza",
+    "Indirizzo": "Via Muscatello, 20/22",
+    "Zona_Quartiere": "Piazza Roma / Villa Bellini",
+    "Logistica_Distanza": "12-14 min a piedi / Metro Borgo (8 min)",
+    "Telefono": "376 2868842",
+    "Email_PEC": "catania.piazza.roma@fitactive.it",
+    "Sito_Web_Riferimento": "https://www.fitactive.it",
+    "Note_Opportunita_Melania": "Modello con desk nutrizione interna autonoma e turni di reception. Volume immenso di iscritti per farsi clientela BIA.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 86,
+    "Fase_Focus": "Fase 3 - Standby / Non Clinico (Food Tech & Lab)",
+    "Cluster": "Sport, Fitness & Palestre",
+    "Nome_Struttura_Professionista": "McFIT Catania (Corso Italia)",
+    "Tipologia": "Mega Centro Fitness Bodybuilding & Ipertrofia Gym80/Precor",
+    "Indirizzo": "Corso Italia, 91/95",
+    "Zona_Quartiere": "Corso Italia",
+    "Logistica_Distanza": "Metro Italia (4-5 min a piedi)",
+    "Telefono": "095 2200388",
+    "Email_PEC": "servizio.clienti@mcfit.com",
+    "Sito_Web_Riferimento": "https://www.mcfit.com/it",
+    "Note_Opportunita_Melania": "Centinaia di amatori di pesistica/bodybuilding al giorno. Turni front-desk part-time + networking con i personal trainer per piani massa/cut.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 87,
+    "Fase_Focus": "Fase 1 - Tirocinio Immediato (Clinica & Studi)",
+    "Cluster": "Sport, Fitness & Palestre",
+    "Nome_Struttura_Professionista": "Studio Fitness 46",
+    "Tipologia": "Boutique Studio Personal Training, Osteopatia & Nutrizione",
+    "Indirizzo": "Via Camillo Finocchiaro Aprile, 99/B",
+    "Zona_Quartiere": "Corso Italia / Galatea",
+    "Logistica_Distanza": "Metro Italia o Galatea (5-6 min a piedi)",
+    "Telefono": "351 6616639",
+    "Email_PEC": "info@studiofitness46.it",
+    "Sito_Web_Riferimento": "https://www.studiofitness46.it",
+    "Note_Opportunita_Melania": "Hanno un'area nutrizione esplicitata nei servizi: inserimento per valutazione BIA e plicometria per i clienti dei personal trainer.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 88,
+    "Fase_Focus": "Fase 2 - Post-Abilitazione (Partnership & Clienti)",
+    "Cluster": "Sport, Fitness & Palestre",
+    "Nome_Struttura_Professionista": "Stone Personal Training",
+    "Tipologia": "Boutique Studio Personal Training 1-to-1 su Appuntamento",
+    "Indirizzo": "Via Filocomo, 78",
+    "Zona_Quartiere": "Borgo",
+    "Logistica_Distanza": "Metro Borgo (3 min a piedi) / 15-18 min a piedi",
+    "Telefono": "345 8460569 / 340 7462210",
+    "Email_PEC": "stonepersonaltraining@gmail.com",
+    "Sito_Web_Riferimento": "Instagram @stonepersonaltraining",
+    "Note_Opportunita_Melania": "Servizio sartoriale per clienti alto-spendenti: sinergia one-to-one col personal trainer per chiudere il cerchio nutrizione + workout.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 89,
+    "Fase_Focus": "Fase 2 - Post-Abilitazione (Partnership & Clienti)",
+    "Cluster": "Sport, Fitness & Palestre",
+    "Nome_Struttura_Professionista": "Feel Fit Pilates & Fitness",
+    "Tipologia": "Boutique Studio Pilates Reformer, Posturale & Funzionale",
+    "Indirizzo": "Via Ughetti, 72",
+    "Zona_Quartiere": "Santa Maria di Gesù",
+    "Logistica_Distanza": "10-12 min a piedi",
+    "Telefono": "095 2180398 / 380 2473975",
+    "Email_PEC": "feelfitcatania@gmail.com",
+    "Sito_Web_Riferimento": "https://www.feelfitpilates.com",
+    "Note_Opportunita_Melania": "Clientela femminile attenta a linea e salute: pacchetti ricomposizione corporea e riduzione ritenzione idrica con monitoraggio BIA.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 90,
+    "Fase_Focus": "Fase 2 - Post-Abilitazione (Partnership & Clienti)",
+    "Cluster": "Sport, Fitness & Palestre",
+    "Nome_Struttura_Professionista": "CrossFit Etna",
+    "Tipologia": "Box Ufficiale CrossFit con Community Consolidata",
+    "Indirizzo": "Via Giuseppe Patanè, 26",
+    "Zona_Quartiere": "Borgo / Milo",
+    "Logistica_Distanza": "Metro Borgo o Milo (8-10 min a piedi)",
+    "Telefono": "340 3541672 / 339 5850488",
+    "Email_PEC": "crossfitetna@gmail.com",
+    "Sito_Web_Riferimento": "http://www.crossfitetna.it",
+    "Note_Opportunita_Melania": "Workshop di educazione alimentare sportiva (fonti proteiche vegetali ad alto valore biologico, timing carboidrati) e screening BIA soci.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 91,
+    "Fase_Focus": "Fase 1 - Tirocinio Immediato (Clinica & Studi)",
+    "Cluster": "Sport, Fitness & Palestre",
+    "Nome_Struttura_Professionista": "Studio Kineo (Dott.ssa M. Scarpignato)",
+    "Tipologia": "Centro Posturale, Riabilitativo e Nutrizione Sportiva",
     "Indirizzo": "Via Etnea, 414",
     "Zona_Quartiere": "Borgo / Villa Bellini",
     "Logistica_Distanza": "12-13 min a piedi",
-    "Telefono": "095 317382",
+    "Telefono": "095 317382 / 366 6330396",
     "Email_PEC": "segreteria@kineocatania.it",
     "Sito_Web_Riferimento": "MioDottore",
-    "Note_Opportunita_Melania": "Integrazione nutrizione, pesistica e biomeccanica. BIA su massa magra e idratazione.",
+    "Note_Opportunita_Melania": "Biomeccanica, sovraccarichi e BIA per massa muscolare magra e idratazione corporea.",
     "Stato_Candidatura": "Da contattare",
     "Note_Followup": "",
     "Data_Ultimo_Contatto": ""
   },
   {
-    "id": 37,
-    "Cluster": "Medicina dello Sport & Fitness",
-    "Nome_Struttura_Professionista": "Altair Club Vulcania",
-    "Tipologia": "Centro Sportivo & Fitness Polifunzionale",
-    "Indirizzo": "Via Torino, 73",
+    "id": 92,
+    "Fase_Focus": "Fase 3 - Standby / Non Clinico (Food Tech & Lab)",
+    "Cluster": "Sport, Fitness & Palestre",
+    "Nome_Struttura_Professionista": "FitActive Catania Centro (Via Scammacca)",
+    "Tipologia": "Palestra Commerciale H24 / Pesistica & Cardio",
+    "Indirizzo": "Via Oliveto Scammacca, 34",
+    "Zona_Quartiere": "Vittorio Veneto / Giuffrida",
+    "Logistica_Distanza": "Metro Giuffrida o Italia (6-7 min a piedi)",
+    "Telefono": "376 1955711",
+    "Email_PEC": "catania.via.scamacca@fitactive.it",
+    "Sito_Web_Riferimento": "https://www.fitactive.it",
+    "Note_Opportunita_Melania": "Convenzioni soci per BIA/plicometria e nutrizione sportiva, disponibilità accoglienza clienti.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 93,
+    "Fase_Focus": "Fase 3 - Standby / Non Clinico (Food Tech & Lab)",
+    "Cluster": "Sport, Fitness & Palestre",
+    "Nome_Struttura_Professionista": "Fit and Go Catania",
+    "Tipologia": "Boutique High-Tech EMS (Elettrostimolazione) & Vacutherm",
+    "Indirizzo": "Via Redentore, 46",
+    "Zona_Quartiere": "Borgo / Giuffrida",
+    "Logistica_Distanza": "Metro Giuffrida o Borgo (7-8 min a piedi)",
+    "Telefono": "349 6629664 / 379 2257658",
+    "Email_PEC": "catania@fitandgo.it",
+    "Sito_Web_Riferimento": "https://www.fitandgo.it",
+    "Note_Opportunita_Melania": "Valutazione oggettiva dei risultati prima/dopo tramite BIA su protocolli di dimagrimento e tonificazione rapida.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 94,
+    "Fase_Focus": "Fase 2 - Post-Abilitazione (Partnership & Clienti)",
+    "Cluster": "Sport, Fitness & Palestre",
+    "Nome_Struttura_Professionista": "Palestre Salvo Nicotra",
+    "Tipologia": "Tempio Storico del Culturismo Catanese (Oltre 50 anni di storia)",
+    "Indirizzo": "Viale Vittorio Veneto, 313",
+    "Zona_Quartiere": "Vittorio Veneto",
+    "Logistica_Distanza": "Metro Giuffrida (10 min a piedi)",
+    "Telefono": "+39 347 5907497",
+    "Email_PEC": "palestranicotra@gmail.com",
+    "Sito_Web_Riferimento": "http://www.palestresalvonicotra.com",
+    "Note_Opportunita_Melania": "Ambiente hardcore bodybuilding: plicometria professionale a 7 pliche, BIA vettoriale e timing nutrienti per agonisti e amatori avanzati.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 95,
+    "Fase_Focus": "Fase 3 - Standby / Non Clinico (Food Tech & Lab)",
+    "Cluster": "Sport, Fitness & Palestre",
+    "Nome_Struttura_Professionista": "Athletic Club (Athletic Life Palestre)",
+    "Tipologia": "Grande Club Storico Polifunzionale",
+    "Indirizzo": "Piazza Aldo Moro, 1 (Complesso Vulcania)",
     "Zona_Quartiere": "Vulcania / Borgo",
-    "Logistica_Distanza": "15 min a piedi / Metro Borgo",
-    "Telefono": "095 446712",
-    "Email_PEC": "info@altairclub.it",
-    "Sito_Web_Riferimento": "https://www.altairclub.it",
-    "Note_Opportunita_Melania": "Grande club con sala attrezzi Panatta, piscine, wellness. Possibilità front-desk + consulenza alimentare soci.",
+    "Logistica_Distanza": "Metro Borgo o Giuffrida (10-12 min a piedi) / 20 min a piedi",
+    "Telefono": "095 436236",
+    "Email_PEC": "info@athleticpalestre.it",
+    "Sito_Web_Riferimento": "http://www.athleticpalestre.it",
+    "Note_Opportunita_Melania": "Struttura molto frequentata nel quadrante Vulcania. Consulenza nutrizionale per i soci e supporto desk.",
     "Stato_Candidatura": "Da contattare",
     "Note_Followup": "",
     "Data_Ultimo_Contatto": ""
   },
   {
-    "id": 38,
-    "Cluster": "Medicina dello Sport & Fitness",
-    "Nome_Struttura_Professionista": "McFIT Catania",
-    "Tipologia": "Centro Fitness & Allenamento Resistenza",
-    "Indirizzo": "Via Vincenzo Giuffrida, 176",
-    "Zona_Quartiere": "Giuffrida",
-    "Logistica_Distanza": "Metro Giuffrida (2 min a piedi)",
-    "Telefono": "095 2200388",
-    "Email_PEC": "servizio.clienti@mcfit.com",
-    "Sito_Web_Riferimento": "https://www.mcfit.com",
-    "Note_Opportunita_Melania": "Altissima concentrazione di atleti e amatori di pesistica / ipertrofia a 2 min dalla metro.",
-    "Stato_Candidatura": "Da contattare",
-    "Note_Followup": "",
-    "Data_Ultimo_Contatto": ""
-  },
-  {
-    "id": 39,
-    "Cluster": "Medicina dello Sport & Fitness",
-    "Nome_Struttura_Professionista": "Body Flex ASD",
-    "Tipologia": "Palestra & Centro Fitness",
-    "Indirizzo": "Viale Mario Rapisardi, 234",
-    "Zona_Quartiere": "Rapisardi",
-    "Logistica_Distanza": "4 min a piedi",
-    "Telefono": "095 356789",
-    "Email_PEC": "bodyflexcatania@gmail.com",
-    "Sito_Web_Riferimento": "Social / FB",
-    "Note_Opportunita_Melania": "Palestra di quartiere a 4 min a piedi da Via Ferrante Aporti.",
+    "id": 96,
+    "Fase_Focus": "Fase 3 - Standby / Non Clinico (Food Tech & Lab)",
+    "Cluster": "Sport, Fitness & Palestre",
+    "Nome_Struttura_Professionista": "New Fitness",
+    "Tipologia": "Palestra Fitness Strutturata (Sala Pesi & Corsi)",
+    "Indirizzo": "Via Eleonora D'Angiò, 79",
+    "Zona_Quartiere": "Borgo / Milo",
+    "Logistica_Distanza": "Metro Milo o Borgo (7-8 min a piedi) / 18 min a piedi",
+    "Telefono": "095 7184031",
+    "Email_PEC": "newfitnesscatania@gmail.com",
+    "Sito_Web_Riferimento": "http://www.newfitnesspalestra.com",
+    "Note_Opportunita_Melania": "Area Borgo-Milo ad alta densità studentesca: pacchetti 'Scheda allenamento + Anamnesi alimentare e BIA'.",
     "Stato_Candidatura": "Da contattare",
     "Note_Followup": "",
     "Data_Ultimo_Contatto": ""
   }
 ];
     let allLeads = [];
+    let currentFilterFase = "";
     let currentFilterCluster = "";
     let currentFilterStatus = "";
     let currentFilterDistance = "";
@@ -1853,27 +2898,49 @@
 
     // --- API CLIENT ---
     async function fetchLeads() {
-      try {
-        const res = await fetch("/api/leads");
-        if (!res.ok) throw new Error("API non disponibile");
-        const data = await res.json();
-        allLeads = data.leads || [];
-        isServerMode = true;
-        document.getElementById("liveSyncStatus").textContent = "File CSV Sincronizzato";
-        document.getElementById("liveSyncStatus").style.background = "#ecfdf5";
-      } catch (err) {
-        console.warn("Server API non rilevato, fallback locale.", err);
-        isServerMode = false;
-        document.getElementById("liveSyncStatus").textContent = "Modalità Standalone";
-        document.getElementById("liveSyncStatus").style.background = "#fffbeb";
-        document.getElementById("liveSyncStatus").style.color = "#b45309";
-        // Load from localStorage if present or use embedded initial leads
-        const saved = localStorage.getItem("crm_melania_leads");
-        if (saved) {
+      const isLocalHost = window.location.hostname === "localhost" || 
+                           window.location.hostname === "127.0.0.1" || 
+                           window.location.port === "8000";
+
+      if (isLocalHost) {
+        try {
+          const res = await fetch("/api/leads");
+          if (res.ok) {
+            const data = await res.json();
+            allLeads = data.leads || [];
+            isServerMode = true;
+            const statusEl = document.getElementById("liveSyncStatus");
+            if (statusEl) {
+              statusEl.textContent = "File CSV Sincronizzato";
+              statusEl.style.background = "#ecfdf5";
+              statusEl.style.color = "#047857";
+            }
+            renderApp();
+            return;
+          }
+        } catch (err) {
+          console.warn("Server locale non rilevato, passaggio a modalità locale.", err);
+        }
+      }
+
+      // Standalone / Cloud mode (Vercel, GitHub Pages o offline)
+      isServerMode = false;
+      const statusEl = document.getElementById("liveSyncStatus");
+      if (statusEl) {
+        statusEl.textContent = "Cloud / Memoria Locale";
+        statusEl.style.background = "#eff6ff";
+        statusEl.style.color = "#1d4ed8";
+      }
+
+      const saved = localStorage.getItem("crm_melania_leads");
+      if (saved) {
+        try {
           allLeads = JSON.parse(saved);
-        } else {
+        } catch (e) {
           allLeads = JSON.parse(JSON.stringify(INITIAL_EMBEDDED_LEADS));
         }
+      } else {
+        allLeads = JSON.parse(JSON.stringify(INITIAL_EMBEDDED_LEADS));
       }
       renderApp();
     }
@@ -1963,6 +3030,10 @@
     // --- FILTER & SORT LOGIC ---
     function getFilteredLeads() {
       return allLeads.filter(lead => {
+        // Fase filter
+        if (currentFilterFase && !(lead.Fase_Focus || "").startsWith(currentFilterFase)) {
+          return false;
+        }
         // Cluster filter
         if (currentFilterCluster && lead.Cluster !== currentFilterCluster) {
           return false;
@@ -2112,7 +3183,14 @@
               <div class="lead-title-type">${escapeHtml(lead.Tipologia || "Struttura sanitaria / Studio")}</div>
             </td>
             <td>
-              <span class="badge badge-cluster">${escapeHtml(lead.Cluster)}</span>
+              <div style="display: flex; flex-direction: column; gap: 4px;">
+                ${(lead.Fase_Focus || '').startsWith('Fase 1') 
+                  ? '<span class="badge badge-fase-1">🎯 Fase 1: Tirocinio</span>' 
+                  : ((lead.Fase_Focus || '').startsWith('Fase 2') 
+                    ? '<span class="badge badge-fase-2">🤝 Fase 2: Post-Abil.</span>' 
+                    : '<span class="badge badge-fase-3">📦 Fase 3: Standby</span>')}
+                <span class="badge badge-cluster">${escapeHtml(lead.Cluster)}</span>
+              </div>
             </td>
             <td>
               <div style="font-weight: 500; font-size: 12px; margin-bottom: 3px;">
@@ -2191,7 +3269,14 @@
             <div class="kanban-cards">
               ${colCards.map(lead => `
                 <div class="kanban-card" draggable="true" ondragstart="handleDragStart(event, ${lead.id})" onclick="openEditLeadModal(${lead.id})">
-                  <div class="card-cluster">${escapeHtml(lead.Cluster)}</div>
+                  <div style="display: flex; gap: 4px; align-items: center; margin-bottom: 6px; flex-wrap: wrap;">
+                    ${(lead.Fase_Focus || '').startsWith('Fase 1') 
+                      ? '<span class="badge badge-fase-1" style="font-size: 10px;">🎯 Fase 1</span>' 
+                      : ((lead.Fase_Focus || '').startsWith('Fase 2') 
+                        ? '<span class="badge badge-fase-2" style="font-size: 10px;">🤝 Fase 2</span>' 
+                        : '<span class="badge badge-fase-3" style="font-size: 10px;">📦 Fase 3</span>')}
+                    <div class="card-cluster">${escapeHtml(lead.Cluster)}</div>
+                  </div>
                   <div class="card-name">${escapeHtml(lead.Nome_Struttura_Professionista)}</div>
                   <div class="card-meta">
                     <div class="card-meta-item">
@@ -2279,6 +3364,11 @@
       renderApp();
     }
 
+    function handleFilterFase(val) {
+      currentFilterFase = val;
+      renderApp();
+    }
+
     function handleFilterDistance(val) {
       currentFilterDistance = val;
       renderApp();
@@ -2290,11 +3380,13 @@
     }
 
     function resetFilters() {
+      currentFilterFase = "";
       currentFilterCluster = "";
       currentFilterStatus = "";
       currentFilterDistance = "";
       currentSearchTerm = "";
       document.getElementById("searchInput").value = "";
+      if (document.getElementById("faseFilter")) document.getElementById("faseFilter").value = "";
       document.getElementById("statusFilter").value = "";
       document.getElementById("distanceFilter").value = "";
       renderApp();
@@ -2319,6 +3411,7 @@
       document.getElementById("leadModalTitle").textContent = "Aggiungi Nuova Struttura / Lead";
       document.getElementById("formLeadId").value = "";
       document.getElementById("formNome").value = "";
+      document.getElementById("formFase").value = "Fase 1 - Tirocinio Immediato (Clinica & Studi)";
       document.getElementById("formCluster").value = "Studi Privati Nutrizione";
       document.getElementById("formStato").value = "Da contattare";
       document.getElementById("formTipologia").value = "";
@@ -2342,6 +3435,7 @@
       document.getElementById("leadModalTitle").textContent = "Dettagli Lead: " + lead.Nome_Struttura_Professionista;
       document.getElementById("formLeadId").value = lead.id;
       document.getElementById("formNome").value = lead.Nome_Struttura_Professionista || "";
+      document.getElementById("formFase").value = lead.Fase_Focus || "Fase 1 - Tirocinio Immediato (Clinica & Studi)";
       document.getElementById("formCluster").value = lead.Cluster || "Studi Privati Nutrizione";
       document.getElementById("formStato").value = lead.Stato_Candidatura || "Da contattare";
       document.getElementById("formTipologia").value = lead.Tipologia || "";
@@ -2368,6 +3462,7 @@
 
       const payload = {
         Nome_Struttura_Professionista: nome,
+        Fase_Focus: document.getElementById("formFase").value,
         Cluster: document.getElementById("formCluster").value,
         Stato_Candidatura: document.getElementById("formStato").value,
         Tipologia: document.getElementById("formTipologia").value.trim(),

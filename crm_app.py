@@ -21,6 +21,7 @@ CSV_FILE = WORKSPACE_DIR / "leads_candidature_catania.csv"
 BACKUP_DIR = WORKSPACE_DIR / ".csv_backups"
 
 CORE_FIELDS = [
+    "Fase_Focus",
     "Cluster",
     "Nome_Struttura_Professionista",
     "Tipologia",
@@ -82,6 +83,7 @@ def read_leads():
         for idx, row in enumerate(reader):
             lead = {
                 "id": idx + 1,
+                "Fase_Focus": row.get("Fase_Focus", "").strip(),
                 "Cluster": row.get("Cluster", "").strip(),
                 "Nome_Struttura_Professionista": row.get("Nome_Struttura_Professionista", "").strip(),
                 "Tipologia": row.get("Tipologia", "").strip(),
@@ -129,8 +131,10 @@ class CRMRequestHandler(SimpleHTTPRequestHandler):
         parsed = urllib.parse.urlparse(self.path)
         path = parsed.path
 
-        if path in ("/", "/crm", "/crm.html"):
-            crm_html_path = WORKSPACE_DIR / "crm.html"
+        if path in ("/", "/crm", "/crm.html", "/index.html"):
+            crm_html_path = WORKSPACE_DIR / "index.html"
+            if not crm_html_path.exists():
+                crm_html_path = WORKSPACE_DIR / "crm.html"
             if crm_html_path.exists():
                 self.send_response(200)
                 self.send_header("Content-Type", "text/html; charset=utf-8")
@@ -141,7 +145,7 @@ class CRMRequestHandler(SimpleHTTPRequestHandler):
                 self.send_response(404)
                 self.send_header("Content-Type", "text/html; charset=utf-8")
                 self.end_headers()
-                self.wfile.write(b"<h1>crm.html not found</h1>")
+                self.wfile.write(b"<h1>index.html not found</h1>")
             return
 
         if path == "/api/leads":
@@ -158,12 +162,15 @@ class CRMRequestHandler(SimpleHTTPRequestHandler):
             leads = read_leads()
             clusters = {}
             stati = {}
+            fasi = {}
             for l in leads:
                 c = l.get("Cluster") or "Altro"
                 s = l.get("Stato_Candidatura") or "Da contattare"
+                f = l.get("Fase_Focus") or "Non specificata"
                 clusters[c] = clusters.get(c, 0) + 1
                 stati[s] = stati.get(s, 0) + 1
-            data = json.dumps({"total": len(leads), "clusters": clusters, "stati": stati}, ensure_ascii=False).encode("utf-8")
+                fasi[f] = fasi.get(f, 0) + 1
+            data = json.dumps({"total": len(leads), "clusters": clusters, "stati": stati, "fasi": fasi}, ensure_ascii=False).encode("utf-8")
             self.send_response(200)
             self.send_header("Content-Type", "application/json; charset=utf-8")
             self.end_headers()

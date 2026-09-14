@@ -96,18 +96,30 @@ Mappatura delle strutture idonee per affiancamento/tirocinio, calibrata su resid
   * *Italia & Galatea (1–5 min dalle uscite):* Asse Corso Italia (studi privati ad alto afflusso) e Viale Africa / Piazza Galatea (medicina dello sport e nutrizione atleti).
   * *Fontana (collegamento sotterraneo diretto):* Polo Universitario Garibaldi Nesima (UOC Endocrinologia e Nutrizione Clinica).
 
-### Cluster Strategici di Candidatura
-1. **Cluster DCA & Psiconutrizione (Massima Priorità per Background Tesi):**
-   * Centri multidisciplinari (psicoterapeuta + nutrizionista) con focus su approccio empatico e riabilitazione alimentare non prescrittiva.
-   * *Zone chiave:* Piazza Cavour / Borgo e Via Bentivoglio / Milo.
-2. **Cluster Medicina dello Sport & Ricomposizione Corporea (Fitness & Ipertrofia):**
-   * Centri di medicina dello sport, valutazione atleti e studi con bioimpedenziometria (BIA) avanzata integrati con la biomeccanica.
-   * *Zone chiave:* Piazza Galatea e Via Etnea alta.
-3. **Cluster Studi Privati & Software Dietetici (Apprendimento Gestionale & Visite):**
-   * Studi di biologi nutrizionisti avviati dove Melania può operare da "painkiller" per anamnesi, inserimento dati nei software, calcolo fabbisogni e supporto/customer care ai pazienti.
-   * *Zone chiave:* Viale Mario Rapisardi (a 4 min da casa), Via Rosso di San Secondo, Corso Italia, Piazza Roma.
-4. **Cluster Ospedaliero / Convenzionato UniCT (Tirocinio Curriculare Formale):**
-   * Presidi ARNAS Garibaldi Centro (Piazza Santa Maria di Gesù, a 5 min a piedi) e Garibaldi Nesima (Metro Fontana), con canali accademici diretti con i docenti del corso di laurea magistrale in Nutrizione Umana.
+### Prioritizzazione Strategica a 3 Fasi (Focus & Timing)
+Il database complessivo (96 strutture) è categorizzato in 3 fasi operative per orientare lo sforzo:
+
+1. **🎯 FASE 1: Tirocinio Immediato – Clinica & Studi (43 strutture – FOCUS ATTUALE):**
+   * *Obiettivo:* Trovare affiancamento clinico/tirocinio curriculare per imparare software (Metadieta, Winfood), assistere a prime visite, anamnesi, BIA e follow-up.
+   * *Target:* 
+     * **Studi Privati di Nutrizione** (9 biologi nutrizionisti senior a Catania).
+     * **DCA & Psiconutrizione** (5 centri multidisciplinari correlati alla tesi di laurea).
+     * **Ospedaliero / Convenzione UniCT** (Garibaldi Centro & Nesima con cattedra Prof.ssa Frittitta).
+     * **Poliambulatori Specialistici** con branca nutrizionale/endocrinologica attiva (11 centri).
+     * **PMA, Fertilità & Ginecologia** (6 centri PMA/endometriosi).
+     * **Case di Cura & Cliniche con Degenza** (7 centri con nutrizione clinica/post-chirurgica).
+     * **Medicina dello Sport Clinica** (Studio Medico Staff, Studio Kineo, Studio Fitness 46).
+
+2. **🤝 FASE 2: Post-Abilitazione – Partnership & Sviluppo Clienti (31 strutture – DOPO ESAME DI STATO ONB):**
+   * *Obiettivo:* Costruire network commerciale per attirare pazienti una volta conseguita l'abilitazione e aperta la P.IVA.
+   * *Target:*
+     * **Farmacie & Parafarmacie dei Servizi** (16 farmacie con cabina BIA, giornate di screening e prevenzione).
+     * **Boutique Fitness Studio & Box CrossFit** (9 studi di personal training, CrossFit e reformer pilates per convenzioni soci ed educazione alimentare sportiva).
+     * **Poliambulatori generici e Cliniche nefrologiche/lungodegenza** (6 strutture per consulenze specialistiche a chiamata).
+
+3. **📦 FASE 3: Standby / Non Clinico – Food Tech, HACCP & Catene (22 strutture – STANDBY):**
+   * *Obiettivo:* Tenute a catalogo come piano di sicurezza legato alla triennale in Tecnologie Alimentari o palestre commerciali low-cost, ma **fuori target per la professione di biologa nutrizionista clinica**.
+   * *Target:* Società di consulenza HACCP, laboratori analisi acque/alimenti, laboratori diagnostici di chimica clinica/sangue (senza studio nutrizionale), mense industriali (Vivenda) e palestre commerciali low-cost (FitActive, McFIT) dove non c'è tutoraggio clinico.
 
 ---
 
