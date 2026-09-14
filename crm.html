@@ -2896,38 +2896,44 @@
       });
     }
 
+    let syncBackendType = "local"; // "upstash" | "csv" | "localstorage"
+
     // --- API CLIENT ---
     async function fetchLeads() {
-      const isLocalHost = window.location.hostname === "localhost" || 
-                           window.location.hostname === "127.0.0.1" || 
-                           window.location.port === "8000";
-
-      if (isLocalHost) {
-        try {
-          const res = await fetch("/api/leads");
-          if (res.ok) {
-            const data = await res.json();
-            allLeads = data.leads || [];
-            isServerMode = true;
-            const statusEl = document.getElementById("liveSyncStatus");
-            if (statusEl) {
+      try {
+        const res = await fetch("/api/leads");
+        if (res.ok) {
+          const data = await res.json();
+          allLeads = data.leads || [];
+          isServerMode = true;
+          const statusEl = document.getElementById("liveSyncStatus");
+          if (statusEl) {
+            if (data.storage === "upstash_redis") {
+              syncBackendType = "upstash";
+              statusEl.textContent = "Cloud DB Sincronizzato";
+              statusEl.style.background = "#ecfdf5";
+              statusEl.style.color = "#047857";
+            } else {
+              syncBackendType = "csv";
               statusEl.textContent = "File CSV Sincronizzato";
               statusEl.style.background = "#ecfdf5";
               statusEl.style.color = "#047857";
             }
-            renderApp();
-            return;
           }
-        } catch (err) {
-          console.warn("Server locale non rilevato, passaggio a modalità locale.", err);
+          try { localStorage.setItem("crm_melania_leads", JSON.stringify(allLeads)); } catch (e) {}
+          renderApp();
+          return;
         }
+      } catch (err) {
+        console.warn("API /api/leads non disponibile, passaggio a fallback offline locale.", err);
       }
 
-      // Standalone / Cloud mode (Vercel, GitHub Pages o offline)
+      // Standalone / Offline mode (fallback)
       isServerMode = false;
+      syncBackendType = "localstorage";
       const statusEl = document.getElementById("liveSyncStatus");
       if (statusEl) {
-        statusEl.textContent = "Cloud / Memoria Locale";
+        statusEl.textContent = "Offline / Memoria Locale";
         statusEl.style.background = "#eff6ff";
         statusEl.style.color = "#1d4ed8";
       }
@@ -2958,7 +2964,11 @@
           // Update local memory
           const idx = allLeads.findIndex(l => l.id === leadId);
           if (idx !== -1) allLeads[idx] = result.lead;
-          showToast("Modifiche salvate direttamente nel CSV!");
+          try { localStorage.setItem("crm_melania_leads", JSON.stringify(allLeads)); } catch (e) {}
+          const toastMsg = syncBackendType === "upstash" 
+            ? "Modifiche salvate nel Cloud Database!" 
+            : "Modifiche salvate direttamente nel CSV!";
+          showToast(toastMsg);
         } catch (e) {
           showToast("Errore nel salvataggio su server", true);
         }
@@ -2985,7 +2995,11 @@
           if (!res.ok) throw new Error("Errore creazione");
           const result = await res.json();
           allLeads.push(result.lead);
-          showToast("Nuovo contatto aggiunto e salvato su CSV!");
+          try { localStorage.setItem("crm_melania_leads", JSON.stringify(allLeads)); } catch (e) {}
+          const toastMsg = syncBackendType === "upstash" 
+            ? "Nuovo contatto aggiunto nel Cloud Database!" 
+            : "Nuovo contatto aggiunto e salvato su CSV!";
+          showToast(toastMsg);
         } catch (e) {
           showToast("Errore durante la creazione", true);
         }
@@ -3004,7 +3018,8 @@
           const res = await fetch(`/api/leads/${leadId}`, { method: "DELETE" });
           if (!res.ok) throw new Error("Errore eliminazione");
           allLeads = allLeads.filter(l => l.id !== leadId);
-          showToast("Contatto rimosso dal CSV");
+          try { localStorage.setItem("crm_melania_leads", JSON.stringify(allLeads)); } catch (e) {}
+          showToast("Contatto rimosso");
         } catch (e) {
           showToast("Errore durante l'eliminazione", true);
         }

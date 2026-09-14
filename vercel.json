@@ -1,6 +1,7 @@
 {
   "cleanUrls": true,
   "rewrites": [
+    { "source": "/api/leads/:id", "destination": "/api/leads?id=:id" },
     { "source": "/crm", "destination": "/index.html" },
     { "source": "/crm.html", "destination": "/index.html" }
   ]
