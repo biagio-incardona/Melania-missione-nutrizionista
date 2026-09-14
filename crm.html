@@ -1,0 +1,2607 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Melania Roccuzzo – Candidature & Tirocinio CRM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      
+      --bg-base: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-surface-elevated: #ffffff;
+      --border-subtle: #e2e8f0;
+      --border-strong: #cbd5e1;
+      
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --text-faint: #94a3b8;
+      
+      --brand: #059669;
+      --brand-light: #ecfdf5;
+      --brand-hover: #047857;
+      --brand-border: #a7f3d0;
+      
+      --status-da-contattare: #64748b;
+      --status-da-contattare-bg: #f1f5f9;
+      --status-email-inviata: #d97706;
+      --status-email-inviata-bg: #fef3c7;
+      --status-in-attesa: #ea580c;
+      --status-in-attesa-bg: #ffedd5;
+      --status-colloquio: #7c3aed;
+      --status-colloquio-bg: #f3e8ff;
+      --status-accettato: #059669;
+      --status-accettato-bg: #d1fae5;
+      --status-rifiutato: #dc2626;
+      --status-rifiutato-bg: #fee2e2;
+      
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --radius-full: 9999px;
+      
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 60px;
+    }
+
+    /* TOPBAR */
+    .topbar {
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-subtle);
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .topbar-content {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .brand-section {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, #059669, #10b981);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 18px;
+      box-shadow: 0 2px 8px rgba(5, 150, 105, 0.3);
+    }
+
+    .brand-titles h1 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-main);
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-titles p {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .live-status-pill {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      background: var(--brand-light);
+      color: var(--brand);
+      border: 1px solid var(--brand-border);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .live-status-pill::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--brand);
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* BUTTONS */
+    .btn {
+      font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: var(--radius-md);
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--brand);
+      color: white;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-primary:hover {
+      background: var(--brand-hover);
+    }
+
+    .btn-outline {
+      background: var(--bg-surface);
+      color: var(--text-main);
+      border-color: var(--border-strong);
+    }
+
+    .btn-outline:hover {
+      background: #f1f5f9;
+      border-color: #94a3b8;
+    }
+
+    .btn-subtle {
+      background: transparent;
+      color: var(--text-muted);
+    }
+
+    .btn-subtle:hover {
+      background: #e2e8f0;
+      color: var(--text-main);
+    }
+
+    .btn-sm {
+      padding: 5px 10px;
+      font-size: 12px;
+      border-radius: var(--radius-sm);
+    }
+
+    /* VIEW SWITCHER */
+    .segmented-control {
+      display: inline-flex;
+      background: #f1f5f9;
+      padding: 3px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .segmented-control button {
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 12px;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      border-radius: 7px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .segmented-control button.active {
+      background: var(--bg-surface);
+      color: var(--text-main);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    /* MAIN CONTAINER */
+    .main-container {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    /* STATS STRIP */
+    .stats-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .stat-card:hover {
+      border-color: var(--border-strong);
+      transform: translateY(-1px);
+    }
+
+    .stat-card.active {
+      border-color: var(--brand);
+      background: var(--brand-light);
+    }
+
+    .stat-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .stat-value {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text-main);
+      letter-spacing: -0.03em;
+    }
+
+    .stat-progress {
+      height: 4px;
+      background: #e2e8f0;
+      border-radius: 2px;
+      overflow: hidden;
+      margin-top: 4px;
+    }
+
+    .stat-progress-bar {
+      height: 100%;
+      background: var(--brand);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    /* FILTERS & SEARCH */
+    .controls-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .search-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .search-input-wrapper {
+      position: relative;
+      flex: 1;
+      min-width: 260px;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 10px 14px 10px 38px;
+      font-size: 14px;
+      font-family: inherit;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-md);
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+      background: #f8fafc;
+    }
+
+    .search-input:focus {
+      background: #ffffff;
+      border-color: var(--brand);
+      box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15);
+    }
+
+    .filter-select {
+      font-family: inherit;
+      font-size: 13px;
+      padding: 10px 14px;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-md);
+      background-color: #ffffff;
+      color: var(--text-main);
+      cursor: pointer;
+      outline: none;
+    }
+
+    .filter-select:focus {
+      border-color: var(--brand);
+    }
+
+    /* CLUSTER CHIPS */
+    .cluster-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .cluster-chips-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-right: 4px;
+    }
+
+    .chip {
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-subtle);
+      background: #ffffff;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .chip:hover {
+      background: #f1f5f9;
+      color: var(--text-main);
+      border-color: var(--border-strong);
+    }
+
+    .chip.active {
+      background: var(--text-main);
+      color: white;
+      border-color: var(--text-main);
+    }
+
+    .chip-count {
+      font-size: 10px;
+      background: rgba(0,0,0,0.08);
+      padding: 1px 6px;
+      border-radius: var(--radius-full);
+    }
+
+    .chip.active .chip-count {
+      background: rgba(255,255,255,0.25);
+    }
+
+    /* KANBAN BOARD */
+    .kanban-view {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      align-items: start;
+    }
+
+    .kanban-col {
+      background: #f1f5f9;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 12px;
+      min-height: 500px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .kanban-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px 6px 8px;
+    }
+
+    .kanban-title {
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .kanban-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: var(--radius-full);
+      background: white;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+    }
+
+    .kanban-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .kanban-card {
+      background: white;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: all 0.15s ease;
+      cursor: pointer;
+    }
+
+    .kanban-card:hover {
+      border-color: var(--brand-border);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .card-cluster {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--brand);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .card-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.3;
+    }
+
+    .card-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .card-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .card-note {
+      font-size: 12px;
+      color: #475569;
+      background: #f8fafc;
+      padding: 8px 10px;
+      border-radius: var(--radius-sm);
+      border-left: 3px solid var(--brand);
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 4px;
+      padding-top: 6px;
+      border-top: 1px solid #f1f5f9;
+    }
+
+    /* TABLE VIEW */
+    .table-container {
+      background: white;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 13px;
+    }
+
+    th {
+      background: #f8fafc;
+      color: var(--text-muted);
+      font-weight: 600;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      vertical-align: middle;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background: #fbfcfe;
+    }
+
+    .lead-title-cell {
+      max-width: 280px;
+    }
+
+    .lead-title-name {
+      font-weight: 700;
+      color: var(--text-main);
+      font-size: 14px;
+      margin-bottom: 2px;
+    }
+
+    .lead-title-type {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* BADGES */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px;
+      border-radius: var(--radius-full);
+      font-size: 11px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .badge-cluster {
+      background: #e0e7ff;
+      color: #3730a3;
+    }
+
+    .badge-logistica {
+      background: #f1f5f9;
+      color: #475569;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .badge-logistica.walk {
+      background: #fef2f2;
+      color: #991b1b;
+      border-color: #fee2e2;
+    }
+
+    .badge-logistica.metro {
+      background: #eff6ff;
+      color: #1d4ed8;
+      border-color: #dbeafe;
+    }
+
+    /* STATUS SELECTOR */
+    .status-select {
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 8px;
+      border-radius: var(--radius-full);
+      border: 1px solid transparent;
+      cursor: pointer;
+      outline: none;
+      transition: all 0.15s ease;
+    }
+
+    .status-da-contattare {
+      background: var(--status-da-contattare-bg);
+      color: var(--status-da-contattare);
+      border-color: #cbd5e1;
+    }
+
+    .status-email-inviata {
+      background: var(--status-email-inviata-bg);
+      color: var(--status-email-inviata);
+      border-color: #fde68a;
+    }
+
+    .status-in-attesa-di-risposta {
+      background: var(--status-in-attesa-bg);
+      color: var(--status-in-attesa);
+      border-color: #fdba74;
+    }
+
+    .status-colloquio-fissato {
+      background: var(--status-colloquio-bg);
+      color: var(--status-colloquio);
+      border-color: #d8b4fe;
+    }
+
+    .status-accettato---convenzionato {
+      background: var(--status-accettato-bg);
+      color: var(--status-accettato);
+      border-color: var(--brand-border);
+    }
+
+    .status-non-disponibile---rifiutato {
+      background: var(--status-rifiutato-bg);
+      color: var(--status-rifiutato);
+      border-color: #fca5a5;
+    }
+
+    .status-standby---da-risentire {
+      background: #f1f5f9;
+      color: #64748b;
+      border-color: #cbd5e1;
+    }
+
+    /* ACTION BUTTONS IN ROW */
+    .action-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .icon-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+      background: white;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-decoration: none;
+    }
+
+    .icon-btn:hover {
+      background: #f1f5f9;
+      color: var(--text-main);
+      border-color: var(--border-strong);
+    }
+
+    .icon-btn.primary:hover {
+      background: var(--brand-light);
+      color: var(--brand);
+      border-color: var(--brand-border);
+    }
+
+    /* MODALS */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.5);
+      backdrop-filter: blur(4px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal-dialog {
+      background: white;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      width: 100%;
+      max-width: 680px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      animation: modalPop 0.18s ease-out;
+    }
+
+    @keyframes modalPop {
+      from {
+        opacity: 0;
+        transform: scale(0.96) translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    .modal-header {
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .modal-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .modal-body {
+      padding: 24px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .modal-footer {
+      padding: 16px 24px;
+      border-top: 1px solid var(--border-subtle);
+      background: #f8fafc;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    .form-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .form-input, .form-textarea, .form-select-full {
+      font-family: inherit;
+      font-size: 13px;
+      padding: 8px 12px;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-md);
+      outline: none;
+      transition: all 0.15s ease;
+      background: white;
+      color: var(--text-main);
+    }
+
+    .form-input:focus, .form-textarea:focus, .form-select-full:focus {
+      border-color: var(--brand);
+      box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.12);
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    /* PITCH DRAFT MODAL */
+    .pitch-box {
+      background: #f8fafc;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      font-family: var(--font-sans);
+      font-size: 13px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      color: #334155;
+      max-height: 350px;
+      overflow-y: auto;
+    }
+
+    /* TOAST */
+    .toast-container {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      pointer-events: none;
+    }
+
+    .toast {
+      background: #0f172a;
+      color: white;
+      padding: 12px 18px;
+      border-radius: var(--radius-md);
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: slideIn 0.2s ease-out;
+      pointer-events: auto;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* EMPTY STATE */
+    .empty-state {
+      text-align: center;
+      padding: 48px 24px;
+      color: var(--text-muted);
+    }
+
+    .empty-state h3 {
+      font-size: 16px;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+      .topbar-content {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .topbar-actions {
+        justify-content: space-between;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="topbar-content">
+      <div class="brand-section">
+        <div class="brand-badge">MR</div>
+        <div class="brand-titles">
+          <h1>
+            Candidature CRM
+            <span class="live-status-pill" id="liveSyncStatus">File CSV Attivo</span>
+          </h1>
+          <p>Tirocinio Clinico Catania &bull; <strong>Melania Roccuzzo</strong></p>
+        </div>
+      </div>
+
+      <div class="topbar-actions">
+        <!-- Segmented Control for Views -->
+        <div class="segmented-control">
+          <button id="viewBtnTable" class="active" onclick="switchView('table')">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+            Tabella
+          </button>
+          <button id="viewBtnKanban" onclick="switchView('kanban')">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="18" rx="1"></rect><rect x="14" y="3" width="7" height="11" rx="1"></rect></svg>
+            Kanban
+          </button>
+        </div>
+
+        <button class="btn btn-outline" onclick="exportCSV()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          Esporta CSV
+        </button>
+
+        <button class="btn btn-primary" onclick="openNewLeadModal()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          Nuovo Lead
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN WRAPPER -->
+  <main class="main-container">
+
+    <!-- KPI STRIP -->
+    <section class="stats-strip" id="statsStrip">
+      <!-- Generated via JS -->
+    </section>
+
+    <!-- CONTROLS & FILTERS -->
+    <section class="controls-card">
+      <div class="search-row">
+        <div class="search-input-wrapper">
+          <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="text" id="searchInput" class="search-input" placeholder="Cerca struttura, medico, indirizzo, note... (premi '/' per cercare)" oninput="handleSearch(this.value)">
+        </div>
+
+        <select id="statusFilter" class="filter-select" onchange="handleFilterStatus(this.value)">
+          <option value="">Tutti gli stati</option>
+          <option value="Da contattare">Da contattare</option>
+          <option value="Email inviata">Email inviata</option>
+          <option value="In attesa di risposta">In attesa di risposta</option>
+          <option value="Colloquio fissato">Colloquio fissato</option>
+          <option value="Accettato / Convenzionato">Accettato / Convenzionato</option>
+          <option value="Non disponibile / Rifiutato">Non disponibile / Rifiutato</option>
+          <option value="Standby / Da risentire">Standby / Da risentire</option>
+        </select>
+
+        <select id="distanceFilter" class="filter-select" onchange="handleFilterDistance(this.value)">
+          <option value="">Tutta la logistica</option>
+          <option value="walk_short">A piedi (&lt; 10 min da casa)</option>
+          <option value="metro">Vicino Metro (Milo / Borgo / Giuffrida / Italia / Galatea)</option>
+        </select>
+
+        <button class="btn btn-subtle btn-sm" onclick="resetFilters()">Reset Filtri</button>
+      </div>
+
+      <!-- CLUSTERS CHIPS -->
+      <div class="cluster-chips" id="clusterChipsContainer">
+        <span class="cluster-chips-title">Cluster:</span>
+        <!-- Generated via JS -->
+      </div>
+    </section>
+
+    <!-- CONTENT VIEWS -->
+    <!-- 1. TABLE VIEW -->
+    <section id="tableViewSection" class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th onclick="sortTable('Nome_Struttura_Professionista')" style="cursor: pointer;">Struttura / Medico ↕</th>
+            <th onclick="sortTable('Cluster')" style="cursor: pointer;">Cluster ↕</th>
+            <th>Zona &amp; Distanza</th>
+            <th>Contatti Rapidi</th>
+            <th onclick="sortTable('Stato_Candidatura')" style="cursor: pointer;">Stato Candidatura ↕</th>
+            <th>Azioni</th>
+          </tr>
+        </thead>
+        <tbody id="leadsTableBody">
+          <!-- Rows via JS -->
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 2. KANBAN VIEW -->
+    <section id="kanbanViewSection" class="kanban-view" style="display: none;">
+      <!-- Columns via JS -->
+    </section>
+
+  </main>
+
+  <!-- LEAD DETAIL & EDIT MODAL -->
+  <div id="leadModal" class="modal-overlay" onclick="closeModalOnOverlay(event, 'leadModal')">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h2 class="modal-title" id="leadModalTitle">Modifica Candidatura</h2>
+        <button class="btn btn-subtle btn-sm" onclick="closeModal('leadModal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <form id="leadForm" class="form-grid">
+          <input type="hidden" id="formLeadId">
+
+          <div class="form-group full">
+            <label class="form-label">Nome Struttura o Professionista *</label>
+            <input type="text" id="formNome" class="form-input" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Cluster Strategico</label>
+            <select id="formCluster" class="form-select-full">
+              <option value="DCA & Psiconutrizione">DCA & Psiconutrizione</option>
+              <option value="Studi Privati Nutrizione">Studi Privati Nutrizione</option>
+              <option value="Ospedaliero / Convenzione UniCT">Ospedaliero / Convenzione UniCT</option>
+              <option value="Poliambulatori Specialistici">Poliambulatori Specialistici</option>
+              <option value="Case di Cura & Cliniche Private">Case di Cura & Cliniche Private</option>
+              <option value="Medicina dello Sport & Fitness">Medicina dello Sport & Fitness</option>
+              <option value="Laboratori Analisi & HACCP">Laboratori Analisi & HACCP</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Stato Candidatura</label>
+            <select id="formStato" class="form-select-full">
+              <option value="Da contattare">Da contattare</option>
+              <option value="Email inviata">Email inviata</option>
+              <option value="In attesa di risposta">In attesa di risposta</option>
+              <option value="Colloquio fissato">Colloquio fissato</option>
+              <option value="Accettato / Convenzionato">Accettato / Convenzionato</option>
+              <option value="Non disponibile / Rifiutato">Non disponibile / Rifiutato</option>
+              <option value="Standby / Da risentire">Standby / Da risentire</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Tipologia di Struttura</label>
+            <input type="text" id="formTipologia" class="form-input">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Zona / Quartiere</label>
+            <input type="text" id="formZona" class="form-input">
+          </div>
+
+          <div class="form-group full">
+            <label class="form-label">Indirizzo Completo</label>
+            <input type="text" id="formIndirizzo" class="form-input">
+          </div>
+
+          <div class="form-group full">
+            <label class="form-label">Logistica &amp; Distanza da Casa</label>
+            <input type="text" id="formLogistica" class="form-input">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Telefono</label>
+            <input type="text" id="formTelefono" class="form-input">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Email / PEC</label>
+            <input type="text" id="formEmail" class="form-input">
+          </div>
+
+          <div class="form-group full">
+            <label class="form-label">Sito Web / MioDottore / Link</label>
+            <input type="text" id="formSito" class="form-input">
+          </div>
+
+          <div class="form-group full">
+            <label class="form-label">Note Opportunità &amp; Posizionamento Melania</label>
+            <textarea id="formNote" class="form-textarea"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Data Ultimo Contatto</label>
+            <input type="date" id="formDataContatto" class="form-input">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Note Personali / Follow-up</label>
+            <input type="text" id="formNoteFollowup" class="form-input" placeholder="Es. Chiamata segretaria, inviata mail, richiamare martedì">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" style="color: #dc2626; border-color: #fca5a5;" id="deleteLeadBtn" onclick="deleteCurrentLead()">Elimina Lead</button>
+        <div style="display: flex; gap: 8px;">
+          <button type="button" class="btn btn-outline" onclick="closeModal('leadModal')">Annulla</button>
+          <button type="button" class="btn btn-primary" onclick="saveLeadForm()">Salva nel CSV</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EMAIL PITCH GENERATOR MODAL -->
+  <div id="emailModal" class="modal-overlay" onclick="closeModalOnOverlay(event, 'emailModal')">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div>
+          <h2 class="modal-title">Bozza Candidatura Spontanea</h2>
+          <p style="font-size: 12px; color: var(--text-muted);" id="emailModalSubtitle">Personalizzata per la struttura</p>
+        </div>
+        <button class="btn btn-subtle btn-sm" onclick="closeModal('emailModal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <label class="form-label" style="margin: 0;">Destinatario: <strong id="emailRecipient" style="color: var(--brand);"></strong></label>
+          <span class="badge badge-cluster" id="emailClusterTag">Cluster</span>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Oggetto Email Suggerito:</label>
+          <input type="text" id="emailSubject" class="form-input" readonly>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Corpo della Candidatura (Calibrato su Melania):</label>
+          <div id="emailBodyBox" class="pitch-box"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="copyEmailText()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          Copia Testo
+        </button>
+        <button class="btn btn-primary" id="openMailClientBtn" onclick="openMailClient()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          Apri nel Client Mail
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST CONTAINER -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script>
+    // --- STATE MANAGEMENT ---
+    const INITIAL_EMBEDDED_LEADS = [
+  {
+    "id": 1,
+    "Cluster": "DCA & Psiconutrizione",
+    "Nome_Struttura_Professionista": "Food for Mind Catania",
+    "Tipologia": "Centro DCA Multidisciplinare (Dott. V. Bonaccorsi)",
+    "Indirizzo": "Via Paolo Bentivoglio, 62",
+    "Zona_Quartiere": "Milo / Monserrato",
+    "Logistica_Distanza": "Metro Milo (3 min) / 20 min a piedi",
+    "Telefono": "+39 349 1298277",
+    "Email_PEC": "catania@foodmind.it",
+    "Sito_Web_Riferimento": "https://www.foodmind.it",
+    "Note_Opportunita_Melania": "Gold standard per la tesi triennale su DCA e salute mentale. Équipe integrata nutrizionista + psicoterapeuta.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 2,
+    "Cluster": "DCA & Psiconutrizione",
+    "Nome_Struttura_Professionista": "PerFormat Salute Catania",
+    "Tipologia": "Centro Clinico & Master DCA (Dott.ssa C. Ajon, Dott. F. Inzerra)",
+    "Indirizzo": "Piazza Cavour, 14",
+    "Zona_Quartiere": "Borgo",
+    "Logistica_Distanza": "Metro Borgo (1 min) / 14 min a piedi",
+    "Telefono": "095 8365969",
+    "Email_PEC": "catania@performat.it",
+    "Sito_Web_Riferimento": "https://www.performatsalute.it",
+    "Note_Opportunita_Melania": "Master DCA, psicoterapia integrata con biologi nutrizionisti, approccio non prescrittivo ed empatico.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 3,
+    "Cluster": "Ospedaliero / Convenzione UniCT",
+    "Nome_Struttura_Professionista": "ARNAS Garibaldi Centro – UOSD Dietologia e Nutrizione Clinica",
+    "Tipologia": "Presidio Ospedaliero ad Alta Specializzazione",
+    "Indirizzo": "Piazza Santa Maria di Gesù, 5",
+    "Zona_Quartiere": "Santa Maria di Gesù",
+    "Logistica_Distanza": "5-6 min a piedi",
+    "Telefono": "095 7591111",
+    "Email_PEC": "urp@arnasgaribaldi.it",
+    "Sito_Web_Riferimento": "https://www.ao-garibaldi.ct.it",
+    "Note_Opportunita_Melania": "A 5 minuti da casa. Ambulatorio obesità, bariatrica e malnutrizione. Canale tirocinio curriculare convenzionato UniCT.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 4,
+    "Cluster": "Ospedaliero / Convenzione UniCT",
+    "Nome_Struttura_Professionista": "ARNAS Garibaldi Nesima – UOC Endocrinologia e Malattie del Ricambio",
+    "Tipologia": "Presidio Ospedaliero Universitario",
+    "Indirizzo": "Via Palermo, 636",
+    "Zona_Quartiere": "Nesima",
+    "Logistica_Distanza": "Metro Fontana (0 min - tunnel sotterraneo)",
+    "Telefono": "095 7595000",
+    "Email_PEC": "urp@arnasgaribaldi.it",
+    "Sito_Web_Riferimento": "https://www.ao-garibaldi.ct.it",
+    "Note_Opportunita_Melania": "Centro regionale obesità e chirurgia bariatrica. Cattedra Prof.ssa Lucia Frittitta (docente ordinaria Magistrale UniCT).",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 5,
+    "Cluster": "Case di Cura & Cliniche Private",
+    "Nome_Struttura_Professionista": "Casa di Cura Mater Dei",
+    "Tipologia": "Casa di Cura Accreditata SSN con Degenze",
+    "Indirizzo": "Viale Mario Rapisardi, 1",
+    "Zona_Quartiere": "Rapisardi / S. Maria di Gesù",
+    "Logistica_Distanza": "5 min a piedi",
+    "Telefono": "095 7311111",
+    "Email_PEC": "info@casadicuramaterdei.com",
+    "Sito_Web_Riferimento": "https://www.casadicuramaterdei.com",
+    "Note_Opportunita_Melania": "A 5 min a piedi. Reparti chirurgici, degenze, poliambulatorio e laboratorio. Gestione tabelle dietetiche ed HACCP.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 6,
+    "Cluster": "Case di Cura & Cliniche Private",
+    "Nome_Struttura_Professionista": "Clinica Falcidia",
+    "Tipologia": "Casa di Cura Ostetrico-Ginecologica & PMA",
+    "Indirizzo": "Via San Tomaso d'Aquino, 32/34",
+    "Zona_Quartiere": "Picanello / Vittorio Veneto",
+    "Logistica_Distanza": "Metro Giuffrida (8 min a piedi)",
+    "Telefono": "095 7122111",
+    "Email_PEC": "info@clinicafalcidia.it",
+    "Sito_Web_Riferimento": "https://www.clinicafalcidia.it",
+    "Note_Opportunita_Melania": "Punto di riferimento regionale ginecologia, ostetricia e PMA. Nutrizione per fertilità, PCOS e gravidanza.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 7,
+    "Cluster": "Case di Cura & Cliniche Private",
+    "Nome_Struttura_Professionista": "Casa di Cura Gibiino",
+    "Tipologia": "Casa di Cura Privata Accreditata SSN",
+    "Indirizzo": "Viale Odorico da Pordenone, 25",
+    "Zona_Quartiere": "Circonvallazione / Borgo",
+    "Logistica_Distanza": "Metro Milo / Borgo (10 min a piedi)",
+    "Telefono": "095 7335111",
+    "Email_PEC": "info@casadicuragibiino.it",
+    "Sito_Web_Riferimento": "https://www.casadicuragibiino.it",
+    "Note_Opportunita_Melania": "Chirurgia generale, degenze, diagnostica e poliambulatorio specialistico.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 8,
+    "Cluster": "Case di Cura & Cliniche Private",
+    "Nome_Struttura_Professionista": "Humanitas Medical Care Catania",
+    "Tipologia": "Poliambulatorio Specialistico di Alta Specializzazione",
+    "Indirizzo": "Via Ipogeo, 12",
+    "Zona_Quartiere": "Piazza Lanza",
+    "Logistica_Distanza": "8-9 min a piedi",
+    "Telefono": "095 7339000",
+    "Email_PEC": "informazioni@humanitascatania.it",
+    "Sito_Web_Riferimento": "https://www.humanitas-care.it",
+    "Note_Opportunita_Melania": "Dietetica clinica e coaching nutrizionale. Brand ospedaliero di massimo prestigio su CV a 8 min da casa.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 9,
+    "Cluster": "Poliambulatori Specialistici",
+    "Nome_Struttura_Professionista": "Centro Medico Catanese",
+    "Tipologia": "Poliambulatorio Polispecialistico (Dott.ssa N. Malerba)",
+    "Indirizzo": "Viale XX Settembre, 70",
+    "Zona_Quartiere": "Villa Bellini / Centro",
+    "Logistica_Distanza": "12-13 min a piedi / Metro Italia (8 min)",
+    "Telefono": "095 16933016",
+    "Email_PEC": "info@centromedicocatanese.it",
+    "Sito_Web_Riferimento": "https://www.centromedicocatanese.it",
+    "Note_Opportunita_Melania": "Ambulatorio di Biologia della Nutrizione, patologia clinica, nutrizione sportiva e prevenzione cardiovascolare.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 10,
+    "Cluster": "Poliambulatori Specialistici",
+    "Nome_Struttura_Professionista": "CME – Centro Multispecialistico Etneo",
+    "Tipologia": "Grande Centro Polispecialistico Moderno",
+    "Indirizzo": "Via Guardia della Carvana, 4/A",
+    "Zona_Quartiere": "Vittorio Veneto",
+    "Logistica_Distanza": "Metro Giuffrida (2 min a piedi)",
+    "Telefono": "095 8176800",
+    "Email_PEC": "info@cmecatania.it",
+    "Sito_Web_Riferimento": "https://www.cmecatania.it",
+    "Note_Opportunita_Melania": "Servizio strutturato di Dietologia e Nutrizione Umana. Ideale per apprendere la routine del poliambulatorio.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 11,
+    "Cluster": "Poliambulatori Specialistici",
+    "Nome_Struttura_Professionista": "Poliambulatorio Gi.Sa.",
+    "Tipologia": "Poliambulatorio Multispecialistico (Dott.ssa I. Scainelli)",
+    "Indirizzo": "Via Dottor Consoli, 14/A",
+    "Zona_Quartiere": "Santa Maria di Gesù",
+    "Logistica_Distanza": "9-10 min a piedi",
+    "Telefono": "095 2180135",
+    "Email_PEC": "info@poliambulatoriogisa.it",
+    "Sito_Web_Riferimento": "https://www.poliambulatoriogisa.it",
+    "Note_Opportunita_Melania": "Nutrizionista anche erborista/fitoterapeuta; ponte con merceologia vegetale e tecnologie alimentari. Endocrinologia.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 12,
+    "Cluster": "Poliambulatori Specialistici",
+    "Nome_Struttura_Professionista": "Poliambulatorio MedOS",
+    "Tipologia": "Poliambulatorio Specialistico Privato",
+    "Indirizzo": "Via Milano, 29",
+    "Zona_Quartiere": "Corso Italia",
+    "Logistica_Distanza": "Metro Italia (3 min a piedi)",
+    "Telefono": "095 372075",
+    "Email_PEC": "segreteria@medos.it",
+    "Sito_Web_Riferimento": "https://www.medos.it",
+    "Note_Opportunita_Melania": "Poliambulatorio privato nel polo medico di Corso Italia.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 13,
+    "Cluster": "Poliambulatori Specialistici",
+    "Nome_Struttura_Professionista": "Poliambulatorio Esclapio",
+    "Tipologia": "Poliambulatorio Medico e Diagnostico",
+    "Indirizzo": "Via Caronda, 446",
+    "Zona_Quartiere": "Borgo / Sanzio",
+    "Logistica_Distanza": "Metro Borgo (8 min a piedi)",
+    "Telefono": "095 444300",
+    "Email_PEC": "segreteria@esclapio.it",
+    "Sito_Web_Riferimento": "https://www.esclapio.it",
+    "Note_Opportunita_Melania": "Cardiologia, allergologia, medicina specialistica.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 14,
+    "Cluster": "Poliambulatori Specialistici",
+    "Nome_Struttura_Professionista": "Poliambulatorio ICT",
+    "Tipologia": "Poliambulatorio Medico-Chirurgico (Dr. S. Pedullà)",
+    "Indirizzo": "Via Caronda, 211",
+    "Zona_Quartiere": "Borgo",
+    "Logistica_Distanza": "Metro Borgo (3-4 min a piedi)",
+    "Telefono": "095 507954",
+    "Email_PEC": "ambulatorio@ictmed.it",
+    "Sito_Web_Riferimento": "https://www.ictmed.it",
+    "Note_Opportunita_Melania": "Gastroenterologia e dietologia clinica integrata (IBS, reflusso, celiachia, MICI).",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 15,
+    "Cluster": "Poliambulatori Specialistici",
+    "Nome_Struttura_Professionista": "Medical CT – Studio Polispecialistico",
+    "Tipologia": "Centro Medico Specialistico & Telemedicina",
+    "Indirizzo": "Viale Vittorio Veneto, 187/A",
+    "Zona_Quartiere": "Vittorio Veneto",
+    "Logistica_Distanza": "Metro Giuffrida (3 min a piedi)",
+    "Telefono": "328 6714107",
+    "Email_PEC": "medicalct@libero.it",
+    "Sito_Web_Riferimento": "http://medicalct.it",
+    "Note_Opportunita_Melania": "Endocrinologia, diabetologia, metabolismo con medici consulenti San Raffaele Milano.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 16,
+    "Cluster": "Poliambulatori Specialistici",
+    "Nome_Struttura_Professionista": "C3P – Studio Medico Polispecialistico",
+    "Tipologia": "Poliambulatorio Specialistico Privato (Dott.ssa S. Matera)",
+    "Indirizzo": "Viale Africa, 148/150",
+    "Zona_Quartiere": "Galatea",
+    "Logistica_Distanza": "Metro Galatea (3-4 min a piedi)",
+    "Telefono": "095 6242661",
+    "Email_PEC": "info@c3pstudiomedico.it",
+    "Sito_Web_Riferimento": "https://www.c3pstudiomedico.it",
+    "Note_Opportunita_Melania": "Servizio nutrizione interno, de-escalation e customer care; a 3 min dalla metro.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 17,
+    "Cluster": "Poliambulatori Specialistici",
+    "Nome_Struttura_Professionista": "Centro Arco Catania",
+    "Tipologia": "Poliambulatorio & Riabilitazione (Dott.ssa A. Calì)",
+    "Indirizzo": "Via Umberto I, 306",
+    "Zona_Quartiere": "Villa Bellini / Centro",
+    "Logistica_Distanza": "14-15 min a piedi / Metro Stesicoro (4 min)",
+    "Telefono": "095 9518439",
+    "Email_PEC": "info@centroarco.it",
+    "Sito_Web_Riferimento": "https://www.centroarco.it",
+    "Note_Opportunita_Melania": "Dietista clinica con background cardiologico Monzino Milano; approccio psiconutrizionale.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 18,
+    "Cluster": "Poliambulatori Specialistici",
+    "Nome_Struttura_Professionista": "Medicare Onlus – Ambulatorio NutriCare",
+    "Tipologia": "Struttura Assistenziale e Nutrizione Clinica",
+    "Indirizzo": "Viale Alexander Fleming, 20",
+    "Zona_Quartiere": "Milo",
+    "Logistica_Distanza": "Metro Milo (3 min a piedi)",
+    "Telefono": "347 7064563",
+    "Email_PEC": "info@medicareonlus.com",
+    "Sito_Web_Riferimento": "https://www.medicareonlus.com",
+    "Note_Opportunita_Melania": "Nutrizione clinica, supporto nutrizionale a pazienti oncologici e fragili.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 19,
+    "Cluster": "Poliambulatori Specialistici",
+    "Nome_Struttura_Professionista": "GF Medica – Medicina Innovativa",
+    "Tipologia": "Centro Polispecialistico (Dott.ssa N. Fazzio)",
+    "Indirizzo": "Viale Regina Margherita, 4/D",
+    "Zona_Quartiere": "Piazza Roma",
+    "Logistica_Distanza": "9-10 min a piedi",
+    "Telefono": "095 0971050",
+    "Email_PEC": "info@gfmedica.it",
+    "Sito_Web_Riferimento": "https://www.gfmedica.it",
+    "Note_Opportunita_Melania": "Medicina preventiva, anti-aging, composizione corporea e dietetica metabolica.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 20,
+    "Cluster": "Poliambulatori Specialistici",
+    "Nome_Struttura_Professionista": "FPM Poliambulatori",
+    "Tipologia": "Poliambulatorio Medico e Riabilitativo (Dott. S. Malaguarnera)",
+    "Indirizzo": "Corso Sicilia, 56",
+    "Zona_Quartiere": "Centro",
+    "Logistica_Distanza": "Metro Stesicoro (2 min a piedi)",
+    "Telefono": "095 7150323",
+    "Email_PEC": "info@fpmpoliambulatori.it",
+    "Sito_Web_Riferimento": "https://www.fpmpoliambulatori.it",
+    "Note_Opportunita_Melania": "Chinesiologia, esercizio fisico adattato, composizione corporea e dietoterapia.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 21,
+    "Cluster": "Studi Privati Nutrizione",
+    "Nome_Struttura_Professionista": "Studio Dott.ssa Ottavia Marascia",
+    "Tipologia": "Studio Privato Biologa Nutrizionista",
+    "Indirizzo": "Viale Mario Rapisardi, 258",
+    "Zona_Quartiere": "Rapisardi",
+    "Logistica_Distanza": "4-5 min a piedi",
+    "Telefono": "342 3582136",
+    "Email_PEC": "ottaviamarascia.nutrizionista@gmail.com",
+    "Sito_Web_Riferimento": "NutriDoc / MioDottore",
+    "Note_Opportunita_Melania": "A soli 380 metri da casa. Focus salute femminile, PCOS, ormoni e ricomposizione corporea.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 22,
+    "Cluster": "Studi Privati Nutrizione",
+    "Nome_Struttura_Professionista": "Studio Bionutrimed – Dott.ssa Teresa Licciardi",
+    "Tipologia": "Studio Specialistico Nutrizione e Rieducazione",
+    "Indirizzo": "Via Rosso di San Secondo, 18",
+    "Zona_Quartiere": "Borgo / P.zza Cavour",
+    "Logistica_Distanza": "Metro Milo/Borgo / 14 min a piedi",
+    "Telefono": "095 8996213",
+    "Email_PEC": "info@bionutrimed.it",
+    "Sito_Web_Riferimento": "https://www.bionutrimed.it",
+    "Note_Opportunita_Melania": "Bioimpedenziometria vettoriale, software nutrizionali, rieducazione alimentare senza diete tossiche.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 23,
+    "Cluster": "Studi Privati Nutrizione",
+    "Nome_Struttura_Professionista": "Studio Dott. Marco Gallo",
+    "Tipologia": "Studio Privato Biologo Nutrizionista",
+    "Indirizzo": "Corso Italia, 85",
+    "Zona_Quartiere": "Corso Italia",
+    "Logistica_Distanza": "Metro Italia (2-3 min a piedi)",
+    "Telefono": "340 5059242",
+    "Email_PEC": "dottgallo.nutrizionista@gmail.com",
+    "Sito_Web_Riferimento": "https://www.dottgallo.it",
+    "Note_Opportunita_Melania": "Alto afflusso pazienti, ricomposizione corporea, gestione visite e software nutrizionale.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 24,
+    "Cluster": "Studi Privati Nutrizione",
+    "Nome_Struttura_Professionista": "Studio Dott. Francesco Garritano",
+    "Tipologia": "Studio Nutrizione Clinica Funzionale",
+    "Indirizzo": "Via Androne, 66 / Via Ughetti, 79",
+    "Zona_Quartiere": "Santa Maria di Gesù",
+    "Logistica_Distanza": "10-11 min a piedi",
+    "Telefono": "392 0092540",
+    "Email_PEC": "info@francescogarritano.it",
+    "Sito_Web_Riferimento": "https://www.francescogarritano.it",
+    "Note_Opportunita_Melania": "Nutrizione funzionale avanzata, asse intestino-tiroide, protocolli antinfiammatori.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 25,
+    "Cluster": "Studi Privati Nutrizione",
+    "Nome_Struttura_Professionista": "Studio Dott.ssa Graziana Reale",
+    "Tipologia": "Studio Privato Biologa Nutrizionista",
+    "Indirizzo": "Via Edmondo De Amicis, 103/A",
+    "Zona_Quartiere": "Vittorio Veneto",
+    "Logistica_Distanza": "Metro Giuffrida (7-8 min a piedi)",
+    "Telefono": "333 2309487",
+    "Email_PEC": "grazianareale.nutrizionista@gmail.com",
+    "Sito_Web_Riferimento": "https://www.nutrizionistagrazianareale.it",
+    "Note_Opportunita_Melania": "Educazione alimentare non restrittiva, salute femminile, colon irritabile (IBS).",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 26,
+    "Cluster": "Studi Privati Nutrizione",
+    "Nome_Struttura_Professionista": "Studio Dott. Alberto Bertolone",
+    "Tipologia": "Studio Nutrizionale Specialistico",
+    "Indirizzo": "Corso Italia, 207",
+    "Zona_Quartiere": "Corso Italia",
+    "Logistica_Distanza": "Metro Italia (3-4 min a piedi)",
+    "Telefono": "095 9519703",
+    "Email_PEC": "info@nutrizionistabertolone.com",
+    "Sito_Web_Riferimento": "https://www.nutrizionistabertolone.com",
+    "Note_Opportunita_Melania": "Dietetica applicata, intolleranze e piani su misura. Professionista storico.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 27,
+    "Cluster": "Studi Privati Nutrizione",
+    "Nome_Struttura_Professionista": "Studio Dott.ssa Silvia Calì",
+    "Tipologia": "Studio Privato Biologa Nutrizionista",
+    "Indirizzo": "Via Antonino Longo, 2",
+    "Zona_Quartiere": "Piazza Roma",
+    "Logistica_Distanza": "9-10 min a piedi",
+    "Telefono": "340 1234567",
+    "Email_PEC": "silviacali.nutrizionista@gmail.com",
+    "Sito_Web_Riferimento": "NutriDoc / MioDottore",
+    "Note_Opportunita_Melania": "Alunna Magistrale UniCT, vicina da casa, gestione studio e relazione con il paziente.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 28,
+    "Cluster": "Studi Privati Nutrizione",
+    "Nome_Struttura_Professionista": "Studio Dott.ssa Valeria Indovino",
+    "Tipologia": "Studio Privato Biologa Nutrizionista",
+    "Indirizzo": "Via Etnea, 587",
+    "Zona_Quartiere": "Borgo / P.zza Cavour",
+    "Logistica_Distanza": "15 min a piedi / Metro Borgo",
+    "Telefono": "344 4081272",
+    "Email_PEC": "valeriaindovino.nutrizionista@gmail.com",
+    "Sito_Web_Riferimento": "NutriDoc",
+    "Note_Opportunita_Melania": "Nutrizione sportiva, dislipidemie, piani flessibili.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 29,
+    "Cluster": "Studi Privati Nutrizione",
+    "Nome_Struttura_Professionista": "Studio Dott.ssa Giulia Severi (Centro Ippocrate)",
+    "Tipologia": "Studio Privato presso Polo Medico",
+    "Indirizzo": "Corso Italia, 308",
+    "Zona_Quartiere": "Corso Italia",
+    "Logistica_Distanza": "Metro Italia / Galatea (7 min a piedi)",
+    "Telefono": "377 3958558",
+    "Email_PEC": "giuliaseveri.nutrizione@gmail.com",
+    "Sito_Web_Riferimento": "https://www.giuliaseverinutrizionista.it",
+    "Note_Opportunita_Melania": "BIA, percorsi nutrizionali personalizzati, monitoraggio continuo.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 30,
+    "Cluster": "Laboratori Analisi & HACCP",
+    "Nome_Struttura_Professionista": "Chem Service Italia",
+    "Tipologia": "Laboratorio Analisi Chimiche & Microbiologiche",
+    "Indirizzo": "Viale Mario Rapisardi, 355",
+    "Zona_Quartiere": "Rapisardi",
+    "Logistica_Distanza": "5-6 min a piedi",
+    "Telefono": "095 351888",
+    "Email_PEC": "info@chem-service.it",
+    "Sito_Web_Riferimento": "https://www.chem-service.it",
+    "Note_Opportunita_Melania": "Match 100% con laurea in Tecnologie Alimentari: autocontrollo HACCP, sicurezza e analisi microbiologiche.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 31,
+    "Cluster": "Laboratori Analisi & HACCP",
+    "Nome_Struttura_Professionista": "Laboratorio Analisi Cliniche Cataldi",
+    "Tipologia": "Laboratorio Diagnostico e Chimica Clinica",
+    "Indirizzo": "Viale Mario Rapisardi, 255",
+    "Zona_Quartiere": "Rapisardi",
+    "Logistica_Distanza": "3-4 min a piedi",
+    "Telefono": "095 351187",
+    "Email_PEC": "info@cataldipaoloanalisicliniche.it",
+    "Sito_Web_Riferimento": "https://www.cataldipaoloanalisicliniche.it",
+    "Note_Opportunita_Melania": "A soli 300 metri da casa. Chimica clinica ed esami ematochimici.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 32,
+    "Cluster": "Laboratori Analisi & HACCP",
+    "Nome_Struttura_Professionista": "C.A.T.A. Laboratorio Analisi Cliniche",
+    "Tipologia": "Laboratorio Analisi Cliniche",
+    "Indirizzo": "Viale Mario Rapisardi, 420",
+    "Zona_Quartiere": "Rapisardi",
+    "Logistica_Distanza": "7 min a piedi",
+    "Telefono": "095 355888",
+    "Email_PEC": "info@analisicata.com",
+    "Sito_Web_Riferimento": "https://www.analisicata.com",
+    "Note_Opportunita_Melania": "Esami markers metabolici, intolleranze alimentari e chimica clinica.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 33,
+    "Cluster": "Laboratori Analisi & HACCP",
+    "Nome_Struttura_Professionista": "Laboratorio Analisi Cliniche Pasteur",
+    "Tipologia": "Laboratorio Diagnostico SSN",
+    "Indirizzo": "Viale Mario Rapisardi, 727",
+    "Zona_Quartiere": "Rapisardi",
+    "Logistica_Distanza": "12-14 min a piedi",
+    "Telefono": "095 350033",
+    "Email_PEC": "segreteria@pasteuranalisicliniche.it",
+    "Sito_Web_Riferimento": "https://www.pasteuranalisicliniche.it",
+    "Note_Opportunita_Melania": "Laboratorio analisi cliniche convenzionato SSN attivo dal 1979.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 34,
+    "Cluster": "Laboratori Analisi & HACCP",
+    "Nome_Struttura_Professionista": "Laboratorio Analisi A.B.C.",
+    "Tipologia": "Laboratorio di Analisi Cliniche",
+    "Indirizzo": "Via San Vito, 30",
+    "Zona_Quartiere": "Santa Maria di Gesù",
+    "Logistica_Distanza": "7 min a piedi",
+    "Telefono": "095 321855",
+    "Email_PEC": "info@abclabo.it",
+    "Sito_Web_Riferimento": "http://www.abclabo.it",
+    "Note_Opportunita_Melania": "Biochimica clinica a pochi passi da Piazza Santa Maria di Gesù.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 35,
+    "Cluster": "Medicina dello Sport & Fitness",
+    "Nome_Struttura_Professionista": "Studio Medico Staff",
+    "Tipologia": "Centro Medicina dello Sport & Nutrizione Atleti",
+    "Indirizzo": "Piazza Galatea, 7",
+    "Zona_Quartiere": "Galatea",
+    "Logistica_Distanza": "Metro Galatea (1 min a piedi)",
+    "Telefono": "095 538874",
+    "Email_PEC": "info@studiomedicostaff.it",
+    "Sito_Web_Riferimento": "https://www.studiomedicostaff.it",
+    "Note_Opportunita_Melania": "Valutazione atleti agonisti, composizione corporea, alimentazione sportiva avanzata.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 36,
+    "Cluster": "Medicina dello Sport & Fitness",
+    "Nome_Struttura_Professionista": "Studio Kineo (Dott.ssa Scarpignato)",
+    "Tipologia": "Centro Posturale, Riabilitativo e Nutrizione",
+    "Indirizzo": "Via Etnea, 414",
+    "Zona_Quartiere": "Borgo / Villa Bellini",
+    "Logistica_Distanza": "12-13 min a piedi",
+    "Telefono": "095 317382",
+    "Email_PEC": "segreteria@kineocatania.it",
+    "Sito_Web_Riferimento": "MioDottore",
+    "Note_Opportunita_Melania": "Integrazione nutrizione, pesistica e biomeccanica. BIA su massa magra e idratazione.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 37,
+    "Cluster": "Medicina dello Sport & Fitness",
+    "Nome_Struttura_Professionista": "Altair Club Vulcania",
+    "Tipologia": "Centro Sportivo & Fitness Polifunzionale",
+    "Indirizzo": "Via Torino, 73",
+    "Zona_Quartiere": "Vulcania / Borgo",
+    "Logistica_Distanza": "15 min a piedi / Metro Borgo",
+    "Telefono": "095 446712",
+    "Email_PEC": "info@altairclub.it",
+    "Sito_Web_Riferimento": "https://www.altairclub.it",
+    "Note_Opportunita_Melania": "Grande club con sala attrezzi Panatta, piscine, wellness. Possibilità front-desk + consulenza alimentare soci.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 38,
+    "Cluster": "Medicina dello Sport & Fitness",
+    "Nome_Struttura_Professionista": "McFIT Catania",
+    "Tipologia": "Centro Fitness & Allenamento Resistenza",
+    "Indirizzo": "Via Vincenzo Giuffrida, 176",
+    "Zona_Quartiere": "Giuffrida",
+    "Logistica_Distanza": "Metro Giuffrida (2 min a piedi)",
+    "Telefono": "095 2200388",
+    "Email_PEC": "servizio.clienti@mcfit.com",
+    "Sito_Web_Riferimento": "https://www.mcfit.com",
+    "Note_Opportunita_Melania": "Altissima concentrazione di atleti e amatori di pesistica / ipertrofia a 2 min dalla metro.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  },
+  {
+    "id": 39,
+    "Cluster": "Medicina dello Sport & Fitness",
+    "Nome_Struttura_Professionista": "Body Flex ASD",
+    "Tipologia": "Palestra & Centro Fitness",
+    "Indirizzo": "Viale Mario Rapisardi, 234",
+    "Zona_Quartiere": "Rapisardi",
+    "Logistica_Distanza": "4 min a piedi",
+    "Telefono": "095 356789",
+    "Email_PEC": "bodyflexcatania@gmail.com",
+    "Sito_Web_Riferimento": "Social / FB",
+    "Note_Opportunita_Melania": "Palestra di quartiere a 4 min a piedi da Via Ferrante Aporti.",
+    "Stato_Candidatura": "Da contattare",
+    "Note_Followup": "",
+    "Data_Ultimo_Contatto": ""
+  }
+];
+    let allLeads = [];
+    let currentFilterCluster = "";
+    let currentFilterStatus = "";
+    let currentFilterDistance = "";
+    let currentSearchTerm = "";
+    let currentView = "table";
+    let sortColumn = "Nome_Struttura_Professionista";
+    let sortAsc = true;
+    let isServerMode = true;
+    let activeEmailLead = null;
+
+    const STATUS_FLOW = [
+      "Da contattare",
+      "Email inviata",
+      "In attesa di risposta",
+      "Colloquio fissato",
+      "Accettato / Convenzionato",
+      "Non disponibile / Rifiutato",
+      "Standby / Da risentire"
+    ];
+
+    const KANBAN_COLS = [
+      { id: "Da contattare", label: "Da Contattare", icon: "📋" },
+      { id: "Email inviata", label: "Email Inviata", icon: "✉️" },
+      { id: "In attesa di risposta", label: "In Attesa", icon: "⏳" },
+      { id: "Colloquio fissato", label: "Colloquio", icon: "🗓️" },
+      { id: "Accettato / Convenzionato", label: "Convenzionato", icon: "✅" }
+    ];
+
+    // --- INITIALIZATION ---
+    document.addEventListener("DOMContentLoaded", () => {
+      fetchLeads();
+      setupKeyboardShortcuts();
+    });
+
+    function setupKeyboardShortcuts() {
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "/" && document.activeElement.tagName !== "INPUT" && document.activeElement.tagName !== "TEXTAREA") {
+          e.preventDefault();
+          document.getElementById("searchInput").focus();
+        }
+        if (e.key === "Escape") {
+          closeModal("leadModal");
+          closeModal("emailModal");
+        }
+      });
+    }
+
+    // --- API CLIENT ---
+    async function fetchLeads() {
+      try {
+        const res = await fetch("/api/leads");
+        if (!res.ok) throw new Error("API non disponibile");
+        const data = await res.json();
+        allLeads = data.leads || [];
+        isServerMode = true;
+        document.getElementById("liveSyncStatus").textContent = "File CSV Sincronizzato";
+        document.getElementById("liveSyncStatus").style.background = "#ecfdf5";
+      } catch (err) {
+        console.warn("Server API non rilevato, fallback locale.", err);
+        isServerMode = false;
+        document.getElementById("liveSyncStatus").textContent = "Modalità Standalone";
+        document.getElementById("liveSyncStatus").style.background = "#fffbeb";
+        document.getElementById("liveSyncStatus").style.color = "#b45309";
+        // Load from localStorage if present or use embedded initial leads
+        const saved = localStorage.getItem("crm_melania_leads");
+        if (saved) {
+          allLeads = JSON.parse(saved);
+        } else {
+          allLeads = JSON.parse(JSON.stringify(INITIAL_EMBEDDED_LEADS));
+        }
+      }
+      renderApp();
+    }
+
+    async function apiUpdateLead(leadId, updates) {
+      if (isServerMode) {
+        try {
+          const res = await fetch(`/api/leads/${leadId}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(updates)
+          });
+          if (!res.ok) throw new Error("Errore aggiornamento");
+          const result = await res.json();
+          // Update local memory
+          const idx = allLeads.findIndex(l => l.id === leadId);
+          if (idx !== -1) allLeads[idx] = result.lead;
+          showToast("Modifiche salvate direttamente nel CSV!");
+        } catch (e) {
+          showToast("Errore nel salvataggio su server", true);
+        }
+      } else {
+        // Fallback localStorage
+        const idx = allLeads.findIndex(l => l.id === leadId);
+        if (idx !== -1) {
+          allLeads[idx] = { ...allLeads[idx], ...updates };
+          localStorage.setItem("crm_melania_leads", JSON.stringify(allLeads));
+          showToast("Salvato in memoria browser");
+        }
+      }
+      renderApp();
+    }
+
+    async function apiCreateLead(newLead) {
+      if (isServerMode) {
+        try {
+          const res = await fetch("/api/leads", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newLead)
+          });
+          if (!res.ok) throw new Error("Errore creazione");
+          const result = await res.json();
+          allLeads.push(result.lead);
+          showToast("Nuovo contatto aggiunto e salvato su CSV!");
+        } catch (e) {
+          showToast("Errore durante la creazione", true);
+        }
+      } else {
+        newLead.id = Date.now();
+        allLeads.push(newLead);
+        localStorage.setItem("crm_melania_leads", JSON.stringify(allLeads));
+        showToast("Contatto aggiunto in memoria locale");
+      }
+      renderApp();
+    }
+
+    async function apiDeleteLead(leadId) {
+      if (isServerMode) {
+        try {
+          const res = await fetch(`/api/leads/${leadId}`, { method: "DELETE" });
+          if (!res.ok) throw new Error("Errore eliminazione");
+          allLeads = allLeads.filter(l => l.id !== leadId);
+          showToast("Contatto rimosso dal CSV");
+        } catch (e) {
+          showToast("Errore durante l'eliminazione", true);
+        }
+      } else {
+        allLeads = allLeads.filter(l => l.id !== leadId);
+        localStorage.setItem("crm_melania_leads", JSON.stringify(allLeads));
+        showToast("Contatto rimosso");
+      }
+      renderApp();
+    }
+
+    // --- RENDERING ---
+    function renderApp() {
+      renderStats();
+      renderClusterChips();
+      if (currentView === "table") {
+        renderTable();
+      } else {
+        renderKanban();
+      }
+    }
+
+    // --- FILTER & SORT LOGIC ---
+    function getFilteredLeads() {
+      return allLeads.filter(lead => {
+        // Cluster filter
+        if (currentFilterCluster && lead.Cluster !== currentFilterCluster) {
+          return false;
+        }
+        // Status filter
+        if (currentFilterStatus && lead.Stato_Candidatura !== currentFilterStatus) {
+          return false;
+        }
+        // Distance filter
+        if (currentFilterDistance === "walk_short") {
+          const log = (lead.Logistica_Distanza || "").toLowerCase();
+          const isWalk = log.includes("a piedi") && (log.includes("3") || log.includes("4") || log.includes("5") || log.includes("6") || log.includes("7") || log.includes("8") || log.includes("9") || log.includes("10"));
+          if (!isWalk) return false;
+        } else if (currentFilterDistance === "metro") {
+          const log = (lead.Logistica_Distanza || "").toLowerCase();
+          if (!log.includes("metro")) return false;
+        }
+        // Search text
+        if (currentSearchTerm) {
+          const term = currentSearchTerm.toLowerCase();
+          const target = [
+            lead.Nome_Struttura_Professionista,
+            lead.Tipologia,
+            lead.Indirizzo,
+            lead.Zona_Quartiere,
+            lead.Telefono,
+            lead.Email_PEC,
+            lead.Note_Opportunita_Melania,
+            lead.Note_Followup
+          ].join(" ").toLowerCase();
+          if (!target.includes(term)) return false;
+        }
+        return true;
+      }).sort((a, b) => {
+        let valA = (a[sortColumn] || "").toString().toLowerCase();
+        let valB = (b[sortColumn] || "").toString().toLowerCase();
+        if (valA < valB) return sortAsc ? -1 : 1;
+        if (valA > valB) return sortAsc ? 1 : -1;
+        return 0;
+      });
+    }
+
+    // --- STATS STRIP ---
+    function renderStats() {
+      const container = document.getElementById("statsStrip");
+      const total = allLeads.length;
+      
+      const counts = {
+        "Totale": total,
+        "Da contattare": 0,
+        "Email inviata": 0,
+        "In attesa di risposta": 0,
+        "Colloquio fissato": 0,
+        "Accettato / Convenzionato": 0
+      };
+
+      allLeads.forEach(l => {
+        const s = l.Stato_Candidatura || "Da contattare";
+        if (counts[s] !== undefined) {
+          counts[s]++;
+        }
+      });
+
+      const cardsData = [
+        { label: "Totale Strutture", count: total, filter: "", color: "#0f172a" },
+        { label: "Da Contattare", count: counts["Da contattare"], filter: "Da contattare", color: "#64748b" },
+        { label: "Email Inviata", count: counts["Email inviata"], filter: "Email inviata", color: "#d97706" },
+        { label: "In Attesa", count: counts["In attesa di risposta"], filter: "In attesa di risposta", color: "#ea580c" },
+        { label: "Colloquio Fissato", count: counts["Colloquio fissato"], filter: "Colloquio fissato", color: "#7c3aed" },
+        { label: "Convenzionato", count: counts["Accettato / Convenzionato"], filter: "Accettato / Convenzionato", color: "#059669" }
+      ];
+
+      const pctLavorati = total > 0 ? Math.round(((total - counts["Da contattare"]) / total) * 100) : 0;
+
+      container.innerHTML = cardsData.map(c => `
+        <div class="stat-card ${currentFilterStatus === c.filter ? 'active' : ''}" onclick="quickFilterStatus('${c.filter}')">
+          <div class="stat-label">
+            <span>${c.label}</span>
+            <span style="font-size: 10px; color: ${c.color}; font-weight: 700;">●</span>
+          </div>
+          <div class="stat-value" style="color: ${c.color}">${c.count}</div>
+          <div class="stat-progress">
+            <div class="stat-progress-bar" style="width: ${c.filter === "" ? pctLavorati + "%" : (total > 0 ? (c.count / total) * 100 + "%" : "0%")}; background: ${c.color};"></div>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    // --- CLUSTER CHIPS ---
+    function renderClusterChips() {
+      const container = document.getElementById("clusterChipsContainer");
+      const clustersMap = {};
+      allLeads.forEach(l => {
+        const c = l.Cluster || "Altro";
+        clustersMap[c] = (clustersMap[c] || 0) + 1;
+      });
+
+      const allActive = currentFilterCluster === "" ? "active" : "";
+      let html = `
+        <span class="cluster-chips-title">Cluster:</span>
+        <button class="chip ${allActive}" onclick="handleFilterCluster('')">
+          Tutti <span class="chip-count">${allLeads.length}</span>
+        </button>
+      `;
+
+      for (const [cluster, count] of Object.entries(clustersMap)) {
+        const active = currentFilterCluster === cluster ? "active" : "";
+        html += `
+          <button class="chip ${active}" onclick="handleFilterCluster('${escapeQuote(cluster)}')">
+            ${escapeHtml(cluster)} <span class="chip-count">${count}</span>
+          </button>
+        `;
+      }
+      container.innerHTML = html;
+    }
+
+    // --- TABLE VIEW ---
+    function renderTable() {
+      const tbody = document.getElementById("leadsTableBody");
+      const leads = getFilteredLeads();
+
+      if (leads.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="6">
+              <div class="empty-state">
+                <h3>Nessuna struttura trovata</h3>
+                <p>Modifica i criteri di ricerca o i filtri per vedere i lead.</p>
+              </div>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = leads.map(lead => {
+        const statusClass = "status-" + slugify(lead.Stato_Candidatura || "Da contattare");
+        const log = lead.Logistica_Distanza || "";
+        const isShortWalk = log.toLowerCase().includes("a piedi") && (log.includes("3") || log.includes("4") || log.includes("5") || log.includes("6") || log.includes("7"));
+        const hasMetro = log.toLowerCase().includes("metro");
+        const logBadgeClass = isShortWalk ? "badge-logistica walk" : (hasMetro ? "badge-logistica metro" : "badge-logistica");
+
+        return `
+          <tr>
+            <td class="lead-title-cell">
+              <div class="lead-title-name">${escapeHtml(lead.Nome_Struttura_Professionista)}</div>
+              <div class="lead-title-type">${escapeHtml(lead.Tipologia || "Struttura sanitaria / Studio")}</div>
+            </td>
+            <td>
+              <span class="badge badge-cluster">${escapeHtml(lead.Cluster)}</span>
+            </td>
+            <td>
+              <div style="font-weight: 500; font-size: 12px; margin-bottom: 3px;">
+                ${lead.Indirizzo ? `<a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(lead.Indirizzo + ', Catania')}" target="_blank" style="color: inherit; text-decoration: underline dotted;" title="Apri su Google Maps">${escapeHtml(lead.Indirizzo)}</a>` : "-"}
+              </div>
+              <span class="badge ${logBadgeClass}">
+                ${isShortWalk ? '🚶 ' : (hasMetro ? '🚇 ' : '📍 ')} ${escapeHtml(lead.Logistica_Distanza || lead.Zona_Quartiere || "-")}
+              </span>
+            </td>
+            <td>
+              <div class="action-group">
+                ${lead.Telefono ? `
+                  <a href="tel:${escapeHtml(lead.Telefono.replace(/[^0-9+]/g, ''))}" class="icon-btn" title="Chiama: ${escapeHtml(lead.Telefono)}">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                  </a>
+                ` : ''}
+                ${lead.Email_PEC ? `
+                  <button class="icon-btn primary" onclick="openEmailPitch(${lead.id})" title="Bozza Candidatura Email">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                  </button>
+                ` : ''}
+                ${lead.Sito_Web_Riferimento && lead.Sito_Web_Riferimento.startsWith('http') ? `
+                  <a href="${escapeHtml(lead.Sito_Web_Riferimento)}" target="_blank" class="icon-btn" title="Visita Sito / Scheda">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                  </a>
+                ` : ''}
+              </div>
+            </td>
+            <td>
+              <select class="status-select ${statusClass}" onchange="changeLeadStatus(${lead.id}, this.value)">
+                ${STATUS_FLOW.map(s => `
+                  <option value="${escapeHtml(s)}" ${lead.Stato_Candidatura === s ? 'selected' : ''}>${escapeHtml(s)}</option>
+                `).join('')}
+              </select>
+            </td>
+            <td>
+              <div class="action-group">
+                <button class="btn btn-outline btn-sm" onclick="openEditLeadModal(${lead.id})" title="Modifica dettagli e note">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                  Dettagli
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    // --- KANBAN VIEW ---
+    function renderKanban() {
+      const container = document.getElementById("kanbanViewSection");
+      const leads = getFilteredLeads();
+
+      const grouped = {};
+      KANBAN_COLS.forEach(c => grouped[c.id] = []);
+      // Catch-all for others
+      const others = [];
+
+      leads.forEach(l => {
+        const s = l.Stato_Candidatura || "Da contattare";
+        if (grouped[s]) {
+          grouped[s].push(l);
+        } else {
+          others.push(l);
+        }
+      });
+
+      container.innerHTML = KANBAN_COLS.map(col => {
+        const colCards = grouped[col.id] || [];
+        return `
+          <div class="kanban-col" ondragover="handleDragOver(event)" ondrop="handleDrop(event, '${escapeQuote(col.id)}')">
+            <div class="kanban-header">
+              <span class="kanban-title">${col.icon} ${col.label}</span>
+              <span class="kanban-badge">${colCards.length}</span>
+            </div>
+            <div class="kanban-cards">
+              ${colCards.map(lead => `
+                <div class="kanban-card" draggable="true" ondragstart="handleDragStart(event, ${lead.id})" onclick="openEditLeadModal(${lead.id})">
+                  <div class="card-cluster">${escapeHtml(lead.Cluster)}</div>
+                  <div class="card-name">${escapeHtml(lead.Nome_Struttura_Professionista)}</div>
+                  <div class="card-meta">
+                    <div class="card-meta-item">
+                      <span>📍</span>
+                      <span>${escapeHtml(lead.Zona_Quartiere || lead.Indirizzo || '-')}</span>
+                    </div>
+                    ${lead.Logistica_Distanza ? `
+                      <div class="card-meta-item">
+                        <span>🚶</span>
+                        <span>${escapeHtml(lead.Logistica_Distanza)}</span>
+                      </div>
+                    ` : ''}
+                  </div>
+                  ${lead.Note_Opportunita_Melania ? `
+                    <div class="card-note">${escapeHtml(lead.Note_Opportunita_Melania)}</div>
+                  ` : ''}
+                  <div class="card-footer">
+                    <span style="font-size: 11px; color: var(--text-faint);">
+                      ${lead.Data_Ultimo_Contatto ? `Contatto: ${lead.Data_Ultimo_Contatto}` : `ID #${lead.id}`}
+                    </span>
+                    <button class="btn btn-subtle btn-sm" onclick="event.stopPropagation(); openEmailPitch(${lead.id})">✉️ Bozza</button>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    // --- DRAG AND DROP ---
+    let draggedLeadId = null;
+    function handleDragStart(e, id) {
+      draggedLeadId = id;
+      e.dataTransfer.setData("text/plain", id);
+    }
+    function handleDragOver(e) {
+      e.preventDefault();
+    }
+    function handleDrop(e, targetStatus) {
+      e.preventDefault();
+      if (draggedLeadId) {
+        changeLeadStatus(draggedLeadId, targetStatus);
+        draggedLeadId = null;
+      }
+    }
+
+    // --- VIEW SWITCHING ---
+    function switchView(view) {
+      currentView = view;
+      const tableBtn = document.getElementById("viewBtnTable");
+      const kanbanBtn = document.getElementById("viewBtnKanban");
+      const tableSec = document.getElementById("tableViewSection");
+      const kanbanSec = document.getElementById("kanbanViewSection");
+
+      if (view === "table") {
+        tableBtn.classList.add("active");
+        kanbanBtn.classList.remove("active");
+        tableSec.style.display = "block";
+        kanbanSec.style.display = "none";
+        renderTable();
+      } else {
+        kanbanBtn.classList.add("active");
+        tableBtn.classList.remove("active");
+        tableSec.style.display = "none";
+        kanbanSec.style.display = "grid";
+        renderKanban();
+      }
+    }
+
+    // --- FILTERS & SEARCH ---
+    function handleSearch(val) {
+      currentSearchTerm = val;
+      renderApp();
+    }
+
+    function handleFilterStatus(val) {
+      currentFilterStatus = val;
+      renderApp();
+    }
+
+    function quickFilterStatus(statusVal) {
+      currentFilterStatus = currentFilterStatus === statusVal ? "" : statusVal;
+      document.getElementById("statusFilter").value = currentFilterStatus;
+      renderApp();
+    }
+
+    function handleFilterDistance(val) {
+      currentFilterDistance = val;
+      renderApp();
+    }
+
+    function handleFilterCluster(clusterVal) {
+      currentFilterCluster = clusterVal;
+      renderApp();
+    }
+
+    function resetFilters() {
+      currentFilterCluster = "";
+      currentFilterStatus = "";
+      currentFilterDistance = "";
+      currentSearchTerm = "";
+      document.getElementById("searchInput").value = "";
+      document.getElementById("statusFilter").value = "";
+      document.getElementById("distanceFilter").value = "";
+      renderApp();
+    }
+
+    function sortTable(column) {
+      if (sortColumn === column) {
+        sortAsc = !sortAsc;
+      } else {
+        sortColumn = column;
+        sortAsc = true;
+      }
+      renderTable();
+    }
+
+    async function changeLeadStatus(leadId, newStatus) {
+      await apiUpdateLead(leadId, { Stato_Candidatura: newStatus });
+    }
+
+    // --- EDIT / NEW LEAD MODAL ---
+    function openNewLeadModal() {
+      document.getElementById("leadModalTitle").textContent = "Aggiungi Nuova Struttura / Lead";
+      document.getElementById("formLeadId").value = "";
+      document.getElementById("formNome").value = "";
+      document.getElementById("formCluster").value = "Studi Privati Nutrizione";
+      document.getElementById("formStato").value = "Da contattare";
+      document.getElementById("formTipologia").value = "";
+      document.getElementById("formZona").value = "";
+      document.getElementById("formIndirizzo").value = "";
+      document.getElementById("formLogistica").value = "";
+      document.getElementById("formTelefono").value = "";
+      document.getElementById("formEmail").value = "";
+      document.getElementById("formSito").value = "";
+      document.getElementById("formNote").value = "";
+      document.getElementById("formDataContatto").value = new Date().toISOString().split("T")[0];
+      document.getElementById("formNoteFollowup").value = "";
+      document.getElementById("deleteLeadBtn").style.display = "none";
+      openModal("leadModal");
+    }
+
+    function openEditLeadModal(leadId) {
+      const lead = allLeads.find(l => l.id === leadId);
+      if (!lead) return;
+
+      document.getElementById("leadModalTitle").textContent = "Dettagli Lead: " + lead.Nome_Struttura_Professionista;
+      document.getElementById("formLeadId").value = lead.id;
+      document.getElementById("formNome").value = lead.Nome_Struttura_Professionista || "";
+      document.getElementById("formCluster").value = lead.Cluster || "Studi Privati Nutrizione";
+      document.getElementById("formStato").value = lead.Stato_Candidatura || "Da contattare";
+      document.getElementById("formTipologia").value = lead.Tipologia || "";
+      document.getElementById("formZona").value = lead.Zona_Quartiere || "";
+      document.getElementById("formIndirizzo").value = lead.Indirizzo || "";
+      document.getElementById("formLogistica").value = lead.Logistica_Distanza || "";
+      document.getElementById("formTelefono").value = lead.Telefono || "";
+      document.getElementById("formEmail").value = lead.Email_PEC || "";
+      document.getElementById("formSito").value = lead.Sito_Web_Riferimento || "";
+      document.getElementById("formNote").value = lead.Note_Opportunita_Melania || "";
+      document.getElementById("formDataContatto").value = lead.Data_Ultimo_Contatto || "";
+      document.getElementById("formNoteFollowup").value = lead.Note_Followup || "";
+      document.getElementById("deleteLeadBtn").style.display = "inline-flex";
+      openModal("leadModal");
+    }
+
+    async function saveLeadForm() {
+      const id = document.getElementById("formLeadId").value;
+      const nome = document.getElementById("formNome").value.trim();
+      if (!nome) {
+        alert("Inserisci il nome della struttura o professionista");
+        return;
+      }
+
+      const payload = {
+        Nome_Struttura_Professionista: nome,
+        Cluster: document.getElementById("formCluster").value,
+        Stato_Candidatura: document.getElementById("formStato").value,
+        Tipologia: document.getElementById("formTipologia").value.trim(),
+        Zona_Quartiere: document.getElementById("formZona").value.trim(),
+        Indirizzo: document.getElementById("formIndirizzo").value.trim(),
+        Logistica_Distanza: document.getElementById("formLogistica").value.trim(),
+        Telefono: document.getElementById("formTelefono").value.trim(),
+        Email_PEC: document.getElementById("formEmail").value.trim(),
+        Sito_Web_Riferimento: document.getElementById("formSito").value.trim(),
+        Note_Opportunita_Melania: document.getElementById("formNote").value.trim(),
+        Data_Ultimo_Contatto: document.getElementById("formDataContatto").value,
+        Note_Followup: document.getElementById("formNoteFollowup").value.trim()
+      };
+
+      if (id) {
+        await apiUpdateLead(parseInt(id), payload);
+      } else {
+        await apiCreateLead(payload);
+      }
+      closeModal("leadModal");
+    }
+
+    async function deleteCurrentLead() {
+      const id = document.getElementById("formLeadId").value;
+      if (!id) return;
+      if (confirm("Sei sicuro di voler rimuovere questa struttura dal CRM? L'azione modificherà il file CSV.")) {
+        await apiDeleteLead(parseInt(id));
+        closeModal("leadModal");
+      }
+    }
+
+    // --- EMAIL PITCH DRAFTER ---
+    function openEmailPitch(leadId) {
+      const lead = allLeads.find(l => l.id === leadId);
+      if (!lead) return;
+      activeEmailLead = lead;
+
+      document.getElementById("emailRecipient").textContent = `${lead.Nome_Struttura_Professionista} (${lead.Email_PEC || "Nessuna email specificata"})`;
+      document.getElementById("emailClusterTag").textContent = lead.Cluster || "Generale";
+
+      const draft = generatePitchText(lead);
+      document.getElementById("emailSubject").value = draft.subject;
+      document.getElementById("emailBodyBox").textContent = draft.body;
+
+      openModal("emailModal");
+    }
+
+    function generatePitchText(lead) {
+      const cluster = lead.Cluster || "";
+      const nome = lead.Nome_Struttura_Professionista || "Dottore / Gentile Referente";
+      let subject = `Candidatura Tirocinio Curriculare Nutrizione Clinica – Melania Roccuzzo`;
+      let body = "";
+
+      if (cluster.includes("DCA")) {
+        subject = `Candidatura Tirocinio Formativo / Affiancamento Clinico DCA – Melania Roccuzzo`;
+        body = `Gentile équipe di ${nome},
+
+Mi chiamo Melania Roccuzzo, studentessa del corso di Laurea Magistrale in Scienze della Nutrizione Umana presso l'Università degli Studi di Catania, già laureata in Scienze e Tecnologie Alimentari.
+
+Ho approfondito con passione il tema dei disturbi alimentari durante la mia tesi triennale intitolata "Disturbi Alimentari e Salute Mentale", incentrata sui pattern nutrizionali, il benessere neurochimico e l'importanza cruciale di un approccio integrato, empatico e non prescrittivo.
+
+Seguo con grande stima il lavoro svolto dalla Vostra struttura. Sarei entusiasta di poter svolgere presso di Voi un periodo di tirocinio curriculare / affiancamento formativo (a costo zero per la struttura), offrendo la mia massima disponibilità e precisione operativa nelle attività quotidiane (dalla raccolta dati anamnestici al supporto gestionale con i pazienti).
+
+In allegato trasmetto il mio Curriculum Vitae aggiornato. Rimango a completa disposizione per un breve colloquio conoscitivo in sede o da remoto.
+
+RingraziandoVi per il tempo dedicato, porgo cordiali saluti.
+
+Melania Roccuzzo
+Tel: +39 366 4355965
+Email: melania.roccuzzo01@email.com
+Catania`;
+      } else if (cluster.includes("Studi Privati")) {
+        subject = `Candidatura Affiancamento / Tirocinio Studio Nutrizionale – Melania Roccuzzo`;
+        body = `Gentile ${nome},
+
+Mi chiamo Melania Roccuzzo e frequento il corso di Laurea Magistrale in Scienze della Nutrizione Umana presso l'Università degli Studi di Catania, con precedente Laurea in Scienze e Tecnologie Alimentari.
+
+Le scrivo perché desidero candidarmi per un periodo di tirocinio formativo e affiancamento operativo a costo zero presso il Suo studio professionale a Catania.
+
+Oltre alle basi nutrizionali e fisiologiche, offro un valore pratico e immediato alla gestione dello studio:
+• Precisione nell'inserimento dati anamnestici, referti ematochimici e parametri nei software nutrizionali (WinFood, Metadieta, Nutrium).
+• Elaborazione di tabelle di equivalenza alimentare, ricettari su misura ed educazione alla varietà (forte delle competenze merceologiche e tecnologico-alimentari).
+• Spiccata attitudine alla relazione con i pazienti, all'ascolto empatico e alla risoluzione rapida dei dubbi quotidiani.
+
+Abito a Catania e ho piena flessibilità oraria. In allegato Le sottopongo il mio CV. Sarei lieta di incontrarLa per un breve colloquio conoscitivo.
+
+Un cordiale saluto,
+
+Melania Roccuzzo
+Tel: +39 366 4355965
+Email: melania.roccuzzo01@email.com`;
+      } else if (cluster.includes("Ospedaliero")) {
+        subject = `Richiesta Disponibilità Tirocinio Curriculare UniCT – Melania Roccuzzo`;
+        body = `Alla cortese attenzione della Direzione / UOSD di ${nome},
+
+La sottoscritta Melania Roccuzzo, iscritta al Corso di Laurea Magistrale in Scienze della Nutrizione Umana presso l'Università degli Studi di Catania (e laureata in Scienze e Tecnologie Alimentari), richiede formale disponibilità per lo svolgimento del tirocinio curriculare convenzionato UniCT.
+
+Avendo residenza nelle immediate vicinanze del presidio e forte motivazione per l'ambito della nutrizione clinica, dietologia metabolica e patologie correlate, metto a disposizione la mia presenza continuativa e massima serietà.
+
+Allego il mio Curriculum Vitae e resto in attesa di un cortese riscontro per gli adempimenti burocratici e la pianificazione delle ore di frequenza.
+
+Distinti saluti,
+
+Melania Roccuzzo
+Tel: +39 366 4355965
+Email: melania.roccuzzo01@email.com`;
+      } else if (cluster.includes("Sport")) {
+        subject = `Candidatura Tirocinio / Collaborazione Nutrizione Sportiva – Melania Roccuzzo`;
+        body = `Gentile staff di ${nome},
+
+Mi chiamo Melania Roccuzzo, studentessa magistrale in Scienze della Nutrizione Umana (UniCT) e dottoressa in Scienze e Tecnologie Alimentari.
+
+Pratico con passione il resistance training e l'alimentazione mirata alla composizione corporea e alla performance. Desidero proporre la mia candidatura per un tirocinio / affiancamento presso la Vostra struttura nell'ambito della valutazione nutrizionale, bioimpedenziometria ed educazione alimentare per atleti e amatori.
+
+Offro serietà, empatia e padronanza dei principi di programmazione dietetica. In allegato trasmetto il mio CV. Sarei molto lieta di effettuare un colloquio conoscitivo.
+
+Cordiali saluti,
+
+Melania Roccuzzo
+Tel: +39 366 4355965`;
+      } else {
+        // Generic / Poliambulatorio / Clinica
+        subject = `Candidatura Tirocinio Formativo Nutrizione Umana – Melania Roccuzzo`;
+        body = `Gentile direzione di ${nome},
+
+Mi chiamo Melania Roccuzzo, laureata in Scienze e Tecnologie Alimentari e attualmente studentessa magistrale in Scienze della Nutrizione Umana presso l'Università degli Studi di Catania.
+
+Desidero sottoporre la mia candidatura per un tirocinio curriculare / affiancamento formativo a costo zero presso la Vostra struttura. 
+
+Grazie a un solido background scientifico unito a una pluriennale esperienza nel supporto al cliente e nella gestione delle relazioni (customer care), garantisco massima cura, affidabilità e supporto concreto al Vostro team di specialisti.
+
+In allegato Le invio il mio Curriculum Vitae completo. Resto a disposizione per un colloquio conoscitivo.
+
+Cordiali saluti,
+
+Melania Roccuzzo
+Tel: +39 366 4355965
+Email: melania.roccuzzo01@email.com`;
+      }
+
+      return { subject, body };
+    }
+
+    function copyEmailText() {
+      const subject = document.getElementById("emailSubject").value;
+      const body = document.getElementById("emailBodyBox").textContent;
+      const textToCopy = `Oggetto: ${subject}\n\n${body}`;
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        showToast("Bozza email copiata negli appunti!");
+      });
+    }
+
+    function openMailClient() {
+      if (!activeEmailLead) return;
+      const email = activeEmailLead.Email_PEC || "";
+      const subject = document.getElementById("emailSubject").value;
+      const body = document.getElementById("emailBodyBox").textContent;
+      const mailtoUrl = `mailto:${encodeURIComponent(email)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = mailtoUrl;
+    }
+
+    function exportCSV() {
+      if (isServerMode) {
+        window.location.href = "/api/export";
+      } else {
+        // Client side CSV export
+        let csvContent = "data:text/csv;charset=utf-8,";
+        const keys = ["Cluster","Nome_Struttura_Professionista","Tipologia","Indirizzo","Zona_Quartiere","Logistica_Distanza","Telefono","Email_PEC","Sito_Web_Riferimento","Note_Opportunita_Melania","Stato_Candidatura"];
+        csvContent += keys.map(k => `"${k}"`).join(",") + "\n";
+        allLeads.forEach(row => {
+          csvContent += keys.map(k => `"${(row[k] || '').replace(/"/g, '""')}"`).join(",") + "\n";
+        });
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "leads_candidature_catania.csv");
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+    }
+
+    // --- MODAL UTILS ---
+    function openModal(id) {
+      document.getElementById(id).classList.add("open");
+    }
+    function closeModal(id) {
+      document.getElementById(id).classList.remove("open");
+    }
+    function closeModalOnOverlay(event, id) {
+      if (event.target.id === id) {
+        closeModal(id);
+      }
+    }
+
+    // --- TOAST NOTIFICATIONS ---
+    function showToast(msg, isError = false) {
+      const container = document.getElementById("toastContainer");
+      const toast = document.createElement("div");
+      toast.className = "toast";
+      if (isError) toast.style.background = "#991b1b";
+      toast.innerHTML = `<span>${isError ? '⚠️' : '✓'}</span> <span>${escapeHtml(msg)}</span>`;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = "0";
+        toast.style.transition = "opacity 0.3s ease";
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
+
+    // --- HELPERS ---
+    function escapeHtml(str) {
+      if (!str) return "";
+      return str.toString()
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function escapeQuote(str) {
+      if (!str) return "";
+      return str.replace(/'/g, "\\'");
+    }
+
+    function slugify(text) {
+      return text.toString().toLowerCase()
+        .replace(/\s+/g, '-')
+        .replace(/[^\w\-]+/g, '-')
+        .replace(/\-\-+/g, '-')
+        .replace(/^-+/, '')
+        .replace(/-+$/, '');
+    }
+  </script>
+</body>
+</html>

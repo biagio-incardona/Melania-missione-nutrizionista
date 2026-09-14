@@ -1,0 +1,239 @@
+\documentclass[10pt, letterpaper]{article}
+
+% Packages:
+\usepackage[
+    ignoreheadfoot,
+    top=0.6 cm,
+    bottom=0.6 cm,
+    left=0.8 cm,
+    right=0.8 cm,
+]{geometry}
+\usepackage{titlesec}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage[dvipsnames]{xcolor}
+\definecolor{primaryColor}{RGB}{0, 0, 0} % Stile monocromatico professionale (B&W)
+\usepackage{enumitem}
+\usepackage{fontawesome5}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[
+    pdftitle={Curriculum Vitae - Melania Roccuzzo},
+    pdfauthor={Melania Roccuzzo},
+    colorlinks=true,
+    urlcolor=primaryColor
+]{hyperref}
+\usepackage{calc}
+\usepackage{bookmark}
+\usepackage{lastpage}
+\usepackage{changepage}
+\usepackage{paracol}
+\usepackage{ifthen}
+\usepackage{needspace}
+\usepackage{iftex}
+
+\ifPDFTeX
+    \input{glyphtounicode}
+    \pdfgentounicode=1
+    \usepackage[utf8]{inputenc}
+    \usepackage{lmodern}
+\fi
+
+\usepackage[italian]{babel} % Sillabazione e regole tipografiche italiane
+\usepackage{microtype} % Migliora la giustificazione ed evita testo fuori dai margini
+
+% Settings:
+\AtBeginEnvironment{adjustwidth}{\partopsep0pt}
+\pagestyle{empty}
+\setcounter{secnumdepth}{0}
+\setlength{\parindent}{0pt}
+\setlength{\topskip}{0pt}
+\setlength{\columnsep}{0cm}
+\emergencystretch 2em % Impedisce alle righe di oltrepassare il margine destro
+
+\titleformat{\section}{\needspace{4\baselineskip}\bfseries\large}{}{0pt}{}[\vspace{1pt}\titlerule]
+
+\titlespacing{\section}{-1pt}{0.25 cm}{0.12 cm}
+
+\renewcommand\labelitemi{$\circ$}
+\newenvironment{highlights}{
+    \begin{itemize}[
+        topsep=0.06 cm,
+        parsep=0.04 cm,
+        partopsep=0pt,
+        itemsep=0pt,
+        leftmargin=0.4 cm + 10pt
+    ]
+}{
+    \end{itemize}
+}
+
+\newenvironment{onecolentry}{
+    \begin{adjustwidth}{0.00001 cm}{0.00001 cm}
+}{
+    \end{adjustwidth}
+}
+
+\newenvironment{twocolentry}[2][]{
+    \onecolentry
+    \def\secondColumn{#2}
+    \setcolumnwidth{\fill, 6.0 cm}
+    \begin{paracol}{2}
+}{
+    \switchcolumn \raggedleft \secondColumn
+    \end{paracol}
+    \endonecolentry
+}
+
+\newenvironment{header}{
+    \setlength{\topsep}{0pt}\par\kern\topsep\centering\linespread{1.1}
+}{
+    \par\kern\topsep
+}
+
+\let\hrefWithoutArrow\href
+\renewcommand{\href}[2]{\hrefWithoutArrow{#1}{\ifthenelse{\equal{#2}{}}{ }{#2 }\raisebox{.15ex}{\footnotesize \faExternalLink*}}}
+
+\begin{document}
+
+    \newcommand{\AND}{\unskip
+        \cleaders\copy\ANDbox\hskip\wd\ANDbox
+        \ignorespaces
+    }
+    \newsavebox\ANDbox
+    \sbox\ANDbox{}
+
+    % HEADER (CON FOTO PROFESSIONALE A DESTRA)
+    \noindent
+    \begin{minipage}[c]{0.78\textwidth}
+        {\fontsize{22 pt}{24 pt}\selectfont\textbf{Melania Roccuzzo}}\par
+        \vspace{0.12 cm}
+        {\normalsize\textit{Dottoressa in Scienze e Tecnologie Alimentari $\cdot$ Laureanda Magistrale in Nutrizione Umana}}\par
+        \vspace{0.2 cm}
+        \small
+        \mbox{{\color{black}\footnotesize\faMapMarker*}\hspace*{0.13cm}Catania, Italia}%
+        \kern 0.45 cm%
+        \mbox{\hrefWithoutArrow{mailto:melania.roccuzzo01@email.com}{{\color{black}\footnotesize\faEnvelope[regular]}\hspace*{0.13cm}melania.roccuzzo01@email.com}}%
+        \par\vspace{0.1 cm}
+        \mbox{\hrefWithoutArrow{tel:+39-3664355965}{{\color{black}\footnotesize\faPhone*}\hspace*{0.13cm}+39 366 4355965}}%
+        \kern 0.45 cm%
+        \mbox{\hrefWithoutArrow{https://linkedin.com/in/melania-roccuzzo}{{\color{black}\footnotesize\faLinkedinIn}\hspace*{0.13cm}linkedin.com/in/melania-roccuzzo}}%
+    \end{minipage}%
+    \hfill
+    \begin{minipage}[c]{0.20\textwidth}
+        \raggedleft
+        \IfFileExists{foto.jpg}{%
+            \includegraphics[width=2.4cm, height=3.0cm, keepaspectratio]{foto.jpg}%
+        }{%
+            \IfFileExists{foto.png}{%
+                \includegraphics[width=2.4cm, height=3.0cm, keepaspectratio]{foto.png}%
+            }{%
+                \framebox[2.4cm]{\rule{0pt}{2.8cm}\centering\footnotesize\color{gray}{\begin{tabular}{c}\faUser[regular]\\[0.15cm]Carica\\\texttt{foto.jpg}\end{tabular}}}%
+            }%
+        }
+    \end{minipage}
+
+    \vspace{0.15 cm}
+
+    % PROFILO PROFESSIONALE
+    \section{Profilo Professionale}
+    \begin{onecolentry}
+        Laureata in Scienze e Tecnologie Alimentari e laureanda magistrale in Scienze della Nutrizione Umana, con solida preparazione scientifica nella biochimica degli alimenti, composizione nutrizionale e impatto della nutrizione sul benessere psico-fisico. Forte predisposizione all'ascolto attivo e alla relazione d'aiuto, maturata nella ricerca sui DCA e in contesti operativi a contatto con il pubblico. Ricerco un'opportunità di tirocinio formativo / affiancamento clinico presso studi nutrizionali o poliambulatori a Catania, per supportare con rigore, precisione e proattività la gestione quotidiana dei pazienti, l'elaborazione dei piani nutrizionali e le attività dello studio.
+    \end{onecolentry}
+
+    \vspace{0.1 cm}
+
+    % FORMAZIONE ACCADEMICA
+    \section{Formazione Accademica}
+
+        \begin{twocolentry}{
+            \textit{Catania, Italia}\vspace{0 cm}
+            
+            \mbox{\textit{2024-In corso (Laurea prevista: 2027)}}
+        }
+            \textbf{Laurea Magistrale in Scienze della Nutrizione Umana}\vspace{0 cm}
+            
+            \textit{Università degli Studi di Catania}
+        \end{twocolentry}
+        \vspace{0.1 cm}
+        \begin{onecolentry}
+            \begin{highlights}
+                \item Percorso avanzato su: biochimica della nutrizione, fisiopatologia, dietoterapia applicata, nutrizione sportiva, valutazione dello stato nutrizionale e fabbisogni nelle varie fasi della vita.
+                \item In preparazione per l'Esame di Stato per l'Abilitazione all'esercizio della professione di Biologo Nutrizionista (ONB).
+            \end{highlights}
+        \end{onecolentry}
+
+        \vspace{0.25 cm}
+
+        \begin{twocolentry}{
+            \textit{Catania, Italia}\vspace{0 cm}
+            
+            \textit{2021-2024}
+        }
+            \textbf{Laurea Triennale in Scienze e Tecnologie Alimentari}\vspace{0 cm}
+            
+            \textit{Università degli Studi di Catania}
+        \end{twocolentry}
+        \vspace{0.1 cm}
+        \begin{onecolentry}
+            \begin{highlights}
+                \item \textbf{Tesi di Laurea:} \textit{``Disturbi Alimentari e Salute Mentale''}.
+                \item Condotta un'analisi critica della letteratura scientifica internazionale correlando specifici pattern dietetici al benessere neurochimico e psicologico; sviluppato un quadro metodologico per integrare evidenze scientifiche e proposte pratiche mirate alla prevenzione e al supporto dei disturbi alimentari (DCA).
+                \item Approfondite competenze su: composizione molecolare e merceologica degli alimenti, igiene e sicurezza alimentare (HACCP), etichettatura nutrizionale e biodisponibilità dei micro/macronutrienti.
+            \end{highlights}
+        \end{onecolentry}
+
+    \vspace{0.1 cm}
+
+    % ESPERIENZA & RELAZIONE CON L'UTENTE
+    \section{Esperienza Professionale \& Patient Care Skills}
+
+        \begin{twocolentry}{
+            \textit{Remoto / Italia}\vspace{0 cm}
+            
+            \textit{In corso}
+        }
+            \textbf{Customer Support Specialist}\vspace{0 cm}
+            
+            \textit{Qomodo (Fintech Startup)}
+        \end{twocolentry}
+        \vspace{0.1 cm}
+        \begin{onecolentry}
+            \begin{highlights}
+                \item \textbf{Ascolto attivo e comunicazione empatica:} gestione quotidiana di richieste complesse, de-escalation di tensioni e risoluzione tempestiva con approccio orientato alla cura e alla chiarezza verso l'utente.
+                \item \textbf{Gestione operativa e CRM:} utilizzo continuativo di piattaforme gestionali, tracciamento puntuale delle pratiche e precisione metodologica nell'organizzazione dei flussi di lavoro.
+                \item \textbf{Chiarezza comunicativa:} attitudine a tradurre concetti tecnici complessi in spiegazioni semplici, accessibili e rassicuranti.
+            \end{highlights}
+        \end{onecolentry}
+
+        \vspace{0.25 cm}
+
+        \begin{twocolentry}{
+            \textit{Catania, Italia}\vspace{0 cm}
+            
+            \textit{Precedente}
+        }
+            \textbf{Front-of-House \& Assistenza al Pubblico (Ristorazione)}\vspace{0 cm}
+            
+            \textit{Attività Ho.Re.Ca.}
+        \end{twocolentry}
+        \vspace{0.1 cm}
+        \begin{onecolentry}
+            \begin{highlights}
+                \item Gestione del pubblico in contesti ad alta intensità, sviluppando resistenza allo stress, tempestività e cura dell'accoglienza.
+                \item Comprensione pratica delle dinamiche alimentari reali, preferenze del consumatore e gestione di esigenze speciali (allergie, intolleranze, scelte etico-alimentari).
+            \end{highlights}
+        \end{onecolentry}
+
+    \vspace{0.1 cm}
+
+    % COMPETENZE & SUPPORTO ALLO STUDIO
+    \section{Competenze per l'Affiancamento \& Aree di Interesse}
+    \begin{itemize}[leftmargin=*,noitemsep,topsep=0pt]
+        \item \textbf{Supporto Clinico ed Elaborazione Piani:} Rilevazione dati anamnestici e diari alimentari, calcolo fabbisogno energetico e macro (LARN, TDEE, BMR), stesura di tabelle di sostituzione alimentare, formulazione di ricette e grammature personalizzate.
+        \item \textbf{Alimenti Vegetali \& Varietà Nutrizionale:} Conoscenza approfondita dei prodotti e degli alimenti di origine vegetale; capacità di comprendere le abitudini del paziente e consigliare opzioni pratiche e gradevoli da integrare nel piano alimentare, arricchendo la varietà della dieta con ascolto ed empatia.
+        \item \textbf{Sensibilità Clinica \& DCA:} Approccio non giudicante al cibo, consapevolezza psiconutrizionale ed educazione alimentare orientata a sostenibilità e benessere duraturo.
+        \item \textbf{Software \& Competenze Informatiche:} Suite Microsoft Office (Excel, Word), Google Workspace; rapido apprendimento nell'uso di software nutrizionali (Metadieta, WinFood, Nutrium).
+    \end{itemize}
+
+\end{document}

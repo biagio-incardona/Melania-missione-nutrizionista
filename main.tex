@@ -1,0 +1,308 @@
+\documentclass[10pt, letterpaper]{article}
+
+% Packages:
+\usepackage[
+    ignoreheadfoot, % set margins without considering header and footer
+    top=0.5 cm, % seperation between body and page edge from the top
+    bottom=0.5 cm, % seperation between body and page edge from the bottom
+    left=0.7 cm, % seperation between body and page edge from the left
+    right=0.7 cm, % seperation between body and page edge from the right
+    % showframe % for debugging 
+]{geometry} % for adjusting page geometry
+\usepackage{titlesec} % for customizing section titles
+\usepackage{tabularx} % for making tables with fixed width columns
+\usepackage{array} % tabularx requires this
+\usepackage[dvipsnames]{xcolor} % for coloring text
+\definecolor{primaryColor}{RGB}{0, 79, 144} % define primary color
+\usepackage{enumitem} % for customizing lists
+\usepackage{fontawesome5} % for using icons
+\usepackage{amsmath} % for math
+\usepackage[
+    pdftitle={Biagio Incardona's CV},
+    pdfauthor={Biagio Incardona},
+    colorlinks=true,
+    urlcolor=primaryColor
+]{hyperref} % for links, metadata and bookmarks
+\usepackage[pscoord]{eso-pic} % for floating text on the page
+\usepackage{calc} % for calculating lengths
+\usepackage{bookmark} % for bookmarks
+\usepackage{lastpage} % for getting the total number of pages
+\usepackage{changepage} % for one column entries (adjustwidth environment)
+\usepackage{paracol} % for two and three column entries
+\usepackage{ifthen} % for conditional statements
+\usepackage{needspace} % for avoiding page brake right after the section title
+\usepackage{iftex} % check if engine is pdflatex, xetex or luatex
+
+% Ensure that generate pdf is machine readable/ATS parsable:
+\ifPDFTeX
+    \input{glyphtounicode}
+    \pdfgentounicode=1
+    % \usepackage[T1]{fontenc} % this breaks sb2nov
+    \usepackage[utf8]{inputenc}
+    \usepackage{lmodern}
+\fi
+
+
+
+% Some settings:
+\AtBeginEnvironment{adjustwidth}{\partopsep0pt} % remove space before adjustwidth environment
+\pagestyle{empty} % no header or footer
+\setcounter{secnumdepth}{0} % no section numbering
+\setlength{\parindent}{0pt} % no indentation
+\setlength{\topskip}{0pt} % no top skip
+\setlength{\columnsep}{0cm} % set column seperation
+
+\titleformat{\section}{\needspace{4\baselineskip}\bfseries\large}{}{0pt}{}[\vspace{1pt}\titlerule]
+
+\titlespacing{\section}{
+    % left space:
+    -1pt
+}{
+    % top space:
+    0.2 cm
+}{
+    % bottom space:
+    0.1 cm
+} % section title spacing
+
+\renewcommand\labelitemi{$\circ$} % custom bullet points
+\newenvironment{highlights}{
+    \begin{itemize}[
+        topsep=0.05 cm,
+        parsep=0.05 cm,
+        partopsep=0pt,
+        itemsep=0pt,
+        leftmargin=0.4 cm + 10pt
+    ]
+}{
+    \end{itemize}
+} % new environment for highlights
+
+\newenvironment{highlightsforbulletentries}{
+    \begin{itemize}[
+        topsep=0.10 cm,
+        parsep=0.10 cm,
+        partopsep=0pt,
+        itemsep=0pt,
+        leftmargin=10pt
+    ]
+}{
+    \end{itemize}
+} % new environment for highlights for bullet entries
+
+
+\newenvironment{onecolentry}{
+    \begin{adjustwidth}{
+         0.00001 cm
+    }{
+        0.00001 cm
+    }
+}{
+    \end{adjustwidth}
+} % new environment for one column entries
+
+\newenvironment{twocolentry}[2][]{
+    \onecolentry
+    \def\secondColumn{#2}
+    \setcolumnwidth{\fill, 4.5 cm}
+    \begin{paracol}{2}
+}{
+    \switchcolumn \raggedleft \secondColumn
+    \end{paracol}
+    \endonecolentry
+} % new environment for two column entries
+
+\newenvironment{header}{
+    \setlength{\topsep}{0pt}\par\kern\topsep\centering\linespread{1.1}
+}{
+    \par\kern\topsep
+} % new environment for the header
+
+
+% save the original href command in a new command:
+\let\hrefWithoutArrow\href
+
+% new command for external links:
+\renewcommand{\href}[2]{\hrefWithoutArrow{#1}{\ifthenelse{\equal{#2}{}}{ }{#2 }\raisebox{.15ex}{\footnotesize \faExternalLink*}}}
+
+
+\begin{document}
+
+    \newcommand{\AND}{\unskip
+        \cleaders\copy\ANDbox\hskip\wd\ANDbox
+        \ignorespaces
+    }
+    \newsavebox\ANDbox
+    \sbox\ANDbox{}
+    \begin{header}
+        \textbf{\fontsize{24 pt}{24 pt}\selectfont Biagio Incardona}
+
+        \vspace{0 cm}
+
+        \normalsize
+        \mbox{{\color{black}\footnotesize\faMapMarker*}\hspace*{0.13cm}Catania, Italy}%
+        \kern 0.25 cm%
+        \AND%
+        \kern 0.25 cm%
+        \mbox{\hrefWithoutArrow{mailto:biagio.incardona@outlook.it}{\color{black}{\footnotesize\faEnvelope[regular]}\hspace*{0.13cm}biagio.incardona@outlook.it}}%
+        \kern 0.25 cm%
+        \AND%
+        \kern 0.25 cm%
+        \mbox{\hrefWithoutArrow{tel:+39-3391249723}{\color{black}{\footnotesize\faPhone*}\hspace*{0.13cm}+39-3391249723}}%
+        \kern 0.25 cm%
+        \AND%
+        \kern 0.25 cm%
+        \AND%
+        \kern 0.25 cm%
+        \mbox{\hrefWithoutArrow{https://linkedin.com/in/biagio-incardona}{\color{black}{\footnotesize\faLinkedinIn}\hspace*{0.13cm}biagio-incardona}}%
+        \kern 0.25 cm%
+    \end{header}
+
+    \vspace{0 cm}
+
+
+
+\section{Experience}
+
+
+
+        
+        \begin{twocolentry}{
+        \textit{Catania, Italy (Remote)}\vspace{0 cm}    
+            
+        \textit{Jul 2024 – Present}}
+            \textbf{Data Analyst}\vspace{0 cm}
+            
+            \textit{Qomodo (Italian BNPL B2B2C Fintech Startup)}
+        \end{twocolentry}
+
+        \vspace{0.15 cm}
+        \begin{onecolentry}
+            \begin{highlights}
+                \item Automated data export processes for external collections agencies using PySpark, SQL, and Google Sheets, saving \textbf{3+ hours per week} of manual effort.
+                \item Developed a monthly investor dashboard for C-level executives that reduced reporting time by \textbf{4+ hour per month}, enabling faster, data-driven decisions.
+                \item Engineered a strategic BI tool for the Account Management team to prioritize merchants, defining and tracking KPIs to guide action and increase portfolio efficiency.
+                \item Built the consumer onboarding funnel, and proposed a solution that resulted in a \textbf{15-percentage-point reduction} in consumer drop-off at a critical pain point.
+                \item Led training sessions on SQL and BI tools for cross-functional teams, reducing ad-hoc data requests and \textbf{empowering stakeholders} to self-serve insights.
+            \end{highlights}
+        \end{onecolentry}
+
+
+        \vspace{0.3 cm}
+
+        \begin{twocolentry}{
+        \textit{Italy and Spain (Remote)}\vspace{0 cm}    
+            
+        \textit{Aug 2023 – Jun 2024}}
+            \textbf{Operations Analyst Intern}\vspace{0 cm}
+            
+            \textit{Airbnb}
+        \end{twocolentry}
+
+        \vspace{0.15 cm}
+        \begin{onecolentry}
+            \begin{highlights}
+                \item Engineered the first-ever global Monthly Business Review tool, a strategic resource that guided leadership discussions and fueled data-driven decisions, budget allocation and resource deployment across all regions.
+                \item Designed and implemented a monitoring framework for a strategic sustainability pilot A/B test, analyzing key performance metrics to provide actionable insights for future initiatives.
+                \item Contributed to the strategic narrative and deep dives for the Spanish Country Plan, helping to secure a budget that exceeded the initial request.
+                \item Performed in-depth analyses on new legislation impacts, providing critical data to help leadership justify strategic regulatory efforts
+            \end{highlights}
+        \end{onecolentry}
+
+
+        \vspace{0.3 cm}
+
+        \begin{twocolentry}{
+        \textit{Luxembourg}\vspace{0 cm}    
+            
+        \textit{Jul 2022 – Nov 2022}}
+            \textbf{Business Intelligence Engineer Intern}\vspace{0 cm}
+            
+            \textit{Amazon}
+        \end{twocolentry}
+
+        \vspace{0.15 cm}
+        \begin{onecolentry}
+            \begin{highlights}
+            \item Optimized 5-year strategic planning by engineering a forecasting model to quantify cross-team KPI interdependencies; achieved a 37 percentage point increase in model fit (R²) and 93\% stability in collaboration with the Seattle Central Team.
+    
+            \item Upskilled team members in advanced SQL, empowering them to conduct more in-depth data analysis and reduce reliance on external support.
+
+            \end{highlights}
+        \end{onecolentry}
+        \vspace{0.3 cm}
+        \begin{twocolentry}{
+        \textit{Catania, Italy}\vspace{0 cm}    
+            
+        \textit{Aug 2020 – Jul 2022}}
+            \textbf{Early Data \& Engineering Experience (Internships) Various Companies}\vspace{0 cm}
+            
+            \textit{Avanade; Reeturn; Xenia Progetti srl}
+        \end{twocolentry}
+
+        \vspace{0.15 cm}
+        \begin{onecolentry}
+            \begin{highlights}
+            \item \textbf{Data Scientist Consultant (Reeturn):} Operated as the sole data owner managing end-to-end client projects; led the technical hiring process to recruit and train a successor before departure.
+    
+            \item \textbf{BI Analyst Intern (Avanade):} Developed one enterprise solution using Power BI, SQL Server, SSIS and SSAS, ensuring data accuracy for large-scale client reporting.
+
+            \item \textbf{Software Engineer Intern:} Built a Microsoft HoloLens application aimed to increase blue collar training efficiency
+
+            \end{highlights}
+        \end{onecolentry}
+
+
+    \section{Education}
+
+
+
+        
+        \begin{twocolentry}{
+            
+            
+        \textit{Sep 2020 - Present (Expected: July 2026)}}
+            \textbf{Master’s Degree in Data Science for Management}
+
+            \textit{University of Catania}
+        \end{twocolentry}
+
+        \vspace{0.10 cm}
+        \begin{onecolentry}
+            \begin{highlights}
+                \item Expected Final Grade: \textbf{110/110 with Honors}
+                \item Note: Completing degree part-time while maintaining full-time employment in demanding tech roles.
+            \end{highlights}
+        \end{onecolentry}
+                            \vspace{0.15 cm}
+
+        \begin{twocolentry}{
+            
+
+        \textit{Oct 2018 - Sep 2020}}
+            \textbf{Bachelor’s Degree in Computer Science}
+
+            \textit{University of Catania}
+        \end{twocolentry}
+
+        \vspace{0.10 cm}
+        \begin{onecolentry}
+            \begin{highlights}
+                \item Final Grade: \textbf{110/110 with Honors}
+                \item \textbf{Thesis:} Designed and implemented one of the first \textbf{real-time recommendation systems for egocentric vision} in the world, including a novel theoretical user profiling function.
+            \end{highlights}
+        \end{onecolentry}
+
+    \section{Skills}
+\begin{itemize}[leftmargin=*,noitemsep,topsep=0pt]
+
+\item \textbf{Languages \& Frameworks:} Python (Pandas, NumPy, PySpark), SQL, R, JavaScript.
+\item \textbf{BI \& Visualization:} Tableau, Power BI, Metabase, Superset, Excel, Google Sheets.
+\item \textbf{Tools \& Cloud:} AWS (S3, RedShift, Glue), GIT, Terraform, Airbyte
+\item \textbf{Languages:} Italian (Native), English (Fluent)
+\end{itemize}
+
+
+    
+
+\end{document}
