@@ -15,10 +15,45 @@ from pathlib import Path
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 import urllib.parse
 import webbrowser
+import subprocess
 
 WORKSPACE_DIR = Path(__file__).resolve().parent
 CSV_FILE = WORKSPACE_DIR / "leads_candidature_catania.csv"
 BACKUP_DIR = WORKSPACE_DIR / ".csv_backups"
+
+def open_apple_mail(to_email, subject, body_text):
+    pdf_path = WORKSPACE_DIR / "cv_melania_roccuzzo.pdf"
+    if not pdf_path.exists():
+        pdfs = list(WORKSPACE_DIR.glob("*.pdf"))
+        if pdfs:
+            pdf_path = pdfs[0]
+        else:
+            return False, "File PDF del CV non trovato nel repository"
+
+    def clean(s):
+        return json.dumps(s or "")
+
+    # AppleScript to open Apple Mail, create new outgoing message and attach PDF directly
+    script = f'''
+    tell application "Mail"
+        set newMsg to make new outgoing message with properties {{subject:{clean(subject)}, content:{clean(body_text + "\\n\\n")}, visible:true}}
+        tell newMsg
+            make new to recipient at end of to recipients with properties {{address:{clean(to_email)}}}
+            try
+                set attachFile to POSIX file {clean(str(pdf_path.resolve()))}
+                tell content
+                    make new attachment with properties {{file name:attachFile}} at after the last paragraph
+                end tell
+            end try
+        end tell
+        activate
+    end tell
+    '''
+    try:
+        res = subprocess.run(["osascript", "-e", script], capture_output=True, text=True, timeout=10)
+        return res.returncode == 0, res.stderr
+    except Exception as e:
+        return False, str(e)
 
 CORE_FIELDS = [
     "Fase_Focus",
@@ -217,6 +252,26 @@ class CRMRequestHandler(SimpleHTTPRequestHandler):
             self.send_header("Content-Type", "application/json; charset=utf-8")
             self.end_headers()
             self.wfile.write(json.dumps({"success": True, "lead": new_lead}, ensure_ascii=False).encode("utf-8"))
+            return
+
+        if path == "/api/open-mail":
+            length = int(self.headers.get("Content-Length", 0))
+            body = self.rfile.read(length).decode("utf-8")
+            try:
+                data = json.loads(body)
+            except Exception as e:
+                self.send_error(400, f"Invalid JSON: {e}")
+                return
+
+            to_email = data.get("to", "")
+            subject = data.get("subject", "")
+            mail_body = data.get("body", "")
+
+            success, err = open_apple_mail(to_email, subject, mail_body)
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": success, "error": err}).encode("utf-8"))
             return
 
         self.send_error(404, "Endpoint not found")

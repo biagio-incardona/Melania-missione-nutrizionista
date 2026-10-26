@@ -1306,10 +1306,10 @@
             <div class="cv-meta">
               <div class="cv-title-row">
                 <strong id="cvFileNameDisplay">cv_melania_roccuzzo.pdf</strong>
-                <span class="badge" id="cvStatusBadge" style="background: #e0f2fe; color: #0284c7; font-size: 10px;">📎 Trascina nella mail</span>
+                <span class="badge" id="cvStatusBadge" style="background: #e0f2fe; color: #0284c7; font-size: 10px;">📎 Allegato PDF Pronto</span>
               </div>
               <p class="cv-instructions" id="cvInstructionText">
-                <span style="font-weight: 600; color: var(--brand);">Trascina questo riquadro</span> nella mail per allegare il CV, oppure rilascia qui un PDF per aggiornarlo.
+                <span style="font-weight: 600; color: var(--brand);">Allegato Automatico:</span> Cliccando su <strong>"Apri nel Client Mail"</strong> il PDF viene allegato direttamente in Apple Mail. Per Gmail/Webmail, clicca "Scarica" e trascina il file nella mail.
               </p>
             </div>
           </div>
@@ -3762,12 +3762,11 @@ Email: melania.roccuzzo01@email.com`;
       });
     }
 
-    function openMailClient() {
+    async function openMailClient() {
       if (!activeEmailLead) return;
       const email = activeEmailLead.Email_PEC || "";
       const subject = document.getElementById("emailSubject").value;
       const body = document.getElementById("emailBodyBox").textContent;
-      const mailtoUrl = `mailto:${encodeURIComponent(email)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
       // Highlight the CV attachment card with a pulse animation
       const cvBox = document.getElementById("cvAttachmentBox");
@@ -3778,7 +3777,29 @@ Email: melania.roccuzzo01@email.com`;
         }, 8000);
       }
 
-      showToast("Client Mail aperto! Trascina il riquadro del CV nella mail per allegarlo 📎");
+      // If running locally with Python server on Mac, attach real PDF directly into Apple Mail!
+      if (isServerMode) {
+        try {
+          const res = await fetch("/api/open-mail", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ to: email, subject: subject, body: body })
+          });
+          if (res.ok) {
+            const data = await res.json();
+            if (data.success) {
+              showToast("✓ Apple Mail aperto con il PDF del CV allegato direttamente!");
+              return;
+            }
+          }
+        } catch (err) {
+          console.warn("Backend open-mail error, falling back to mailto:", err);
+        }
+      }
+
+      // Fallback: standard mailto link
+      const mailtoUrl = `mailto:${encodeURIComponent(email)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      showToast("Client Mail aperto! Trascina il file PDF scaricato nella mail per allegarlo.");
       window.location.href = mailtoUrl;
     }
 
@@ -3798,15 +3819,12 @@ Email: melania.roccuzzo01@email.com`;
       dropZone.addEventListener("dragstart", (e) => {
         const fileUrl = currentCvBlobUrl || (window.location.origin + window.location.pathname.replace(/[^/]*$/, '') + "cv_melania_roccuzzo.pdf");
         
-        // Standard DownloadURL format for Chromium and WebKit browsers
+        // Standard DownloadURL format for dragging file directly out to Finder or desktop
         try {
           e.dataTransfer.setData("DownloadURL", `application/pdf:${currentCvFileName}:${fileUrl}`);
         } catch (err) {
           console.warn("DownloadURL error:", err);
         }
-
-        e.dataTransfer.setData("text/uri-list", fileUrl);
-        e.dataTransfer.setData("text/plain", fileUrl);
         e.dataTransfer.effectAllowed = "copy";
         dropZone.style.opacity = "0.5";
       });
