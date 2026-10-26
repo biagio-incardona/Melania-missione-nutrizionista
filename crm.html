@@ -878,6 +878,102 @@
       overflow-y: auto;
     }
 
+    /* CV ATTACHMENT DRAG & DROP */
+    .cv-attachment-box {
+      margin-top: 14px;
+      background: #f8fafc;
+      border: 1.5px dashed #cbd5e1;
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+    .cv-attachment-box:hover, .cv-attachment-box.highlight {
+      border-color: var(--brand);
+      background: #f0fdf4;
+    }
+    .cv-drop-zone {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: grab;
+      user-select: none;
+      flex: 1;
+      min-width: 0;
+    }
+    .cv-drop-zone:active {
+      cursor: grabbing;
+    }
+    .cv-icon-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      background: white;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-sm);
+      flex-shrink: 0;
+    }
+    .cv-drag-grip {
+      position: absolute;
+      top: -3px;
+      right: -3px;
+      font-size: 11px;
+      color: #94a3b8;
+      line-height: 1;
+    }
+    .cv-meta {
+      flex: 1;
+      min-width: 0;
+    }
+    .cv-title-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .cv-title-row strong {
+      font-size: 13px;
+      color: #1e293b;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .cv-instructions {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      margin: 3px 0 0 0;
+      line-height: 1.4;
+    }
+    .cv-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+    .btn-xs {
+      padding: 5px 9px;
+      font-size: 11px;
+      font-weight: 500;
+      border-radius: var(--radius-sm);
+    }
+    @keyframes pulseCvGlow {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6); border-color: var(--brand); }
+      70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); border-color: var(--brand); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); border-color: #cbd5e1; }
+    }
+    .pulse-animation {
+      animation: pulseCvGlow 1.6s infinite ease-out;
+      border-color: var(--brand) !important;
+      background: #ecfdf5 !important;
+    }
+
     /* TOAST */
     .toast-container {
       position: fixed;
@@ -1193,6 +1289,41 @@
         <div class="form-group">
           <label class="form-label">Corpo della Candidatura (Calibrato su Melania):</label>
           <div id="emailBodyBox" class="pitch-box"></div>
+        </div>
+
+        <!-- RAPID CV ATTACHMENT CARD (DRAG & DROP) -->
+        <div class="cv-attachment-box" id="cvAttachmentBox">
+          <div class="cv-drop-zone" id="cvDropZone" draggable="true" title="Trascina questo file direttamente nella finestra dell'email per allegarlo!">
+            <div class="cv-icon-wrapper">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <path d="M9 15h6"></path>
+                <path d="M9 11h6"></path>
+              </svg>
+              <span class="cv-drag-grip" title="Punto di presa per trascinamento">⠿</span>
+            </div>
+            <div class="cv-meta">
+              <div class="cv-title-row">
+                <strong id="cvFileNameDisplay">cv_melania_roccuzzo.pdf</strong>
+                <span class="badge" id="cvStatusBadge" style="background: #e0f2fe; color: #0284c7; font-size: 10px;">📎 Trascina nella mail</span>
+              </div>
+              <p class="cv-instructions" id="cvInstructionText">
+                <span style="font-weight: 600; color: var(--brand);">Trascina questo riquadro</span> nella mail per allegare il CV, oppure rilascia qui un PDF per aggiornarlo.
+              </p>
+            </div>
+          </div>
+          <div class="cv-actions">
+            <a id="cvDownloadBtn" href="cv_melania_roccuzzo.pdf" download="cv_melania_roccuzzo.pdf" class="btn btn-subtle btn-xs" title="Scarica o visualizza il PDF">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              Scarica
+            </a>
+            <label class="btn btn-subtle btn-xs" style="cursor: pointer;" title="Carica o sostituisci il PDF del CV">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+              Carica PDF
+              <input type="file" id="cvFileInput" accept="application/pdf" style="display: none;" onchange="handleCvFileInput(event)">
+            </label>
+          </div>
         </div>
       </div>
       <div class="modal-footer">
@@ -2881,6 +3012,7 @@
     document.addEventListener("DOMContentLoaded", () => {
       fetchLeads();
       setupKeyboardShortcuts();
+      initCvAttachment();
     });
 
     function setupKeyboardShortcuts() {
@@ -3636,7 +3768,165 @@ Email: melania.roccuzzo01@email.com`;
       const subject = document.getElementById("emailSubject").value;
       const body = document.getElementById("emailBodyBox").textContent;
       const mailtoUrl = `mailto:${encodeURIComponent(email)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+      // Highlight the CV attachment card with a pulse animation
+      const cvBox = document.getElementById("cvAttachmentBox");
+      if (cvBox) {
+        cvBox.classList.add("pulse-animation");
+        setTimeout(() => {
+          cvBox.classList.remove("pulse-animation");
+        }, 8000);
+      }
+
+      showToast("Client Mail aperto! Trascina il riquadro del CV nella mail per allegarlo 📎");
       window.location.href = mailtoUrl;
+    }
+
+    // --- CV ATTACHMENT & DRAG-AND-DROP ---
+    let currentCvBlobUrl = null;
+    let currentCvFileName = "cv_melania_roccuzzo.pdf";
+
+    function initCvAttachment() {
+      const dropZone = document.getElementById("cvDropZone");
+      const box = document.getElementById("cvAttachmentBox");
+      if (!dropZone || !box) return;
+
+      // Restore custom uploaded CV from IndexedDB if previously saved
+      restoreSavedCv();
+
+      // Drag out of browser directly into Apple Mail, Thunderbird, or Webmail drop zone
+      dropZone.addEventListener("dragstart", (e) => {
+        const fileUrl = currentCvBlobUrl || (window.location.origin + window.location.pathname.replace(/[^/]*$/, '') + "cv_melania_roccuzzo.pdf");
+        
+        // Standard DownloadURL format for Chromium and WebKit browsers
+        try {
+          e.dataTransfer.setData("DownloadURL", `application/pdf:${currentCvFileName}:${fileUrl}`);
+        } catch (err) {
+          console.warn("DownloadURL error:", err);
+        }
+
+        e.dataTransfer.setData("text/uri-list", fileUrl);
+        e.dataTransfer.setData("text/plain", fileUrl);
+        e.dataTransfer.effectAllowed = "copy";
+        dropZone.style.opacity = "0.5";
+      });
+
+      dropZone.addEventListener("dragend", () => {
+        dropZone.style.opacity = "1";
+      });
+
+      // Allow dragging a new PDF from Desktop/Finder directly onto the box to update it
+      box.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        box.classList.add("highlight");
+      });
+
+      box.addEventListener("dragleave", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        box.classList.remove("highlight");
+      });
+
+      box.addEventListener("drop", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        box.classList.remove("highlight");
+        if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+          const file = e.dataTransfer.files[0];
+          if (file.type === "application/pdf" || file.name.toLowerCase().endsWith(".pdf")) {
+            applyCvFile(file);
+          } else {
+            showToast("Per favore carica un file in formato PDF.", true);
+          }
+        }
+      });
+    }
+
+    function handleCvFileInput(e) {
+      const files = e.target.files;
+      if (files && files.length > 0) {
+        applyCvFile(files[0]);
+      }
+    }
+
+    function applyCvFile(file) {
+      currentCvFileName = file.name;
+      if (currentCvBlobUrl) {
+        URL.revokeObjectURL(currentCvBlobUrl);
+      }
+      currentCvBlobUrl = URL.createObjectURL(file);
+
+      // Update UI
+      const nameEl = document.getElementById("cvFileNameDisplay");
+      if (nameEl) nameEl.textContent = file.name;
+
+      const badge = document.getElementById("cvStatusBadge");
+      if (badge) {
+        badge.textContent = "Personalizzato ✓";
+        badge.style.background = "#dcfce7";
+        badge.style.color = "#15803d";
+      }
+
+      const downloadBtn = document.getElementById("cvDownloadBtn");
+      if (downloadBtn) {
+        downloadBtn.href = currentCvBlobUrl;
+        downloadBtn.download = file.name;
+      }
+
+      saveCvToDb(file);
+      showToast(`CV caricato con successo: ${file.name}`);
+    }
+
+    function openCvDb() {
+      return new Promise((resolve, reject) => {
+        const req = indexedDB.open("MelaniaCRM_Assets", 1);
+        req.onupgradeneeded = (e) => {
+          e.target.result.createObjectStore("files");
+        };
+        req.onsuccess = (e) => resolve(e.target.result);
+        req.onerror = (e) => reject(e);
+      });
+    }
+
+    async function saveCvToDb(file) {
+      try {
+        const db = await openCvDb();
+        const tx = db.transaction("files", "readwrite");
+        tx.objectStore("files").put(file, "cv_pdf");
+      } catch (err) {
+        console.warn("Could not save CV to IndexedDB:", err);
+      }
+    }
+
+    async function restoreSavedCv() {
+      try {
+        const db = await openCvDb();
+        const tx = db.transaction("files", "readonly");
+        const getReq = tx.objectStore("files").get("cv_pdf");
+        getReq.onsuccess = () => {
+          const file = getReq.result;
+          if (file) {
+            currentCvFileName = file.name;
+            currentCvBlobUrl = URL.createObjectURL(file);
+            const nameEl = document.getElementById("cvFileNameDisplay");
+            if (nameEl) nameEl.textContent = file.name;
+            const badge = document.getElementById("cvStatusBadge");
+            if (badge) {
+              badge.textContent = "Caricato ✓";
+              badge.style.background = "#dcfce7";
+              badge.style.color = "#15803d";
+            }
+            const downloadBtn = document.getElementById("cvDownloadBtn");
+            if (downloadBtn) {
+              downloadBtn.href = currentCvBlobUrl;
+              downloadBtn.download = file.name;
+            }
+          }
+        };
+      } catch (err) {
+        // Fallback to static file
+      }
     }
 
     function exportCSV() {
